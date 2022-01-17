@@ -36,7 +36,6 @@ const App = () => {
           <Route path='/' element={<Home />} exact />
           <Route path='*' element={<Page404 />} />
 
-
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,7 +1,11 @@
 
+/*
+Main light color: #e4dfd8
 
+*/
 
 import { createGlobalStyle } from "styled-components";
+
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -58,14 +62,58 @@ export const GlobalStyle = createGlobalStyle`
   /* END RESET */
 
   /* MY STYLES */
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 
+  html {
+    background-color: ${p => p.theme.BG10};
+    font-size: 125%;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: scroll;
+  }
+  
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: ${p => p.theme.C1};
+  }
 
 `
 
 export const darkTheme = {
-  fontColor: "grey",
+
+  BG1: "black",
+  BG2: "hsl(35, 7%,18%)",
+  BG10: "rgb(250, 250, 250)",
+
+
+  FC1: "white",
+
+  C1: "grey",
+
+  BOR1: "1px solid #DBDBDB",
+  BORCOL1: "#DBDBDB"
 }
 
 export const lightTheme = {
-  fontColor: "black",
+
+  BG1: "white",
+  BG2: "#e4dfd8",
+  BG10: "rgb(250, 250, 250)",
+
+
+  FC1: "black",
+
+  C1: "grey",
+
+  BOR1: "1px solid #DBDBDB",
+  BORCOL1: "#DBDBDB"
+
+  
 }
