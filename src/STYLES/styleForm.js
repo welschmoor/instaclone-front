@@ -32,6 +32,8 @@ export const CW = styled.div`
   border: ${p => p.theme.BOR1};
 
   width: 352px;
+
+  position: relative;
 `
 
 

@@ -1,12 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { client } from './graphql/apollo'
+import {
+  ApolloClient, ApolloProvider, HttpLink, InMemoryCache
+} from '@apollo/client'
+
 
 import App from './App'
 
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
+
   document.getElementById('root')
 )
