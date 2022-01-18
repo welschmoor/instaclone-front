@@ -10,9 +10,13 @@ export const MD = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  height: 100%;
 
 `
+export const MDtop = styled(MD)`
+  margin-top: 40px;
+`
+
 
 export const CW = styled.div`
   flex-direction: column;
@@ -96,7 +100,7 @@ export const TitleAndSubtitle = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 7px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: #a8a8a8;
 `
 

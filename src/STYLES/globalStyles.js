@@ -74,6 +74,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Arial, Helvetica, sans-serif;
     overflow-y: scroll;
   }
+
   
   ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -81,7 +82,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: ${p => p.theme.C1};
+    background-color: ${p => p.theme.BORCOL1};
   }
 
 `

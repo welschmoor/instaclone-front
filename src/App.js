@@ -15,6 +15,7 @@ import Signup from './pages/Signup'
 import Page404 from './pages/Page404'
 
 import Navbar from './components/Navbar'
+import { HelmetProvider } from "react-helmet-async";
 
 
 
@@ -24,21 +25,23 @@ const App = () => {
 
 
   return (
-    <ThemeProvider theme={darkModeBool ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <BrowserRouter >
-        <Navbar />
-        <Routes>
+    <HelmetProvider>
+      <ThemeProvider theme={darkModeBool ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <BrowserRouter >
+          <Navbar />
+          <Routes>
 
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/' element={<Home />} exact />
-          <Route path='*' element={<Page404 />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/' element={<Home />} exact />
+            <Route path='*' element={<Page404 />} />
 
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

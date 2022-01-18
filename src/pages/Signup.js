@@ -1,10 +1,11 @@
 import { loggedInVar } from "../apollo"
 import { Link } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 
 // styles
 import styled from 'styled-components'
 import { useState } from "react"
-import { MD, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
+import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrFacebook } from "react-icons/gr"
 
 
@@ -13,13 +14,14 @@ const Signup = () => {
   console.log(potato)
   const togglePotato = () => setPotato(p => !p)
   return (
-    <MD>
+    <MDtop>
+      <Helmet><title>Instapound :: signup</title></Helmet>
       <CW>
         <TitleAndSubtitle>
           <Title onClick={togglePotato} potato={potato}>Instapound</Title>
           <Subtitle2>Sign up to see photos and videos from your friends.</Subtitle2>
         </TitleAndSubtitle>
-        <FacebookBTN type='submit' onClick={() => loggedInVar(true)} ><FacebookIcon/>Log in with Facebook</FacebookBTN>
+        <FacebookBTN type='submit' onClick={() => loggedInVar(true)} ><FacebookIcon />Log in with Facebook</FacebookBTN>
 
         <Separator>
           <SeparatorLine />
@@ -35,12 +37,16 @@ const Signup = () => {
         </LoginForm>
 
 
-        <Terms>By signing up, you agree to our <Bold>Terms</Bold>. Learn how we collect, use and share your data in our <Bold>Data Policy</Bold> and how we use cookies and similar technology in our <Bold>Cookies Policy</Bold>.</Terms>
+        <Terms>By signing up, you agree to our <Bold>Terms</Bold>. 
+        Always convert your <Bold>Data </Bold> from metric.
+         Any attemps to post things in kilograms will be persecuted and all your data sold
+         to the Nigerian prince! 
+         We use cookies. Do you like <Bold>Cookies</Bold>?</Terms>
       </CW>
       <CW>
         <SignupText>Have an account? <SignupLink to="/login">Sign In</SignupLink></SignupText>
       </CW>
-    </MD>
+    </MDtop>
   )
 }
 
