@@ -37,7 +37,7 @@ const Login = () => {
         }, 2400)
       }
 
-      // save token in localS
+      // save token in localStorage
       if (token) {
         window.localStorage.setItem("instapoundtoken", token)
         loggedInVar(true)

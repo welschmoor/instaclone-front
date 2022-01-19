@@ -37,7 +37,6 @@ const Signup = () => {
     }
   })
 
-  console.log("Form valid?", formState.isValid)
 
   const onSuccess = async data => {
     if (loading) return;

@@ -91,7 +91,7 @@ export const darkTheme = {
 
   BG1: "black",
   BG2: "hsl(35, 7%,18%)",
-  BG10: "rgb(250, 250, 250)",
+  BG10: "hsl(0, 0%, 8.0392156862745%)",
 
 
   FC1: "white",

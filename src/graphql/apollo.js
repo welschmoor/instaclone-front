@@ -1,13 +1,25 @@
 // reactive variables 
 
-import { makeVar, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-
+import { makeVar, ApolloClient, InMemoryCache, HttpLink, createHttpLink } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context'
 
 export const loggedInVar = makeVar(false)
-export const darkModeVar = makeVar(false)
+
+const httpLink = createHttpLink({
+  uri: "http://localhost:4002/graphql",
+})
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      token: localStorage.getItem("instapoundtoken"),
+    }
+  }
+})
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4002/graphql",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 })
 

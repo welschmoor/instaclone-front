@@ -14,7 +14,7 @@ export const MD = styled.div`
 
 `
 export const MDtop = styled(MD)`
-  margin-top: 40px;
+  margin-top: 80px;
 `
 
 
@@ -91,10 +91,11 @@ export const Subtitle = styled.h2`
   font-size: 0.5rem;
 `
 export const Subtitle2 = styled.h2`
-  margin-top: 18px;
+  margin-top: 15px;
   font-size: 0.8rem;
   text-align: center;
   color: #808080;
+  line-height: 1.1;
 `
 
 export const TitleAndSubtitle = styled.div`
