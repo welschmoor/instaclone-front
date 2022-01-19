@@ -1,47 +1,87 @@
 import { loggedInVar } from "../graphql/apollo"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
+import { useForm } from "react-hook-form"
+import { SIGNUP } from "../graphql/queries"
+import { useState } from "react"
+import { useMutation } from "@apollo/client"
 
 // styles
 import styled from 'styled-components'
-import { useState } from "react"
 import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrFacebook } from "react-icons/gr"
 
+import ErrorLogin from '../components/ErrorLogin'
 
 const Signup = () => {
-  const [potato, setPotato] = useState(false)
-  console.log(potato)
-  const togglePotato = () => setPotato(p => !p)
+  const navigate = useNavigate()
+
+  const { register, handleSubmit, formState, getValues, setError, clearErrors } = useForm({ mode: "onChange" })
+  const { errors } = formState
+  const [createAccount, { loading }] = useMutation(SIGNUP, {
+    onCompleted: data => {
+      setError("resultSingup", { message: null })
+      clearErrors()
+
+      const { ok, error } = data.createAccount
+      if (!ok) {
+        setError("resultSingup", { message: error })
+        setTimeout(() => {
+          setError("resultSingup", { message: null })
+          clearErrors()
+        }, 2400)
+      }
+      console.log(data)
+      const { username, password } = getValues()
+      navigate('/signupRedirect', { state: { ok, username, password } })
+    }
+  })
+
+  console.log("Form valid?", formState.isValid)
+
+  const onSuccess = async data => {
+    if (loading) return;
+    const { username, password, fullName, email } = getValues()
+    await createAccount({ variables: { username, password, fullName, email } })
+  }
+  const onFailure = data => console.log("dataFailure", data)
+
   return (
     <MDtop>
       <Helmet><title>Instapound :: signup</title></Helmet>
       <CW>
         <TitleAndSubtitle>
-          <Title onClick={togglePotato} potato={potato}>Instapound</Title>
+          <Title >Instapound</Title>
           <Subtitle2>Sign up to see photos and videos from your friends.</Subtitle2>
         </TitleAndSubtitle>
-        <FacebookBTN type='submit' onClick={() => loggedInVar(true)} ><FacebookIcon />Log in with Facebook</FacebookBTN>
+
+        {errors?.resultSingup?.message ? <ErrorLogin errorMessage={errors.resultSingup.message} /> : null}
+
+        <FacebookBTN ><FacebookIcon />Log in with Facebook</FacebookBTN>
 
         <Separator>
           <SeparatorLine />
           <SeparatorSpan>OR</SeparatorSpan>
           <SeparatorLine />
         </Separator>
-        <LoginForm>
-          <Input type="text" placeholder="Email" />
-          <Input type="text" placeholder="Full Name" />
-          <Input type="text" placeholder="Username" />
-          <Input type="password" placeholder="Password" />
-          <SignupBTN type='submit' onClick={() => loggedInVar(true)} >Sign Up</SignupBTN>
+        <LoginForm onSubmit={handleSubmit(onSuccess, onFailure)}>
+          <Input type="text" placeholder="Email"
+            {...register("email", { minLength: { value: 2, message: "email too short" }, required: true })} />
+          <Input type="text" placeholder="Full Name"
+            {...register("fullName", { minLength: { value: 2, message: "fullname too short" }, required: true })} />
+          <Input type="text" placeholder="Username"
+            {...register("username", { minLength: { value: 2, message: "username too short" }, required: true })} />
+          <Input type="password" placeholder="Password"
+            {...register("password", { minLength: { value: 2, message: "password too short" }, required: true })} />
+          <SignupBTN type='submit' disabled={!loading || formState.isValid ? false : true} >Sign Up</SignupBTN>
         </LoginForm>
 
 
-        <Terms>By signing up, you agree to our <Bold>Terms</Bold>. 
-        Always convert your <Bold>Data </Bold> from metric.
-         Any attemps to post things in kilograms will be persecuted and all your data sold
-         to the Nigerian prince! 
-         We use cookies. Do you like <Bold>Cookies</Bold>?</Terms>
+        <Terms>By signing up, you agree to our <Bold>Terms</Bold>.
+          Always convert your <Bold>Data </Bold> from metric.
+          Any attemps to post things in kilograms will be persecuted and all your data sold
+          to the Nigerian prince!
+          We use cookies. Do you like <Bold>Cookies</Bold>?</Terms>
       </CW>
       <CW>
         <SignupText>Have an account? <SignupLink to="/login">Sign In</SignupLink></SignupText>
@@ -53,6 +93,7 @@ const Signup = () => {
 
 const SignupBTN = styled(BlueBTN)`
   margin-top: 11px;
+  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : "#0095F6"}
 `
 
 const FacebookBTN = styled(BlueBTN)`

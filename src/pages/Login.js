@@ -1,5 +1,5 @@
 import { loggedInVar } from "../graphql/apollo"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { useForm } from "react-hook-form"
 
@@ -14,8 +14,14 @@ import { useMutation } from "@apollo/client"
 import ErrorLogin from "../components/ErrorLogin"
 
 const Login = () => {
+  const location = useLocation()
+  console.log("location", location)
   const navigate = useNavigate()
-  const { register, handleSubmit, watch, formState, getValues, setError, clearErrors } = useForm({ mode: "onChange" })
+  const { register, handleSubmit, watch, formState, getValues, setError, clearErrors } = useForm({
+    mode: "onChange",
+    defaultValues: { username: location?.state?.username || "", password: location?.state?.password || "" },
+  })
+
   const [login, { loading }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       setError("result", { message: null })
@@ -30,7 +36,7 @@ const Login = () => {
           clearErrors()
         }, 2400)
       }
-      
+
       // save token in localS
       if (token) {
         window.localStorage.setItem("instapoundtoken", token)
@@ -68,8 +74,8 @@ const Login = () => {
           {errors?.result?.message ? <ErrorLogin errorMessage={errors.result.message} /> : null}
 
           <LoginForm onSubmit={handleSubmit(onSuccess, onFailure)}>
-            <Input type="text" {...register("username", { required: true, minLength: { value: 2, message: "min pw length 2" } })} placeholder="Phone number, username, or email" />
-            <Input type="password" {...register("password", { required: true, minLength: { value: 2, message: "min pw length 2" } })} placeholder="Password" />
+            <Input name="username" type="text" {...register("username", { required: true, minLength: { value: 2, message: "min pw length 2" } })} placeholder="Phone number, username, or email" />
+            <Input name="password" type="password" {...register("password", { required: true, minLength: { value: 2, message: "min pw length 2" } })} placeholder="Password" />
             <LoginBTN type="submit" disabled={!loading || formState.isValid ? false : true} >Log In</LoginBTN>
           </LoginForm>
 

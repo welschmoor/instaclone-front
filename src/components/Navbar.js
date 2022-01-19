@@ -7,7 +7,7 @@ import { darkModeVar, loggedInVar } from "../graphql/apollo"
 const Navbar = () => {
   const loggedInBool = useReactiveVar(loggedInVar)
   const darkModeBool = useReactiveVar(darkModeVar)
-  console.log("darkModeBool", darkModeBool)
+
 
   const logout = () => {
     loggedInVar(false)

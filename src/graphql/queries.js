@@ -12,3 +12,12 @@ export const LOGIN = gql`
     }
   }
 `
+
+export const SIGNUP = gql`
+mutation CreateAccount($fullName: String!, $username: String!, $email: String!, $password: String!) {
+  createAccount(fullName: $fullName, username: $username, email: $email, password: $password) {
+    ok
+    error
+  }
+}
+`
