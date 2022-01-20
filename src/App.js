@@ -26,7 +26,8 @@ const App = () => {
   const loggedInBool = useReactiveVar(loggedInVar)
   console.log('loggedInBool', loggedInBool)
 
-  const something = useUserHook()
+  const user = useUserHook()
+
 
   useEffect(() => {
     const tokenLS = window.localStorage.getItem('instapoundtoken')

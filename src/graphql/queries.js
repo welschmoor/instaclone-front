@@ -22,11 +22,13 @@ export const SIGNUP = gql`
   }
 `
 
-// returns current 
+// returns current logged in user by sending token to BE for a check
 export const ME = gql`
   query ME {
     me {
+      id
       username
+      avatar
     }
   }
 `

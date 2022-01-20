@@ -12,6 +12,8 @@ import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, Title
 import { GrFacebook } from "react-icons/gr"
 
 import ErrorLogin from '../components/ErrorLogin'
+import Footer from '../components/Footer'
+
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -85,6 +87,7 @@ const Signup = () => {
       <CW>
         <SignupText>Have an account? <SignupLink to="/login">Sign In</SignupLink></SignupText>
       </CW>
+      <Footer />
     </MDtop>
   )
 }

@@ -69,7 +69,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    background-color: ${p => p.theme.BG10};
+    background-color: ${p => p.theme.BG1};
     font-size: 125%;
     font-family: Arial, Helvetica, sans-serif;
     overflow-y: scroll;
@@ -99,7 +99,11 @@ export const darkTheme = {
   C1: "grey",
 
   BOR1: "1px solid #DBDBDB",
-  BORCOL1: "#DBDBDB"
+  BORCOL1: "#DBDBDB",
+
+  // margins
+  navbarHeight: "60px",
+  zIndexTop: 12,
 }
 
 export const lightTheme = {
@@ -114,7 +118,9 @@ export const lightTheme = {
   C1: "grey",
 
   BOR1: "1px solid #DBDBDB",
-  BORCOL1: "#DBDBDB"
+  BORCOL1: "#DBDBDB",
 
-  
+  // margins
+  navbarHeight: "60px",
+  zIndexTop: 12,
 }

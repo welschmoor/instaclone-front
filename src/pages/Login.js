@@ -12,6 +12,8 @@ import { LOGIN } from '../graphql/queries.js'
 import { useMutation } from "@apollo/client"
 
 import ErrorLogin from "../components/ErrorLogin"
+import Footer from '../components/Footer'
+
 
 const Login = () => {
   const location = useLocation()
@@ -90,6 +92,7 @@ const Login = () => {
           <SignupText>Don't have an account? <SignupLink to="/signup">Sign Up</SignupLink></SignupText>
         </CW>
       </div>
+      <Footer />
     </MDtop>
   )
 }

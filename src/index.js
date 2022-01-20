@@ -5,9 +5,7 @@ import {
   ApolloClient, ApolloProvider, HttpLink, InMemoryCache
 } from '@apollo/client'
 
-
 import App from './App'
-
 
 
 ReactDOM.render(

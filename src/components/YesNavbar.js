@@ -15,7 +15,9 @@ const YesNavbar = ({ children, setDarkMode }) => {
 }
 
 const Wrapper = styled.div`
-  max-width: 936px;
+  margin-top: ${p=>p.theme.navbarHeight};
+  background-color: ${p=>p.theme.BG10};
+  padding-left: 10px;
 `
 
 export default YesNavbar

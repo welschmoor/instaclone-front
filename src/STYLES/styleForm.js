@@ -14,7 +14,7 @@ export const MD = styled.div`
 
 `
 export const MDtop = styled(MD)`
-  margin-top: 80px;
+  padding-top: 80px;
 `
 
 
