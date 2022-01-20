@@ -1,8 +1,8 @@
 import { useReactiveVar } from "@apollo/client"
-import styled from "styled-components"
 import { loggedInVar } from "../graphql/apollo"
 
-
+import styled from "styled-components"
+import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 
 const ProfileMenu = ({ visible, setDarkMode }) => {
   const loggedInBool = useReactiveVar(loggedInVar)
@@ -21,7 +21,7 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
 
   return (
     <MenuWrapper visible={visible}>
-    
+
       <div>See Profile</div>
       <button onClick={darkModeHandler} >change theme</button>
       <div>MENU</div>
@@ -30,15 +30,15 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
       <div>MENU</div>
       <div>MENU</div>
       <div>MENU</div>
-      {loggedInBool && <button onClick={() => logout()} >logout</button>}
+      {loggedInBool && <BlueBTN onClick={() => logout()} >logout</BlueBTN>}
     </MenuWrapper>
   )
 }
 
 const MenuWrapper = styled.div`
-  min-width: 300px;
+  min-width: 240px;
   transition: 0.2s;
-  position: absolute;
+  position: fixed;
   padding: 10px;
   padding-top: 40px;
 
@@ -48,6 +48,11 @@ const MenuWrapper = styled.div`
   background-color: ${p => p.theme.BG1};
   z-index: 5;
   border: ${p => p.theme.BOR1};
+  box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.05);
+`
+
+const BlueBTN = styled(BlueBTNNS)`
+  background-color: ${p => p.theme.blueBTN1};
 `
 
 

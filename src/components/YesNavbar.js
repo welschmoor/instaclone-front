@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   margin-top: ${p=>p.theme.navbarHeight};
   background-color: ${p=>p.theme.BG10};
   padding-left: 10px;
+  padding-right: 10px;
 `
 
 export default YesNavbar

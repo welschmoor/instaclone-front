@@ -33,7 +33,7 @@ const Signup = () => {
           clearErrors()
         }, 2400)
       }
-      console.log(data)
+      
       const { username, password } = getValues()
       navigate('/signupRedirect', { state: { ok, username, password } })
     }
@@ -95,7 +95,7 @@ const Signup = () => {
 
 const SignupBTN = styled(BlueBTN)`
   margin-top: 11px;
-  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : "#0095F6"}
+  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1}
 `
 
 const FacebookBTN = styled(BlueBTN)`

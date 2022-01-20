@@ -32,3 +32,22 @@ export const ME = gql`
     }
   }
 `
+
+export const FEED = gql`
+query seeFeed{
+  seeFeed {
+    id
+    file
+    caption
+    createdAt
+    likes
+    comments
+    user {
+      username
+      isMe
+      avatar
+    }
+  }
+}   
+
+`

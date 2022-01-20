@@ -10,6 +10,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle, darkTheme, lightTheme } from "./STYLES/globalStyles"
 
 import Home from './pages/Home'
+import Feed from './pages/Feed'
 import About from './pages/About'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -50,6 +51,7 @@ const App = () => {
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
             <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />
             <Route path='/about' element={<YesNavbar setDarkMode={setDarkMode}><About /></YesNavbar>} />
+            <Route path='/feed' element={!loggedInBool ? <Navigate to='/' /> : <YesNavbar setDarkMode={setDarkMode}><Feed /></YesNavbar>} />
             <Route path='/' element={<YesNavbar setDarkMode={setDarkMode}><Home /> </YesNavbar>} exact />
             <Route path='*' element={<YesNavbar setDarkMode={setDarkMode}><Page404 /></YesNavbar>} />
 

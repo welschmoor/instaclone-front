@@ -7,7 +7,7 @@ import { loggedInVar } from "../graphql/apollo"
 import styled from "styled-components"
 import { MDtop, LoginForm, Input, BlueBTN, Title, Subtitle, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrHomeRounded, GrSend, GrAddCircle } from "react-icons/gr"
-import { CgAddR, CgHomeAlt, CgMailOpen } from "react-icons/cg"
+import { CgAddR, CgHomeAlt, CgMailOpen, CgInstagram } from "react-icons/cg"
 import { useUserHook } from "../graphql/useUserHook"
 
 import Avatar from "./Avatar"
@@ -17,10 +17,9 @@ import ProfileMenu from "./ProfileMenu"
 
 const Navbar = ({ setDarkMode }) => {
   const [menuOpenB, setMenuOpenB] = useState(false)
-  console.log(menuOpenB)
   const loggedInBool = useReactiveVar(loggedInVar)
   const user = useUserHook()
-
+  console.log("user", user)
 
 
   const openMenu = () => {
@@ -35,16 +34,18 @@ const Navbar = ({ setDarkMode }) => {
 
           <MainLogo><NavLink to="/">Instapound</NavLink></MainLogo>
           <SearchForm />
+
           <MainNav>
             <NavLink to="/"> <HomeIcon /> </NavLink>
+            {loggedInBool && <NavLink to="/feed"><FeedIcon /></NavLink>}
             <NavLink to="/about"><NewPostIcon /></NavLink>
             <NavLink to="/about"><SendIcon /></NavLink>
             {!loggedInBool && <NavLink to="/login">Login</NavLink>}
             {!loggedInBool && <NavLink to="/signup">Signup</NavLink>}
           </MainNav>
 
+          {user.data && <Avatar imageURL={user?.data?.me?.avatar} onClick={openMenu} />}
 
-          {loggedInBool && <Avatar imageURL={user?.data?.me?.avatar} onClick={openMenu} />}
         </CW>
       </Header>
       <ProfileMenu visible={loggedInBool && menuOpenB} setDarkMode={setDarkMode} />
@@ -52,8 +53,10 @@ const Navbar = ({ setDarkMode }) => {
   )
 }
 
+
+
 const MainNav = styled.nav`
-  margin-right: 60px;
+  margin-right: 80px;
   display: flex;
   gap: 20px;
 `
@@ -105,6 +108,11 @@ const SendIcon = styled(CgMailOpen)`
 const NewPostIcon = styled(CgAddR)`
   font-size: 1.3rem;
   transform: translateY(1px);
+`
+
+const FeedIcon = styled(CgInstagram)`
+  font-size: 1.2rem;
+  transform: translateY(2px);
 `
 
 export default Navbar

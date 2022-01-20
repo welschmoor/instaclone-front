@@ -157,7 +157,6 @@ const HomeWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-
 `
 
 const CWHome = styled.div`
@@ -166,4 +165,5 @@ const CWHome = styled.div`
   margin: 0 auto;
   background-color: ${p=>p.theme.BG10};
 `
+
 export default Home

@@ -30,7 +30,7 @@ const Awrapper = styled.div`
   right: 17px;
   top: 35px;
   cursor: pointer;
-  z-index: 12;
+  z-index: 14;
 `
 
 const Halfcircle = styled.div`

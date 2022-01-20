@@ -101,6 +101,8 @@ export const darkTheme = {
   BOR1: "1px solid #DBDBDB",
   BORCOL1: "#DBDBDB",
 
+  blueBTN1: "#0095F6",
+
   // margins
   navbarHeight: "60px",
   zIndexTop: 12,
@@ -119,6 +121,8 @@ export const lightTheme = {
 
   BOR1: "1px solid #DBDBDB",
   BORCOL1: "#DBDBDB",
+
+  blueBTN1: "#0095F6",
 
   // margins
   navbarHeight: "60px",

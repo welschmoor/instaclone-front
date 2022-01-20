@@ -100,7 +100,7 @@ const Login = () => {
 
 const LoginBTN = styled(BlueBTN)`
   margin-top: 11px;
-  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : "#0095F6"}
+  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1}
 `
 
 
