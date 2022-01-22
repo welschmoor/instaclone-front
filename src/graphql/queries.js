@@ -35,19 +35,28 @@ export const ME = gql`
 
 export const FEED = gql`
 query seeFeed{
-  seeFeed {
-    id
-    file
-    caption
-    createdAt
-    likes
-    comments
-    user {
-      username
-      isMe
-      avatar
+    seeFeed {
+      id
+      file
+      caption
+      createdAt
+      likes
+      comments
+      isLikedByMe
+      user {
+        username
+        isMe
+        avatar
+      }
+    }
+  }   
+`
+
+export const TOGGLE_LIKE = gql`
+  mutation TOGGLE_LIKE($id: Int!) {
+    toggleLike(id: $id) {
+      ok
+      error
     }
   }
-}   
-
 `
