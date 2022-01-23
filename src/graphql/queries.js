@@ -34,14 +34,24 @@ export const ME = gql`
 `
 
 export const FEED = gql`
-query seeFeed{
+  query seeFeed{
     seeFeed {
       id
       file
       caption
       createdAt
       likes
-      comments
+      commentsNumber
+      comments {
+        id
+        payload
+        isMine
+        createdAt
+        user {
+          username
+          avatar
+        }
+      }
       isLikedByMe
       user {
         username

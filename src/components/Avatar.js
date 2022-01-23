@@ -35,14 +35,14 @@ const Awrapper = styled.div`
 
 const Halfcircle = styled.div`
   
-  width: 64px;
-  height: 32px; /* as the half of the width */
+  width: 66px;
+  height: 33px; /* as the half of the width */
   background-color: transparent;
-  border-top-left-radius: 60px;  /* 100px of height + 10px of border */
-  border-top-right-radius: 60px; /* 100px of height + 10px of border */
-  border: 5px solid white;
+  border-top-left-radius: 72px;  /* 100px of height + 10px of border */
+  border-top-right-radius: 72px; /* 100px of height + 10px of border */
+  border: 6px solid white;
   border-bottom: 0;
-  transform: translate(-7px, -60.9px);
+  transform: translate(-8px, -62px);
 `
 
 export default Avatar

@@ -1,91 +1,100 @@
 // styles
 import styled from "styled-components"
 import { CW } from "../STYLES/styleForm"
-import { CgHeart, CgComment, CgMailOpen, CgBookmark } from "react-icons/cg"
+import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 
-import { TOGGLE_LIKE, FEED } from "../graphql/queries"
+import { TOGGLE_LIKE } from "../graphql/queries"
 import { gql, useMutation } from "@apollo/client"
+import { Link as LinkNS } from "react-router-dom"
+import React from "react"
 
 
-// e means each, each item passed down from .map() in Feed component
 const PhotoCard = ({ e }) => {
-
-
+  console.log("e|", e.caption)
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
       if (ok) {
         const fragmentId = `Photo:${e.id}` // this is the same as the name in cache (devtools)
-        const fragment = gql`
-        fragment BSN on Photo { 
-          isLikedByMe
-          likes
-        }
-      `
-        const result = cache.readFragment({
+        cache.modify({
           id: fragmentId,
-          fragment: fragment,
+          fields: {
+            // we get previous values 
+            isLikedByMe(previous) {
+              return !previous
+            },
+            likes(previous) {
+              return e.isLikedByMe ? previous - 1 : previous + 1
+            }
+          },
         })
-        console.log("result", result.isLikedByMe, result.likes)
-        cache.writeFragment({
-          id: fragmentId,
-          fragment: fragment,
-          data: {
-            isLikedByMe: !result.isLikedByMe,
-            likes: result.isLikedByMe ? result.likes - 1 : result.likes + 1,
-          }
-        })
+
+
       }
     },
   })
+
 
   const likeHandler = async (id) => {
     await toggleLike({ variables: { id: id } })
   }
 
+
   return (
-    <PhotoWrapper>
+    <PhotoCardWrapper>
+
       <TopContainer >
         <AvatarDiv>
-          <Avatar src={e.user.avatar} />
+          <Avatar src={e.user.avatar} alt="user picture" />
         </AvatarDiv>
         <Username>
           {e.user.username}
-
         </Username>
       </TopContainer>
-      <Picture src={e?.file} />
+
+      <Picture src={e?.file} alt={e?.caption} />
 
       <BottomContainer >
         <MainIconGroup>
-
-          <IconGroup >
+          <LeftIconGroup >
             {e.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
-
-
             <CommentIcon />
             <SendIcon />
-          </IconGroup>
-
+          </LeftIconGroup>
           <BookmarkIcon />
-
         </MainIconGroup>
 
         <Likes >{e.likes === 1 ? "1 like" : `${e.likes} likes`} </Likes>
 
+        <UsernameAndCaption>
+          <Username> {e.user.username} <CgChevronRight /></Username>
+
+          {/* This is how to safely wrap #hashtags with <Link></Link> */}
+          <Caption>{e.caption.split(" ").map((e,i) => /#[\w]+/.test(e)
+            ? <React.Fragment key={i}><Link to={`/hashtags/${e.slice(1)}`} >{e}</Link>{" "}</React.Fragment>
+            : <React.Fragment key={i}>{e}{" "}</React.Fragment>)}
+          </Caption>
+        </UsernameAndCaption>
+
+        <Comments>
+          {e.commentsNumber === 0 ? "0 comments" : null}
+          {e.commentsNumber === 1 ? "1 comment" : null}
+          {e.commentsNumber > 1 ? `view all ${e.commentsNumber} comments` : null}
+        </Comments>
+
       </BottomContainer>
 
-    </PhotoWrapper>
+    </PhotoCardWrapper>
   )
 }
 
 
 
-const PhotoWrapper = styled.div`
-  margin-top: 24px;
-    max-width: 560px;
-    min-width: 480px;
+const PhotoCardWrapper = styled.div`
+  margin-top: 36px;
+    max-width: 660px;
+    min-width: 420px;
     /* width: 560px; */
     /* border: ${p => p.theme.BOR1}; */
     border: 0.4px solid ${p => p.theme.BORCOL1};
@@ -100,9 +109,9 @@ const TopContainer = styled(CW)`
   gap: 16px;
   margin: 0;
   
+
   height: 60px;
   width: 100%;
-
 
 
   border-top: none;
@@ -110,14 +119,10 @@ const TopContainer = styled(CW)`
   border-right: none;
   border-bottom: 0.4px solid ${p => p.theme.BORCOL1};
 
-  
+
   position: relative;
 
 `
-
-
-
-
 
 const AvatarDiv = styled.div`
   overflow: hidden;
@@ -135,6 +140,8 @@ const Avatar = styled.img`
 const Username = styled.h4`
   font-size: 0.76rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 `
 
 const Picture = styled.img`
@@ -161,7 +168,7 @@ const MainIconGroup = styled.div`
   justify-content: space-between;
 `
 
-const IconGroup = styled.div`
+const LeftIconGroup = styled.div`
   display: flex;
   gap: 12px;
 
@@ -172,6 +179,27 @@ const Likes = styled.div`
   font-weight: 600;
   padding: 12px 0;
 `
+
+const Caption = styled.p`
+  font-size: 0.76rem;
+
+`
+
+const UsernameAndCaption = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`
+
+////////////////////////////////////
+//  COMMENTS
+const Comments = styled.div`
+  padding: 16px 0;
+  font-size: 0.7rem;
+  color: #9c9c9c;
+`
+
+
 
 //////////////////////////////
 // ICONS
@@ -202,6 +230,14 @@ const SendIcon = styled(CgMailOpen)`
 const BookmarkIcon = styled(CgBookmark)`
   font-size: 1.3rem;
   cursor: pointer;
+`
+
+const Link = styled(LinkNS)`
+  color: #7413e4;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 export default PhotoCard

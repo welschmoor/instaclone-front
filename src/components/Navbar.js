@@ -54,7 +54,6 @@ const Navbar = ({ setDarkMode }) => {
 }
 
 
-
 const MainNav = styled.nav`
   margin-right: 80px;
   display: flex;
@@ -84,7 +83,6 @@ const CW = styled.div`
   /* margin-right: 70px; */
   margin-left: 10px;
 `
-
 
 const MainLogo = styled(Title)`
   font-size: 1.4rem;
