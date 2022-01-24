@@ -1,17 +1,19 @@
+import { TOGGLE_LIKE } from "../graphql/queries"
+import { gql, useMutation } from "@apollo/client"
+import { Link as LinkNS } from "react-router-dom"
+import React from "react"
+
 // styles
 import styled from "styled-components"
 import { CW } from "../STYLES/styleForm"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 
-import { TOGGLE_LIKE } from "../graphql/queries"
-import { gql, useMutation } from "@apollo/client"
-import { Link as LinkNS } from "react-router-dom"
-import React from "react"
+import CommentForm from "./CommentForm"
 
 
 const PhotoCard = ({ e }) => {
-  console.log("e|", e.caption)
+
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
@@ -29,8 +31,6 @@ const PhotoCard = ({ e }) => {
             }
           },
         })
-
-
       }
     },
   })
@@ -71,7 +71,7 @@ const PhotoCard = ({ e }) => {
           <Username> {e.user.username} <CgChevronRight /></Username>
 
           {/* This is how to safely wrap #hashtags with <Link></Link> */}
-          <Caption>{e.caption.split(" ").map((e,i) => /#[\w]+/.test(e)
+          <Caption>{e.caption.split(" ").map((e, i) => /#[\w]+/.test(e)
             ? <React.Fragment key={i}><Link to={`/hashtags/${e.slice(1)}`} >{e}</Link>{" "}</React.Fragment>
             : <React.Fragment key={i}>{e}{" "}</React.Fragment>)}
           </Caption>
@@ -81,10 +81,10 @@ const PhotoCard = ({ e }) => {
           {e.commentsNumber === 0 ? "0 comments" : null}
           {e.commentsNumber === 1 ? "1 comment" : null}
           {e.commentsNumber > 1 ? `view all ${e.commentsNumber} comments` : null}
+          <CommentForm photoId={e?.id} />
         </Comments>
 
       </BottomContainer>
-
     </PhotoCardWrapper>
   )
 }
@@ -194,7 +194,7 @@ const UsernameAndCaption = styled.div`
 ////////////////////////////////////
 //  COMMENTS
 const Comments = styled.div`
-  padding: 16px 0;
+  padding: 14px 0;
   font-size: 0.7rem;
   color: #9c9c9c;
 `

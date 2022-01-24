@@ -70,3 +70,13 @@ export const TOGGLE_LIKE = gql`
     }
   }
 `
+
+export const ADD_COMMENT = gql`
+  mutation CreateComment($photoId: Int!, $payload: String!) {
+    createComment(photoId: $photoId, payload: $payload) {
+      ok
+      error
+      commentId
+    }
+  }
+`

@@ -19,7 +19,7 @@ const Navbar = ({ setDarkMode }) => {
   const [menuOpenB, setMenuOpenB] = useState(false)
   const loggedInBool = useReactiveVar(loggedInVar)
   const user = useUserHook()
-  console.log("user", user)
+
 
 
   const openMenu = () => {
