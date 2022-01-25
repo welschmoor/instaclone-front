@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form"
 import { ADD_COMMENT } from "../graphql/queries"
 import { useUserHook } from '../graphql/useUserHook'
+import { gql } from "@apollo/client"
 
 //styles
 import styled from "styled-components"
@@ -31,13 +32,31 @@ const CommentForm = ({ photoId }) => {
             ...userData.me
           }
         }
-        console.log(reconstComment)
+
+        // we first write the Fragment to specify the shape of the new comment
+        const newComment = cache.writeFragment({
+          data: reconstComment,
+          fragment: gql`
+            fragment BSname on Comment {
+              id
+              createdAt
+              isMine
+              payload
+              user {
+                username
+                avatar
+              }
+
+            }
+          `
+        })
+
         setValue("comment", "")
         cache.modify({
           id: fragmentId,
           fields: {
             comments(prev) {
-              return [...prev, reconstComment]
+              return [...prev, newComment]
             },
             commentsNumber(prev) {
               return prev + 1
