@@ -11,7 +11,7 @@ import styled from 'styled-components'
 import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrFacebook } from "react-icons/gr"
 
-import ErrorLogin from '../components/ErrorLogin'
+import ErrorSignup from '../components/ErrorSignup'
 import Footer from '../components/Footer'
 
 
@@ -32,6 +32,7 @@ const Signup = () => {
           setError("resultSingup", { message: null })
           clearErrors()
         }, 2400)
+        return null
       }
       
       const { username, password } = getValues()
@@ -56,7 +57,7 @@ const Signup = () => {
           <Subtitle2>Sign up to see photos and videos from your friends.</Subtitle2>
         </TitleAndSubtitle>
 
-        {errors?.resultSingup?.message ? <ErrorLogin errorMessage={errors.resultSingup.message} /> : null}
+        {errors?.resultSingup?.message ? <ErrorSignup errorMessage={errors.resultSingup.message} /> : null}
 
         <FacebookBTN ><FacebookIcon />Log in with Facebook</FacebookBTN>
 

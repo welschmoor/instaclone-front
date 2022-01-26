@@ -8,6 +8,8 @@ import styled from "styled-components"
 import { CW } from "../STYLES/styleForm"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
+import { AvatarDiv, Avatar } from '../STYLES/styleProfile'
+
 
 import CommentForm from "./CommentForm"
 import SinglePic from './SinglePic'
@@ -42,9 +44,7 @@ const PhotoCard = ({ e }) => {
 
 
   return (
-
     <>
-
       <PhotoCardWrapper>
 
         <TopContainer >
@@ -114,33 +114,19 @@ const TopContainer = styled(CW)`
   gap: 16px;
   margin: 0;
   
-
   height: 60px;
   width: 100%;
-
 
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 0.4px solid ${p => p.theme.BORCOL1};
 
-
   position: relative;
 
 `
 
-const AvatarDiv = styled.div`
-  overflow: hidden;
-  border-radius: 50%;
-  width: 40px;
-  width: 40px;
 
-`
-
-const Avatar = styled.img`
-  width: 100%;
-  display: block;
-`
 
 const Username = styled.h4`
   font-size: 0.76rem;

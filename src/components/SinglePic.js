@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react"
 
 // styles
 import styled from "styled-components"
-
+import { TopContainer, AvatarDiv, Avatar} from '../STYLES/styleProfile'
 
 
 const SinglePic = () => {
@@ -28,17 +28,39 @@ const SinglePic = () => {
   }
 
   const goBack = () => {
-    navigate(-1) // does not remember scroll position :(
+    navigate(-1)
   }
 
   return (
-    <SinglePicWrapper onClick={goBack}>
-      <PicGrid >
-        <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
-      </PicGrid>
-    </SinglePicWrapper>
+    <>
+      <SinglePicWrapper onClick={goBack}>  </SinglePicWrapper>
+      <SPWrapper>
+
+        <PicGrid >
+          <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
+          <RightColumn>
+          <TopContainer>
+            <AvatarDiv>
+              <Avatar />
+            </AvatarDiv>
+          </TopContainer>
+          </RightColumn>
+        </PicGrid>
+      </SPWrapper>
+
+    </>
+
   )
 }
+
+const SPWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  padding: 0 10px;
+  padding-bottom: 140px;
+  background-color: ${p=>p.theme.BG10};
+`
 
 const SinglePicWrapper = styled.div`
   position: fixed;
@@ -47,21 +69,31 @@ const SinglePicWrapper = styled.div`
   z-index: 1;
 `
 
-
-
 const PicGrid = styled.div`
+
   z-index: 11;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto auto;
+
+
+  min-width: 400px;
+  max-width: 1200px;
+
   display: grid;
+  grid-template-columns: 1fr 300px;
+
+  @media (max-width: 736px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const Picture = styled.img`
   width: 100%;
   height: auto;
   
+`
+
+const RightColumn = styled.div`
+  background-color: grey;
 `
 
 

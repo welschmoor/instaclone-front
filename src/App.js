@@ -48,7 +48,7 @@ const App = () => {
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
 
-            <Route path='/pic/:id' element={<SinglePic />} />
+            <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
             <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />
