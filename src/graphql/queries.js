@@ -80,3 +80,31 @@ export const ADD_COMMENT = gql`
     }
   }
 `
+
+export const SEE_PIC = gql`
+  query Query($seePhotoId: Int!) {
+    seePhoto(id: $seePhotoId) {
+      id
+      user {
+        username
+      }
+      caption
+      file
+      hashtags {
+        id
+        hashtag
+      }
+      likes
+      comments {
+        id
+        payload
+        user {
+          username
+          avatar
+        }
+      }
+      createdAt
+      commentsNumber
+    }
+  }
+`

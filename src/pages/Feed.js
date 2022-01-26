@@ -1,4 +1,4 @@
-
+import { useState } from "react"
 
 // styles
 import { useQuery } from "@apollo/client"
@@ -10,6 +10,8 @@ import PhotoCard from "../components/PhotoCard"
 
 const Feed = () => {
   const { data } = useQuery(FEED)
+
+
 
   return (
     <MWr>

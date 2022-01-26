@@ -1,7 +1,7 @@
 import { TOGGLE_LIKE } from "../graphql/queries"
 import { gql, useMutation } from "@apollo/client"
 import { Link as LinkNS } from "react-router-dom"
-import React from "react"
+import React, { useState } from "react"
 
 // styles
 import styled from "styled-components"
@@ -10,7 +10,7 @@ import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "reac
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 
 import CommentForm from "./CommentForm"
-
+import SinglePic from './SinglePic'
 
 const PhotoCard = ({ e }) => {
 
@@ -42,50 +42,55 @@ const PhotoCard = ({ e }) => {
 
 
   return (
-    <PhotoCardWrapper>
 
-      <TopContainer >
-        <AvatarDiv>
-          <Avatar src={e.user.avatar} alt="user picture" />
-        </AvatarDiv>
-        <Username>
-          {e.user.username}
-        </Username>
-      </TopContainer>
+    <>
 
-      <Picture src={e?.file} alt={e?.caption} />
+      <PhotoCardWrapper>
 
-      <BottomContainer >
-        <MainIconGroup>
-          <LeftIconGroup >
-            {e.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
-            <CommentIcon />
-            <SendIcon />
-          </LeftIconGroup>
-          <BookmarkIcon />
-        </MainIconGroup>
+        <TopContainer >
+          <AvatarDiv>
+            <Avatar src={e.user.avatar} alt="user picture" />
+          </AvatarDiv>
+          <Username>
+            {e.user.username}
+          </Username>
+        </TopContainer>
 
-        <Likes >{e.likes === 1 ? "1 like" : `${e.likes} likes`} </Likes>
+        <Link to={`/pic/${e.id}`}><Picture src={e?.file} alt={e?.caption} /></Link>
 
-        <UsernameAndCaption>
-          <Username> {e.user.username} <CgChevronRight /></Username>
+        <BottomContainer >
+          <MainIconGroup>
+            <LeftIconGroup >
+              {e.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
+              <CommentIcon />
+              <SendIcon />
+            </LeftIconGroup>
+            <BookmarkIcon />
+          </MainIconGroup>
 
-          {/* This is how to safely wrap #hashtags with <Link></Link> */}
-          <Caption>{e.caption.split(" ").map((e, i) => /#[\w]+/.test(e)
-            ? <React.Fragment key={i}><Link to={`/hashtags/${e.slice(1)}`} >{e}</Link>{" "}</React.Fragment>
-            : <React.Fragment key={i}>{e}{" "}</React.Fragment>)}
-          </Caption>
-        </UsernameAndCaption>
+          <Likes >{e.likes === 1 ? "1 like" : `${e.likes} likes`} </Likes>
 
-        <Comments>
-          {e.commentsNumber === 0 ? "0 comments" : null}
-          {e.commentsNumber === 1 ? "1 comment" : null}
-          {e.commentsNumber > 1 ? `view all ${e.commentsNumber} comments` : null}
-          <CommentForm photoId={e?.id} />
-        </Comments>
+          <UsernameAndCaption>
+            <Username> {e.user.username} <CgChevronRight /></Username>
 
-      </BottomContainer>
-    </PhotoCardWrapper>
+            {/* This is how to safely wrap #hashtags with <Link></Link> */}
+            <Caption>{e.caption.split(" ").map((e, i) => /#[\w]+/.test(e)
+              ? <React.Fragment key={i}><Link to={`/hashtags/${e.slice(1)}`} >{e}</Link>{" "}</React.Fragment>
+              : <React.Fragment key={i}>{e}{" "}</React.Fragment>)}
+            </Caption>
+          </UsernameAndCaption>
+
+          <Comments >
+            {e.commentsNumber === 0 ? "0 comments" : null}
+            <Link2 to={`/pic/${e.id}`}>{e.commentsNumber === 1 ? "1 comment" : null}</Link2>
+            <Link2 to={`/pic/${e.id}`}>{e.commentsNumber > 1 ? `view all ${e.commentsNumber} comments` : null}</Link2>
+            <CommentForm photoId={e?.id} />
+          </Comments>
+
+        </BottomContainer>
+      </PhotoCardWrapper>
+    
+    </>
   )
 }
 
@@ -93,11 +98,11 @@ const PhotoCard = ({ e }) => {
 
 const PhotoCardWrapper = styled.div`
   margin-top: 36px;
-    max-width: 660px;
-    min-width: 420px;
-    /* width: 560px; */
-    /* border: ${p => p.theme.BOR1}; */
-    border: 0.4px solid ${p => p.theme.BORCOL1};
+  max-width: 660px;
+  min-width: 420px;
+  /* width: 560px; */
+  /* border: ${p => p.theme.BOR1}; */
+  border: 0.4px solid ${p => p.theme.BORCOL1};
 `
 
 const TopContainer = styled(CW)`
@@ -147,6 +152,7 @@ const Username = styled.h4`
 const Picture = styled.img`
   width: 100%;
   height: auto;
+  
 `
 
 
@@ -238,6 +244,10 @@ const Link = styled(LinkNS)`
   &:hover {
     text-decoration: underline;
   }
+`
+
+const Link2 = styled(Link)`
+  color: #9c9c9c;
 `
 
 export default PhotoCard

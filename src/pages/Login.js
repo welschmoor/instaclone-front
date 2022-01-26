@@ -17,11 +17,11 @@ import Footer from '../components/Footer'
 
 const Login = () => {
   const location = useLocation()
-  console.log("location", location)
+
   const navigate = useNavigate()
   const { register, handleSubmit, watch, formState, getValues, setError, clearErrors } = useForm({
     mode: "onChange",
-    defaultValues: { username: location?.state?.username || "", password: location?.state?.password || "" },
+    // defaultValues: { username: location?.state?.username || "", password: location?.state?.password || "" },
   })
 
   const [login, { loading }] = useMutation(LOGIN, {
@@ -43,22 +43,24 @@ const Login = () => {
       if (token) {
         window.localStorage.setItem("instapoundtoken", token)
         loggedInVar(true)
+        window.location.reload(true)
         navigate('/')
       }
     }
   })
 
   const errors = formState?.errors
-  console.log("loading", loading)
-  console.log("errors", errors)
 
   const onSuccess = async data => {
     if (loading) return;
     const { username, password } = getValues()
     const response = await login({ variables: { username, password } })
-    // console.log("response", response)
+    window.localStorage.setItem("instapoundtoken", response.data.login.token)
+    console.log("response", response)
   }
-  const onFailure = data => console.log('')
+  const onFailure = data => {
+    console.log("Login Failed")
+  }
 
   // console.log(errors)
   // console.log("formState valid???", formState.isValid)

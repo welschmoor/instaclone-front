@@ -19,6 +19,7 @@ import SignupRedirect from './pages/SignupRedirect'
 
 import Navbar from './components/Navbar'
 import YesNavbar from './components/YesNavbar'
+import SinglePic from "./components/SinglePic";
 
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
 
+            <Route path='/pic/:id' element={<SinglePic />} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
             <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />

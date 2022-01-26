@@ -20,8 +20,6 @@ const Navbar = ({ setDarkMode }) => {
   const loggedInBool = useReactiveVar(loggedInVar)
   const user = useUserHook()
 
-
-
   const openMenu = () => {
     console.log("menu toggle klacked")
     setMenuOpenB(p => !p)

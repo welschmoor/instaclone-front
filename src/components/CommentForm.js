@@ -68,7 +68,6 @@ const CommentForm = ({ photoId }) => {
     },
   })
 
-
   const onSuccess = async (data) => {
     console.log("data", data)
     if (loading || data?.comment === "") return;
@@ -76,22 +75,25 @@ const CommentForm = ({ photoId }) => {
     setValue("comment", "") // this clears input
   }
 
-
   return (
     <Form onSubmit={handleSubmit(onSuccess)}>
       <Input placeholder="add comment" {...register('comment', { required: true })} name="comment" />
     </Form>
-
   )
 }
 
 
 const Form = styled.form`
-
+  padding-top: 10px;
 `
 
 const Input = styled.input`
-
+  padding: 5px 0;
+  border: none;
+  border-bottom: 1px solid grey;
+  &:focus {
+    outline: none;
+  }
 `
 
 export default CommentForm

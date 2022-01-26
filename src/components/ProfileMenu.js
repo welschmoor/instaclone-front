@@ -3,13 +3,16 @@ import { loggedInVar } from "../graphql/apollo"
 
 import styled from "styled-components"
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
+import { useUserHook } from "../graphql/useUserHook"
 
 const ProfileMenu = ({ visible, setDarkMode }) => {
   const loggedInBool = useReactiveVar(loggedInVar)
-
+  const { data: userData } = useUserHook()
+  console.log("userData", userData)
   const logout = () => {
     loggedInVar(false)
     localStorage.removeItem("instapoundtoken")
+    localStorage.clear()
   }
 
   const darkModeHandler = () => {
@@ -21,15 +24,13 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
 
   return (
     <MenuWrapper visible={visible}>
-
+      <div>Hello, {userData?.me?.username} </div>
       <div>See Profile</div>
       <button onClick={darkModeHandler} >change theme</button>
       <div>MENU</div>
       <div>MENU</div>
       <div>MENU</div>
-      <div>MENU</div>
-      <div>MENU</div>
-      <div>MENU</div>
+
       {loggedInBool && <BlueBTN onClick={() => logout()} >logout</BlueBTN>}
     </MenuWrapper>
   )

@@ -5,6 +5,7 @@ import { useQuery, useReactiveVar } from "@apollo/client";
 import { loggedInVar } from "./apollo";
 import { ME } from "./queries";
 
+
 export const useUserHook = () => {
   const loggedInBool = useReactiveVar(loggedInVar)
   const { data, error } = useQuery(ME, {
@@ -16,6 +17,6 @@ export const useUserHook = () => {
       loggedInVar(false)
       localStorage.removeItem("instapoundtoken")
     }
-  }, [data])
+  }, [data, loggedInBool])
   return { data, error };
 }
