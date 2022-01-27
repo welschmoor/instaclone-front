@@ -10,13 +10,16 @@ import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 import { IoCheckmarkCircle } from "react-icons/io5"
-import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
+import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import CommentForm from "./CommentForm"
-
+import { DELETE_COMMENT } from "../graphql/queries"
+import { useUserHook } from "../graphql/useUserHook"
 
 
 const SinglePic = () => {
+  const { data: userData } = useUserHook()
+  console.log("userData", userData)
   const commentIconRef = useRef()
   const { id } = useParams()
   const { loading, data } = useQuery(SEE_PIC, {
@@ -28,6 +31,11 @@ const SinglePic = () => {
   useEffect(() => {
     console.log("keke")
   }, [id])
+
+  const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT)
+  const deleteCommentHandler = async (id) => {
+    await deleteComment({ variables: { deleteCommentId: Number(id) } })
+  }
 
 
   const [toggleLike, { data: uselessData, loading: uselessLoading, error }] = useMutation(TOGGLE_LIKE, {
@@ -101,11 +109,12 @@ const SinglePic = () => {
                         <Avatar src={e?.user?.avatar} alt="user picture" />
                       </AvatarDivComment>
                       <CommentText>
+                        {userData?.me?.username === e?.user?.username &&<TrashcanIcon onClick={() => deleteCommentHandler(e.id)} />}
                         <Username style={{ display: "inline-block" }}>{e?.user?.username}</Username> > {e?.payload}
                       </CommentText>
                     </ContainerFromTop>
                   )
-                })}
+                }).reverse()}
               </Comments>
             </BottomContainer>
 
@@ -173,7 +182,6 @@ const AvatarDiv = styled(AvatarDivNS)`
 `
 
 const LeftColumn = styled.div`
-
   align-content: center;
   align-self: center;
 
@@ -200,7 +208,6 @@ const RightColumn = styled.div`
     border-left: none;
     border: 1px solid ${p => p.theme.BORCOL1};
   }
-
 `
 
 const BottomContainer = styled.div`
@@ -229,11 +236,11 @@ const CheckMark = styled(IoCheckmarkCircle)`
 // Comments
 
 const Comments = styled.div`
-
   overflow-y: scroll;
   max-height: 400px;
   padding-bottom: 0px;
 `
+
 const Comment = styled.div`
   
 `
@@ -245,10 +252,12 @@ const AvatarDivComment = styled(AvatarDiv)`
 const CommentText = styled.div`
   font-weight: normal;
   font-size: 0.7rem;
+  
 `
 
 const ContainerFromTop = styled(TopContainer)`
   border: none;
+  position: relative;
 `
 
 const MarginDiv = styled.div`
@@ -262,19 +271,27 @@ const MarginDiv = styled.div`
 
 
 
-
-
-
-
-
-
-
-
 //////////////////////////////
 // ICONS
 const IconGroupContainer = styled.div`
   padding: 14px;
   border-top: ${p => p.theme.BOR1};
+`
+
+const TrashcanIcon = styled(CgTrashEmpty)`
+  font-size: 0.8rem;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  color: #d84040;
+
+  ${ContainerFromTop}:hover & {
+    display: inline;
+  }
+
+  top: 50%;
+  right: 2%;
+  transform: translateY(-50%);
 `
 
 const HeartIcon = styled(CgHeart)`
@@ -304,8 +321,6 @@ const BookmarkIcon = styled(CgBookmark)`
   cursor: pointer;
 `
 
-
-
 const MainIconGroup = styled.div`
   width: 100%;
   display: flex;
@@ -315,7 +330,6 @@ const MainIconGroup = styled.div`
 const LeftIconGroup = styled.div`
   display: flex;
   gap: 12px;
-
 `
 
 const Likes = styled.div`
@@ -325,10 +339,8 @@ const Likes = styled.div`
 `
 
 const BottomGroup = styled.div`
-
   flex-shrink: 0;
   flex-grow: 0;
-
 `
 
 

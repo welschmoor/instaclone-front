@@ -110,3 +110,13 @@ export const SEE_PIC = gql`
     }
   }
 `
+
+export const DELETE_COMMENT = gql`
+  mutation DeleteComment($deleteCommentId: Int!) {
+    deleteComment(id: $deleteCommentId) {
+      ok
+      error
+    }
+  }
+
+`
