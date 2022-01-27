@@ -32,7 +32,15 @@ const SinglePic = () => {
     console.log("keke")
   }, [id])
 
-  const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT)
+  const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT, {
+    update: (cache, result) => {
+      console.log("result", result)
+      const deleteResult = result.data.deleteComment
+      if (deleteResult.ok) {
+        cache.evict({ id: `Comment:${deleteResult.id}` })
+      }
+    },
+  })
   const deleteCommentHandler = async (id) => {
     await deleteComment({ variables: { deleteCommentId: Number(id) } })
   }
@@ -109,7 +117,7 @@ const SinglePic = () => {
                         <Avatar src={e?.user?.avatar} alt="user picture" />
                       </AvatarDivComment>
                       <CommentText>
-                        {userData?.me?.username === e?.user?.username &&<TrashcanIcon onClick={() => deleteCommentHandler(e.id)} />}
+                        {userData?.me?.username === e?.user?.username && <TrashcanIcon onClick={() => deleteCommentHandler(e.id)} />}
                         <Username style={{ display: "inline-block" }}>{e?.user?.username}</Username> > {e?.payload}
                       </CommentText>
                     </ContainerFromTop>

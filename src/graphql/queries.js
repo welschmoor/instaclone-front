@@ -115,8 +115,8 @@ export const DELETE_COMMENT = gql`
   mutation DeleteComment($deleteCommentId: Int!) {
     deleteComment(id: $deleteCommentId) {
       ok
+      id
       error
     }
   }
-
 `
