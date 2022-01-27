@@ -38,6 +38,16 @@ const SinglePic = () => {
       const deleteResult = result.data.deleteComment
       if (deleteResult.ok) {
         cache.evict({ id: `Comment:${deleteResult.id}` })
+        // we also need to update the cache commentsNumber:
+        cache.modify({
+          id: `Photo:${id}`,
+          fields: {
+            commentsNumber(prev) {
+              if (prev === 0) return 0;
+              return prev - 1
+            }
+          }
+        })
       }
     },
   })
