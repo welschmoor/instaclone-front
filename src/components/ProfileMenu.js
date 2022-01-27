@@ -47,7 +47,7 @@ const MenuWrapper = styled.div`
   top: ${p => p.visible ? "59px" : "-199px"};  
   right: -1px;
   background-color: ${p => p.theme.BG1};
-  z-index: 5;
+  z-index: 12;
   border: ${p => p.theme.BOR1};
   box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.05);
 `

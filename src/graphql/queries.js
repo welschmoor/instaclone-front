@@ -87,6 +87,7 @@ export const SEE_PIC = gql`
       id
       user {
         username
+        avatar
       }
       caption
       file
@@ -95,6 +96,7 @@ export const SEE_PIC = gql`
         hashtag
       }
       likes
+      isLikedByMe
       comments {
         id
         payload

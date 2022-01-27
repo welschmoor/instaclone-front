@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client"
 
 
 // createComment requires the ID of photo; so send it from parent
-const CommentForm = ({ photoId }) => {
+const CommentForm = ({ photoId, refProp }) => {
   const { data: userData } = useUserHook()
   const { register, handleSubmit, setValue, getValues } = useForm()
   const [createComment, { loading }] = useMutation(ADD_COMMENT, {
@@ -46,7 +46,6 @@ const CommentForm = ({ photoId }) => {
                 username
                 avatar
               }
-
             }
           `
         })
@@ -77,14 +76,14 @@ const CommentForm = ({ photoId }) => {
 
   return (
     <Form onSubmit={handleSubmit(onSuccess)}>
-      <Input placeholder="add comment" {...register('comment', { required: true })} name="comment" />
+      <Input placeholder="add comment, max 62 chars" {...register('comment', { required: true, maxLength: 70, })} name="comment" ref={refProp} />
     </Form>
   )
 }
 
 
 const Form = styled.form`
-  padding-top: 10px;
+  padding-top: 8px;
 `
 
 const Input = styled.input`

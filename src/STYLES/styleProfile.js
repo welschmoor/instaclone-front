@@ -37,3 +37,19 @@ border-bottom: 0.4px solid ${p => p.theme.BORCOL1};
 position: relative;
 
 `
+
+export const BottomContainer = styled(TopContainer)`
+  margin-top: -5px;
+  padding: 14px;
+  height: 100%;
+  border-top: 0.4px solid ${p => p.theme.BORCOL1};
+  border-bottom: none;
+  display: block;
+`
+
+export const Username = styled.h4`
+  font-size: 0.76rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+`
