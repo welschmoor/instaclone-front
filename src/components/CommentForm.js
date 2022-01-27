@@ -76,7 +76,12 @@ const CommentForm = ({ photoId, refProp }) => {
 
   return (
     <Form onSubmit={handleSubmit(onSuccess)}>
-      <Input placeholder="add comment, max 62 chars" {...register('comment', { required: true, maxLength: 70, })} name="comment" ref={refProp} />
+      <Input
+        placeholder="add comment, max 62 chars"
+        {...register('comment', { required: true, maxLength: 70, })}
+        name="comment"
+        // ref={refProp}  // <= this breaks the form, why?
+      />
     </Form>
   )
 }

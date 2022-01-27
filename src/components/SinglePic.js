@@ -51,6 +51,7 @@ const SinglePic = () => {
     },
   })
 
+  console.log("photoId", data?.seePhoto?.id)
 
   const likeHandler = async (id) => {
     await toggleLike({ variables: { id: id } })
@@ -95,7 +96,7 @@ const SinglePic = () => {
               <Comments>
                 {comments?.map(e => {
                   return (
-                    <ContainerFromTop>
+                    <ContainerFromTop key={e.id}>
                       <AvatarDivComment>
                         <Avatar src={e?.user?.avatar} alt="user picture" />
                       </AvatarDivComment>
@@ -153,7 +154,7 @@ const PicGrid = styled.div`
   z-index: 10;
   margin: auto auto;
   background-color: hsl(0, 0%, 91%);
-
+  margin-top: 20px;
 
   min-width: 400px;
   max-width: 1200px;
@@ -192,10 +193,14 @@ const RightColumn = styled.div`
   border-bottom: 1px solid ${p => p.theme.BORCOL1};
   background-color:  ${p => p.theme.BG1};
 
+  display: flex;
+  flex-direction: column;
+
   @media (max-width: 736px) {
     border-left: none;
     border: 1px solid ${p => p.theme.BORCOL1};
   }
+
 `
 
 const BottomContainer = styled.div`
@@ -237,7 +242,7 @@ const AvatarDivComment = styled(AvatarDiv)`
   border: none;
 `
 
-const CommentText = styled.p`
+const CommentText = styled.div`
   font-weight: normal;
   font-size: 0.7rem;
 `
@@ -320,7 +325,7 @@ const Likes = styled.div`
 `
 
 const BottomGroup = styled.div`
-  align-self: flex-end;
+
   flex-shrink: 0;
   flex-grow: 0;
 
