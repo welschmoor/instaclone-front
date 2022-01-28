@@ -14,10 +14,10 @@ import Feed from './pages/Feed'
 import About from './pages/About'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Profile from './pages/Profile'
 import Page404 from './pages/Page404'
 import SignupRedirect from './pages/SignupRedirect'
 
-import Navbar from './components/Navbar'
 import YesNavbar from './components/YesNavbar'
 import SinglePic from "./components/SinglePic";
 
@@ -29,7 +29,6 @@ const App = () => {
   console.log('loggedInBool', loggedInBool)
 
   const user = useUserHook()
-
 
   useEffect(() => {
     const tokenLS = window.localStorage.getItem('instapoundtoken')
@@ -47,7 +46,8 @@ const App = () => {
         <BrowserRouter >
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
-
+                {/* //  the 1st Route takes me to /feed/profile/userID : */}
+            <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>}  />
             <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />

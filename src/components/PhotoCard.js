@@ -9,13 +9,13 @@ import { CW } from "../STYLES/styleForm"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { AvatarDiv, Avatar, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
-
+import { Link3 } from '../STYLES/styleLinks'
 
 import CommentForm from "./CommentForm"
-import SinglePic from './SinglePic'
+
 
 const PhotoCard = ({ e }) => {
-
+  console.log("e", e)
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
@@ -49,10 +49,10 @@ const PhotoCard = ({ e }) => {
 
         <TopContainer >
           <AvatarDiv>
-            <Avatar src={e.user.avatar} alt="user picture" />
+            <Link3 to={`/profile/${e.user.username}`}><Avatar src={e.user.avatar} alt="user picture" /></Link3>
           </AvatarDiv>
           <Username>
-            {e.user.username}
+            <Link3 to={`/profile/${e.user.username}`}>{e.user.username}</Link3>
           </Username>
         </TopContainer>
 
@@ -89,7 +89,7 @@ const PhotoCard = ({ e }) => {
 
         </BottomContainer>
       </PhotoCardWrapper>
-    
+
     </>
   )
 }
@@ -105,10 +105,6 @@ const PhotoCardWrapper = styled.div`
   border: 0.4px solid ${p => p.theme.BORCOL1};
 `
 
-
-
-
-
 const Picture = styled.img`
   width: 100%;
   height: auto;
@@ -118,8 +114,6 @@ const Picture = styled.img`
 
 ////////////////////////////////////
 // BOTTOM CONTAINER
-
-
 
 const MainIconGroup = styled.div`
   width: 100%;
@@ -202,5 +196,7 @@ const Link = styled(LinkNS)`
 const Link2 = styled(Link)`
   color: #9c9c9c;
 `
+
+
 
 export default PhotoCard

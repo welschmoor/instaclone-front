@@ -54,6 +54,7 @@ export const FEED = gql`
       }
       isLikedByMe
       user {
+        id
         username
         isMe
         avatar
@@ -119,4 +120,46 @@ export const DELETE_COMMENT = gql`
       error
     }
   }
+`
+
+export const SEE_PROFILE = gql`
+  query SeeProfile($username: String!) {
+    seeProfile(username: $username) {
+      id
+      fullName
+      username
+      bio
+      avatar
+      following {
+        
+      }
+      photos {
+        id
+        file
+        caption
+        hashtags {
+          hashtag
+          id
+          createdAt
+        }
+        commentsNumber
+        comments {
+          id
+          payload
+          user {
+            id
+            username
+            avatar
+          }
+        }
+        likes
+        isMine
+        isLikedByMe
+        createdAt
+      }
+      isMe
+      totalFollowers
+    }
+  }
+
 `

@@ -15,6 +15,7 @@ import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import CommentForm from "./CommentForm"
 import { DELETE_COMMENT } from "../graphql/queries"
 import { useUserHook } from "../graphql/useUserHook"
+import { Link3 } from '../STYLES/styleLinks'
 
 
 const SinglePic = () => {
@@ -110,10 +111,10 @@ const SinglePic = () => {
           <RightColumn>
             <TopContainer>
               <AvatarDiv>
-                <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
+                <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
               </AvatarDiv>
               <Username>
-                {data?.seePhoto?.user?.username} <CheckMark />
+                <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}>{data?.seePhoto?.user?.username}</Link3> <CheckMark />
               </Username>
             </TopContainer>
 
@@ -181,7 +182,7 @@ const PicGrid = styled.div`
   z-index: 10;
   margin: auto auto;
   background-color: hsl(0, 0%, 91%);
-  margin-top: 20px;
+
 
   min-width: 400px;
   max-width: 1200px;
@@ -190,6 +191,7 @@ const PicGrid = styled.div`
   grid-template-columns: 1fr 300px;
 
   @media (max-width: 736px) {
+    margin-top: 36px;
     grid-template-columns: 1fr;
     background-color: white;
   }
