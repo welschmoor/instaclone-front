@@ -157,6 +157,7 @@ const HomeWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 `
 
 const CWHome = styled.div`

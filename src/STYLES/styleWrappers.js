@@ -16,4 +16,5 @@ export const CWr = styled.div`
   max-width: 940px;
   margin: 0 auto;
   background-color: ${p=>p.theme.BG10};
+  padding-bottom: 40px;
 `

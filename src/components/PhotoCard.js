@@ -105,11 +105,21 @@ const PhotoCardWrapper = styled.div`
   border: 0.4px solid ${p => p.theme.BORCOL1};
 `
 
+// object-fit makes picture smaller, fits better.
 const Picture = styled.img`
   width: 100%;
   height: auto;
-  
+  max-height: 700px;
+  object-fit: contain;
 `
+
+// example of how to keep the aspect ratio
+// const Picture = styled.img`
+//   width: 100%;
+//   height: auto;
+//   max-height: 600px;
+//   object-fit: cover;
+// `
 
 
 ////////////////////////////////////

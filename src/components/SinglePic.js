@@ -20,22 +20,18 @@ import { Link3 } from '../STYLES/styleLinks'
 
 const SinglePic = () => {
   const { data: userData } = useUserHook()
-  console.log("userData", userData)
+
   const commentIconRef = useRef()
   const { id } = useParams()
   const { loading, data } = useQuery(SEE_PIC, {
     variables: { seePhotoId: Number(id) }
   })
   const navigate = useNavigate()
-  console.log("data", data)
+
   const comments = data?.seePhoto?.comments
-  useEffect(() => {
-    console.log("keke")
-  }, [id])
 
   const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT, {
     update: (cache, result) => {
-      console.log("result", result)
       const deleteResult = result.data.deleteComment
       if (deleteResult.ok) {
         cache.evict({ id: `Comment:${deleteResult.id}` })
@@ -213,6 +209,11 @@ const Picture = styled.img`
   width: 100%;
   height: auto;
   display: block;
+
+
+  max-height: 700px;
+  object-fit: contain;
+
 `
 
 const RightColumn = styled.div`

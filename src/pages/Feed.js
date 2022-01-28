@@ -11,8 +11,6 @@ import PhotoCard from "../components/PhotoCard"
 const Feed = () => {
   const { data } = useQuery(FEED)
 
-
-
   return (
     <MWr>
       <CWr>

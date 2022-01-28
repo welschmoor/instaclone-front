@@ -4,6 +4,7 @@ import { loggedInVar } from "../graphql/apollo"
 import styled from "styled-components"
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 import { useUserHook } from "../graphql/useUserHook"
+import { Link } from "react-router-dom"
 
 const ProfileMenu = ({ visible, setDarkMode }) => {
   const loggedInBool = useReactiveVar(loggedInVar)
@@ -25,7 +26,7 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
   return (
     <MenuWrapper visible={visible}>
       <div>Hello, {userData?.me?.username} </div>
-      <div>See Profile</div>
+      <Link to={`/profile/${userData?.me?.username}`}>See Profile</Link>
       <button onClick={darkModeHandler} >change theme</button>
       <div>MENU</div>
       <div>MENU</div>

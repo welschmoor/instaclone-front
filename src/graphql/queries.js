@@ -130,9 +130,6 @@ export const SEE_PROFILE = gql`
       username
       bio
       avatar
-      following {
-        
-      }
       photos {
         id
         file
@@ -140,7 +137,6 @@ export const SEE_PROFILE = gql`
         hashtags {
           hashtag
           id
-          createdAt
         }
         commentsNumber
         comments {
