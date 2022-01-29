@@ -209,11 +209,8 @@ const Picture = styled.img`
   width: 100%;
   height: auto;
   display: block;
-
-
   max-height: 700px;
   object-fit: contain;
-
 `
 
 const RightColumn = styled.div`

@@ -37,7 +37,7 @@ const Profile = () => {
                 <FollowButton>Message</FollowButton>
                 <FollowButton>Follow</FollowButton>
                 <FollowButton><IoIosArrowUp /></FollowButton>
-                <BsThreeDots style={{ marginLeft: "10px" }} />
+                <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
               </ButtonGroup>
             </NameHeader>
             <Numbers>
@@ -46,14 +46,26 @@ const Profile = () => {
               <NumAndText><BoldText>44</BoldText><Text>following</Text> </NumAndText>
             </Numbers>
 
-
+            <BioWrapper>
+              <Username>{userName}</Username>
+              <Text>Biography goes here</Text>
+              <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
+            </BioWrapper>
 
           </NameAndInfo>
           <EmptySpace></EmptySpace>
 
         </UserPicAndDescription>
 
-
+        <PicGrid>
+          {profileData?.seeProfile?.photos?.map(e => {
+            return (
+              <PicSquare key={e.id}>
+                <Picture src={`${e.file}`} />
+              </PicSquare>
+            )
+          })}
+        </PicGrid>
 
 
 
@@ -65,23 +77,50 @@ const Profile = () => {
 
 const EmptySpace = styled.div`
   width: 100px;
+
 `
 
 const ProfileWrapper = styled.div`
   min-height: 100vh;
   padding-top: 32px;
   padding-bottom: 40px;
+
+  @media (max-width: 736px) {
+    padding-top: 15px;
+  
+  }
 `
 
 const CWProfile = styled.div`
-  width: 930px;
+  max-width: 930px;
   margin: 0px auto;
 `
+
+//////////////////////////////////////////////
+// PICTURE GRID etc
 
 const PicGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  row-gap: 10px;
+  row-gap: 20px;
+  column-gap: 20px;
+  padding: 30px 0;
+
+  @media (max-width: 736px) {
+    row-gap: 4px;
+    column-gap: 4px;
+  
+  }
+`
+
+const PicSquare = styled.div`
+  
+`
+
+const Picture = styled.img`
+  width: 100%;
+  /* height: auto;   */
+  /* object-fit: cover; */
 `
 
 ////////////////////////////////////////////////////
@@ -91,13 +130,26 @@ const UserPicAndDescription = styled.div`
   justify-content: center;
   gap: 80px;
   padding: 0 0px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid ${p => p.theme.BORCOL1};
+
+  @media (max-width: 736px) {
+    gap: 24px;
+  
+  }
 `
 
 const AvatarDiv = styled(AvatarDivNS)`
   border: none;
   width: 150px;
   height: 150px;
+  flex-shrink: 0;
 
+  @media (max-width: 736px) {
+    width: 80px;
+    height: 80px;
+  
+  }
 `
 
 const Avatar = styled(AvatarNS)`
@@ -105,7 +157,7 @@ const Avatar = styled(AvatarNS)`
 `
 
 const NameAndInfo = styled.div`
-  
+  flex-shrink: 0;
 `
 
 const Name = styled.h5`
@@ -145,10 +197,23 @@ const Numbers = styled.div`
   justify-content: space-between;
 `
 
+///////////////////////////////////////
+//   Text
+const BioWrapper = styled.div`
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  a {
+    text-decoration: none;
+    color: #3a1b81;
+  }
+`
 
 
 ///////////////////////////////////////
 //   Text
+
 
 const Text = styled(Username)`
   font-weight: normal;
@@ -157,6 +222,7 @@ const Text = styled(Username)`
 
 const BoldText = styled(Username)`
   letter-spacing: 0.4px;
+
 `
 
 const NumAndText = styled.div`
@@ -171,6 +237,18 @@ const CheckMark = styled(IoCheckmarkCircle)`
   color: #9b52ee;
 `
 
+const DotsMenu = styled(BsThreeDots)`
+  @media (max-width: 736px) {
+    display: none;
+  
+  }
+`
 
+///////////////////////////////////////
+//  MISC
+const SeparatorLong = styled.div`
+  background-color: grey;
+  height: 0.3px;
 
+`
 export default Profile
