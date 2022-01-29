@@ -155,7 +155,27 @@ export const SEE_PROFILE = gql`
       }
       isMe
       totalFollowers
+      isFollowing
     }
   }
 
+`
+
+export const FOLLOW_USER = gql`
+  mutation FollowUser($username: String!) {
+    followUser(username: $username) {
+      ok
+      error
+    }
+  }
+
+`
+
+export const UNFOLLOW_USER = gql`
+  mutation UnfollowUser($username: String!) {
+    unfollowUser(username: $username) {
+      ok
+      error
+    }
+  }
 `

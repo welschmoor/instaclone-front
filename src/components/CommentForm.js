@@ -94,10 +94,11 @@ const Form = styled.form`
 const Input = styled.input`
   padding: 5px 0;
   border: none;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid ${p=>p.theme.BORCOL1};
   &:focus {
     outline: none;
   }
+  width: 66%;
 `
 
 export default CommentForm

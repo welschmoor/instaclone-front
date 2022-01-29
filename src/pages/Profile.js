@@ -1,15 +1,22 @@
+import { Link } from "react-router-dom"
+import { BsFillPersonCheckFill } from 'react-icons/bs'
+import { useMutation, useQuery } from "@apollo/client"
+import { useParams } from "react-router-dom"
+import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
+import { Helmet } from "react-helmet-async"
+
 
 //styles
 import styled from 'styled-components'
 import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLES/styleProfile'
 
 
-import { useQuery } from "@apollo/client"
-import { useParams } from "react-router-dom"
-import { SEE_PROFILE } from '../graphql/queries'
+
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { BsThreeDots } from "react-icons/bs";
 import { IoIosArrowUp } from 'react-icons/io'
+import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
+
 
 
 const Profile = () => {
@@ -20,9 +27,20 @@ const Profile = () => {
 
   console.log("profileData", profileData)
 
+  const [followUser] = useMutation(FOLLOW_USER, {})
+
+  const [unfollowUser] = useMutation(UNFOLLOW_USER, {})
+
+  const followHandler = () => {
+    followUser({ variables: { username: userName } })
+  }
+  const unfollowHandler = () => {
+    unfollowUser({ variables: { username: userName } })
+  }
 
   return (
     <ProfileWrapper>
+      <Helmet ><title>{userName}'s profile</title></Helmet>
       <CWProfile>
 
 
@@ -30,16 +48,19 @@ const Profile = () => {
           <AvatarDiv>
             <Avatar src={profileData?.seeProfile?.avatar} alt="user picture" />
           </AvatarDiv>
+
           <NameAndInfo>
             <NameHeader>
               <Name>{userName} <CheckMark /></Name>
               <ButtonGroup>
                 <FollowButton>Message</FollowButton>
-                <FollowButton>Follow</FollowButton>
+                <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <BsFillPersonCheckFill /> : "Follow"}</FollowButton2>
                 <FollowButton><IoIosArrowUp /></FollowButton>
                 <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
+                {profileData?.seeProfile?.isMe && <EditProfileBTN><GrUserSettings /></EditProfileBTN>}
               </ButtonGroup>
             </NameHeader>
+
             <Numbers>
               <NumAndText><BoldText>646</BoldText><Text>posts</Text> </NumAndText>
               <NumAndText><BoldText>3126</BoldText><Text>followers</Text> </NumAndText>
@@ -51,8 +72,8 @@ const Profile = () => {
               <Text>Biography goes here</Text>
               <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
             </BioWrapper>
-
           </NameAndInfo>
+
           <EmptySpace></EmptySpace>
 
         </UserPicAndDescription>
@@ -61,7 +82,9 @@ const Profile = () => {
           {profileData?.seeProfile?.photos?.map(e => {
             return (
               <PicSquare key={e.id}>
-                <Picture src={`${e.file}`} />
+                <Link to={`/pic/${e.id}`}>
+                  <Picture src={`${e.file}`} />
+                </Link>
               </PicSquare>
             )
           })}
@@ -174,15 +197,6 @@ const NameHeader = styled.header`
   padding: 10px 0;
 `
 
-const FollowButton = styled.button`
-  border: 1px solid ${p => p.theme.BORCOL1};
-  border-radius: 3px;
-  padding: 6px 9px;
-  background-color: ${p => p.theme.BG10};
-  cursor: pointer;
-  font-weight: bold;
-  color: #424242;
-`
 
 const ButtonGroup = styled.div`
   display: flex;
@@ -209,11 +223,6 @@ const BioWrapper = styled.div`
     color: #3a1b81;
   }
 `
-
-
-///////////////////////////////////////
-//   Text
-
 
 const Text = styled(Username)`
   font-weight: normal;
@@ -243,6 +252,40 @@ const DotsMenu = styled(BsThreeDots)`
   
   }
 `
+
+const GrUserSettings = styled(GrUserSettingsNS)`
+  background-color: none;
+  color: #7c7c7c;
+  fill: #7c7c7c;
+
+  font-size: 0.8rem;
+`
+
+///////////////////////////////////////
+// BUTTONS
+const EditProfileBTN = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 6px;
+  padding: 3px;
+`
+
+const FollowButton = styled.button`
+  border: 1px solid ${p => p.theme.BORCOL1};
+  border-radius: 3px;
+  padding: 0px 9px;
+  min-height: 32px;
+  background-color: ${p => p.theme.BG10};
+  cursor: pointer;
+  font-weight: bold;
+  color: #424242;
+`
+
+const FollowButton2 = styled(FollowButton)`
+  min-width: 60px;
+`
+
 
 ///////////////////////////////////////
 //  MISC

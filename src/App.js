@@ -24,11 +24,8 @@ import SinglePic from "./components/SinglePic";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("instapounddarkmode") === "false")
-
   const loggedInBool = useReactiveVar(loggedInVar)
   console.log('loggedInBool', loggedInBool)
-
-  const user = useUserHook()
 
   useEffect(() => {
     const tokenLS = window.localStorage.getItem('instapoundtoken')
@@ -38,7 +35,6 @@ const App = () => {
   }, [loggedInBool])
 
 
-
   return (
     <HelmetProvider>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -46,7 +42,7 @@ const App = () => {
         <BrowserRouter >
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
-                {/* //  the 1st Route takes me to /feed/profile/userID : */}
+
             <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>}  />
             <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
