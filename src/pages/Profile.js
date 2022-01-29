@@ -16,26 +16,65 @@ import { IoCheckmarkCircle } from 'react-icons/io5'
 import { BsThreeDots } from "react-icons/bs";
 import { IoIosArrowUp } from 'react-icons/io'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
+import { useUserHook } from "../graphql/useUserHook"
 
 
 
 const Profile = () => {
+  const { data: userData } = useUserHook()
   const { userName } = useParams()
   const { data: profileData } = useQuery(SEE_PROFILE, {
     variables: { username: userName }
   })
 
-  console.log("profileData", profileData)
+  // console.log("profileData", profileData)
 
-  const [followUser] = useMutation(FOLLOW_USER, {})
+  const [followUser] = useMutation(FOLLOW_USER, {
+    variables: { username: userName },
+    update: async (cache, result) => {
+      const ok = await result.data.followUser.ok
+      if (!ok) return;
+      const fragmentId = `User:${profileData?.seeProfile?.id}`
+      await cache.modify({
+        id: fragmentId,
+        fields: {
+          isFollowing(prev) {
+            return !prev
+          },
+          totalFollowers(prev) {
+            return prev + 1
+          }
+        }
+      })
+    },
+  })
 
-  const [unfollowUser] = useMutation(UNFOLLOW_USER, {})
+  const [unfollowUser] = useMutation(UNFOLLOW_USER, {
+    variables: { username: userName },
+    update: async (cache, result) => {
+      console.log("unfollow result", result)
+      const ok = await result.data.unfollowUser.ok
+      if (!ok) return;
+      const fragmentId = `User:${profileData?.seeProfile?.id}`
+      await cache.modify({
+        id: fragmentId,
+        fields: {
+          isFollowing(prev) {
+            return !prev
+          },
+          totalFollowers(prev) {
+            return prev - 1
+          }
+        }
+      })
+    },
+  })
 
   const followHandler = () => {
-    followUser({ variables: { username: userName } })
+    followUser()
   }
   const unfollowHandler = () => {
-    unfollowUser({ variables: { username: userName } })
+    unfollowUser()
   }
 
   return (
@@ -54,7 +93,7 @@ const Profile = () => {
               <Name>{userName} <CheckMark /></Name>
               <ButtonGroup>
                 <FollowButton>Message</FollowButton>
-                <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <BsFillPersonCheckFill /> : "Follow"}</FollowButton2>
+                <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
                 <FollowButton><IoIosArrowUp /></FollowButton>
                 <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
                 {profileData?.seeProfile?.isMe && <EditProfileBTN><GrUserSettings /></EditProfileBTN>}
@@ -62,9 +101,9 @@ const Profile = () => {
             </NameHeader>
 
             <Numbers>
-              <NumAndText><BoldText>646</BoldText><Text>posts</Text> </NumAndText>
-              <NumAndText><BoldText>3126</BoldText><Text>followers</Text> </NumAndText>
-              <NumAndText><BoldText>44</BoldText><Text>following</Text> </NumAndText>
+              <NumAndText><BoldText>{profileData?.seeProfile?.totalPics}</BoldText><Text>posts</Text> </NumAndText>
+              <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowers}</BoldText><Text>followers</Text> </NumAndText>
+              <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowing}</BoldText><Text>following</Text> </NumAndText>
             </Numbers>
 
             <BioWrapper>
@@ -261,6 +300,11 @@ const GrUserSettings = styled(GrUserSettingsNS)`
   font-size: 0.8rem;
 `
 
+const FollowPersonIcon = styled(BsFillPersonCheckFill)`
+  font-size: 0.9rem;
+  transform: translate(3px, 2px);
+`
+
 ///////////////////////////////////////
 // BUTTONS
 const EditProfileBTN = styled.button`
@@ -283,7 +327,7 @@ const FollowButton = styled.button`
 `
 
 const FollowButton2 = styled(FollowButton)`
-  min-width: 60px;
+  min-width: 64px;
 `
 
 

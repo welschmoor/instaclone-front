@@ -154,7 +154,9 @@ export const SEE_PROFILE = gql`
         createdAt
       }
       isMe
+      totalFollowing
       totalFollowers
+      totalPics
       isFollowing
     }
   }
