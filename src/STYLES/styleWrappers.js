@@ -9,6 +9,7 @@ export const MWr = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  min-height: 100vh;
 `
 
 export const CWr = styled.div`

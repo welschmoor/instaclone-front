@@ -211,3 +211,33 @@ export const SEARCH_BY_HASHTAG = gql`
     }
   }
 `
+
+export const SEARCH_PHOTOS = gql`
+  query SearchPhotos($keyword: String!) {
+    searchPhotos(keyword: $keyword) {
+      id
+      file
+      caption
+      createdAt
+      likes
+      commentsNumber
+      comments {
+        id
+        payload
+        isMine
+        createdAt
+        user {
+          username
+          avatar
+        }
+      }
+      isLikedByMe
+      user {
+        id
+        username
+        isMe
+        avatar
+      }
+    }
+  }
+`

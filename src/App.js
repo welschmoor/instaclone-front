@@ -13,6 +13,7 @@ import Home from './pages/Home'
 import Feed from './pages/Feed'
 import About from './pages/About'
 import Login from './pages/Login'
+import Search from './pages/Search'
 import Signup from './pages/Signup'
 import Profile from './pages/Profile'
 import Page404 from './pages/Page404'
@@ -44,6 +45,7 @@ const App = () => {
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
 
+            <Route path='/search/:searchTerm' element={<YesNavbar setDarkMode={setDarkMode}><Search /></YesNavbar>} />
             <Route path='/hashtag/:hashtag' element={<YesNavbar setDarkMode={setDarkMode}><Hashtag /></YesNavbar>} />
             <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>} />
             <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />

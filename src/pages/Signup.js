@@ -34,7 +34,7 @@ const Signup = () => {
         }, 2400)
         return null
       }
-      
+
       const { username, password } = getValues()
       navigate('/signupRedirect', { state: { ok, username, password } })
     }
@@ -52,6 +52,7 @@ const Signup = () => {
     <MDtop>
       <Helmet><title>Instapound :: signup</title></Helmet>
       <CW>
+
         <TitleAndSubtitle>
           <Title >Instapound</Title>
           <Subtitle2>Sign up to see photos and videos from your friends.</Subtitle2>
@@ -79,11 +80,14 @@ const Signup = () => {
         </LoginForm>
 
 
-        <Terms>By signing up, you agree to our <Bold>Terms</Bold>.
+        <Terms>
+          By signing up, you agree to our <Bold>Terms</Bold>.
           Always convert your <Bold>Data </Bold> from metric.
           Any attemps to post things in kilograms will be persecuted and all your data sold
           to the Nigerian prince!
-          We use cookies. Do you like <Bold>Cookies</Bold>?</Terms>
+          We use cookies. Do you like <Bold>Cookies</Bold>?
+        </Terms>
+
       </CW>
       <CW>
         <SignupText>Have an account? <SignupLink to="/login">Sign In</SignupLink></SignupText>
@@ -96,7 +100,7 @@ const Signup = () => {
 
 const SignupBTN = styled(BlueBTN)`
   margin-top: 11px;
-  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1}
+  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1};
 `
 
 const FacebookBTN = styled(BlueBTN)`
