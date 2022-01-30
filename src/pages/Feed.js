@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { Helmet } from "react-helmet-async"
+import { useQuery } from "@apollo/client"
+import { FEED } from "../graphql/queries"
 
 // styles
-import { useQuery } from "@apollo/client"
 import styled from "styled-components"
-import { FEED } from "../graphql/queries"
 import { MWr, CWr } from '../STYLES/styleWrappers'
 
 import PhotoCard from "../components/PhotoCard"
@@ -13,6 +14,7 @@ const Feed = () => {
 
   return (
     <MWr>
+      <Helmet><title>Instapound Feed </title></Helmet>
       <CWr>
         {data?.seeFeed?.map(e => {
           return (
