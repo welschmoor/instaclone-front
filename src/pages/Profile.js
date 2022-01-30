@@ -120,7 +120,7 @@ const Profile = () => {
         <PicGrid>
           {profileData?.seeProfile?.photos?.map(e => {
             return (
-              <PicSquare key={e.id}>
+              <PicSquare key={e.id} to={`/pic/${e.id}`}>
                 {/* <Link to={`/pic/${e.id}`}> */}
                   <Picture src={`${e.file}`} />
                 {/* </Link> */}
@@ -139,7 +139,6 @@ const Profile = () => {
 
 const EmptySpace = styled.div`
   width: 100px;
-
 `
 
 const ProfileWrapper = styled.div`
@@ -171,14 +170,13 @@ const PicGrid = styled.div`
   @media (max-width: 736px) {
     row-gap: 4px;
     column-gap: 4px;
-  
   }
 `
 
 // finally managed to do this:...
 // this way the picture is square, aspect ratio is preserved, and it adapts
 // to the width of the browser
-const PicSquare = styled.div`
+const PicSquare = styled(Link)`
    display: flex;
     justify-content: center;
     align-items: center;
@@ -198,8 +196,6 @@ const Picture = styled.img`
     object-fit: cover;
     width: 100%;
     height: 100%;
-
-
 `
 
 ////////////////////////////////////////////////////
@@ -227,7 +223,6 @@ const AvatarDiv = styled(AvatarDivNS)`
   @media (max-width: 736px) {
     width: 80px;
     height: 80px;
-  
   }
 `
 

@@ -181,3 +181,33 @@ export const UNFOLLOW_USER = gql`
     }
   }
 `
+
+export const SEARCH_BY_HASHTAG = gql`
+  query Query($hashtag: String!) {
+    searchPhotosByHashtag(hashtag: $hashtag) {
+      id
+      file
+      caption
+      createdAt
+      likes
+      commentsNumber
+      comments {
+        id
+        payload
+        isMine
+        createdAt
+        user {
+          username
+          avatar
+        }
+      }
+      isLikedByMe
+      user {
+        id
+        username
+        isMe
+        avatar
+      }
+    }
+  }
+`

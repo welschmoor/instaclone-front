@@ -16,6 +16,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Profile from './pages/Profile'
 import Page404 from './pages/Page404'
+import Hashtag from './pages/Hashtag'
 import SignupRedirect from './pages/SignupRedirect'
 
 import YesNavbar from './components/YesNavbar'
@@ -43,7 +44,8 @@ const App = () => {
           {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
 
-            <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>}  />
+            <Route path='/hashtag/:hashtag' element={<YesNavbar setDarkMode={setDarkMode}><Hashtag /></YesNavbar>} />
+            <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>} />
             <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
