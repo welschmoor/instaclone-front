@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
+import { useParams } from "react-router-dom"
+import { useUserHook } from "../graphql/useUserHook"
 import { BsFillPersonCheckFill } from 'react-icons/bs'
 import { useMutation, useQuery } from "@apollo/client"
-import { useParams } from "react-router-dom"
 import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
-import { Helmet } from "react-helmet-async"
 
 
 //styles
@@ -11,12 +12,10 @@ import styled from 'styled-components'
 import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLES/styleProfile'
 
 
-
-import { IoCheckmarkCircle } from 'react-icons/io5'
 import { BsThreeDots } from "react-icons/bs";
 import { IoIosArrowUp } from 'react-icons/io'
+import { IoCheckmarkCircle } from 'react-icons/io5'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
-import { useUserHook } from "../graphql/useUserHook"
 
 
 
@@ -46,6 +45,7 @@ const Profile = () => {
           }
         }
       })
+
     },
   })
 
@@ -122,7 +122,7 @@ const Profile = () => {
             return (
               <PicSquare key={e.id} to={`/pic/${e.id}`}>
                 {/* <Link to={`/pic/${e.id}`}> */}
-                  <Picture src={`${e.file}`} />
+                <Picture src={`${e.file}`} />
                 {/* </Link> */}
               </PicSquare>
             )
@@ -187,7 +187,7 @@ const PicSquare = styled(Link)`
     height: auto;
     object-fit: cover; 
 `
- 
+
 const Picture = styled.img`
     /* width: 10%; */
     flex-shrink: 0;

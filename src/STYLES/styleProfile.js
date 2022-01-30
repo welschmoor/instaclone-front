@@ -18,24 +18,23 @@ export const Avatar = styled.img`
 `
 
 export const TopContainer = styled(CW)`
-padding-left: 14px;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: left;
-gap: 16px;
-margin: 0;
+  padding-left: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 16px;
+  margin: 0;
 
-height: 60px;
-width: 100%;
+  height: 60px;
+  width: 100%;
 
-border-top: none;
-border-left: none;
-border-right: none;
-border-bottom: 0.4px solid ${p => p.theme.BORCOL1};
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 0.4px solid ${p => p.theme.BORCOL1};
 
-position: relative;
-
+  position: relative;
 `
 
 export const BottomContainer = styled(TopContainer)`

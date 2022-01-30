@@ -168,6 +168,7 @@ export const FOLLOW_USER = gql`
     followUser(username: $username) {
       ok
       error
+      userFollowId
     }
   }
 
@@ -178,6 +179,7 @@ export const UNFOLLOW_USER = gql`
     unfollowUser(username: $username) {
       ok
       error
+      userFollowId
     }
   }
 `
@@ -238,6 +240,18 @@ export const SEARCH_PHOTOS = gql`
         isMe
         avatar
       }
+    }
+  }
+`
+
+export const SHOW_ALL_USERS = gql`
+  query ShowAllUsers {
+    showAllUsers {
+      username
+      id
+      avatar
+      isFollowing
+      
     }
   }
 `
