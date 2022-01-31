@@ -14,7 +14,7 @@ import { useUserHook } from "../graphql/useUserHook"
 import Avatar from "./Avatar"
 import SearchForm from './SearchForm'
 import ProfileMenu from "./ProfileMenu"
-import UploadModal from './UploadModal'
+import UploadModal from './UploadModal2'
 
 
 const Navbar = ({ setDarkMode }) => {

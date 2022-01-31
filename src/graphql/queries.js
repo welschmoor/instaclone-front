@@ -256,3 +256,13 @@ export const SHOW_ALL_USERS = gql`
     }
   }
 `
+
+export const UPLOAD_PIC = gql`
+  mutation UploadPhoto($file: Upload!) {
+    uploadPhoto(file: $file) {
+      ok
+      error
+      photoUrl
+    }
+  }
+`

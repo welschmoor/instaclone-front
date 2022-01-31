@@ -18,19 +18,20 @@ const UploadModal = ({ setUploadModalOpenB }) => {
   const fileInputHandler = e => {
     setFile(null)
     let file = e.target.files[0]
+    console.log("fielI", file)
 
-    if (!file) {
-      setFileError('Please, select a file')
-      return
-    }
-    if (!file.type.includes("image/jpeg")) {
-      setFileError('Only .jpg allowed!')
-      return
-    }
-    if (file.size > 1000000) {
-      setFileError('max file size: 1 MB')
-      return
-    }
+    // if (!file) {
+    //   setFileError('Please, select a file')
+    //   return
+    // }
+    // if (!file.type.includes("image/jpeg")) {
+    //   setFileError('Only .jpg allowed!')
+    //   return
+    // }
+    // if (file.size > 1000000) {
+    //   setFileError('max file size: 1 MB')
+    //   return
+    // }
     setFile(file)
   }
 
@@ -39,18 +40,12 @@ const UploadModal = ({ setUploadModalOpenB }) => {
     e.preventDefault()
     // if (loading) { return }
     // if (file === null) { return }
-    try {
-      await uploadPhoto({
-        variables: {
-          file: fileST,
-        }
-      })
 
-    } catch (error) {
-      console.log('error', error)
-      setFileError(error.message)
-    }
-    console.log("submitted2")
+    await uploadPhoto({
+      file: fileST,
+      
+    })
+    console.log("submitted")
   }
 
   return (
@@ -66,9 +61,7 @@ const UploadModal = ({ setUploadModalOpenB }) => {
           <Label htmlFor="file-upload">
             Select from computer
           </Label>
-          <FileInput type="file" id="file-upload"
-            onChange={fileInputHandler} required
-          />
+          <FileInput type="file" id="file-upload" onChange={fileInputHandler} required />
           <BlueBTN type="submit" >Submit</BlueBTN>
         </DragDropForm>
       </ModalWrapper>
