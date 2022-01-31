@@ -15,7 +15,7 @@ import CommentForm from "./CommentForm"
 
 
 const PhotoCard = ({ e }) => {
-  console.log("e", e)
+
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok

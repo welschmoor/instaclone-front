@@ -68,7 +68,6 @@ const CommentForm = ({ photoId, refProp }) => {
   })
 
   const onSuccess = async (data) => {
-    console.log("data", data)
     if (loading || data?.comment === "") return;
     const response = await createComment({ variables: { photoId: photoId, payload: data?.comment } })
     setValue("comment", "") // this clears input

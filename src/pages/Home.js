@@ -27,8 +27,7 @@ const Home = () => {
     await followUser({
       variables: { username: username },
       update: async (cache, result) => {
-        console.log("cache", cache)
-        console.log("result", result)
+
         const ok = await result.data.followUser.ok
         if (!ok) return;
         const fragmentId = `User:${result.data.followUser.userFollowId}`
@@ -43,16 +42,18 @@ const Home = () => {
             }
           }
         })
-        const myOwnID = userData.me.id
-        console.log("myOwnID", myOwnID)
+        
+        const myOwnId = `User:${userData.me.id}`
         await cache.modify({
-          id: `User:${myOwnID}`,
+          id: myOwnId,
           fields: {
             totalFollowing(prev) {
+              console.log('333')
               return prev + 1
-            }
-          }
+            },
+          },
         })
+        console.log('end sub')
         // await cache.evict({ id: `User:${myOwnID}` })
       },
     })
@@ -62,15 +63,34 @@ const Home = () => {
     await unfollowUser({
       variables: { username: username },
       update: async (cache, result) => {
-        console.log("cache", cache)
-        console.log("result", result)
+
         const ok = await result.data.unfollowUser.ok
         if (!ok) return;
+
+
+        
+        const fragmentId2 = `User:${userData.me.id}`
+        await cache.modify({
+          id: fragmentId2,
+          fields: {
+            totalFollowing(prev) {
+              console.log("prev", prev)
+              return prev - 1
+            },
+            // this does not work...
+            photos(prev) {
+              console.log("prev", prev)
+              return prev.filter(e => e.user.id !== result.data.unfollowUser.userFollowId)
+            }
+          }
+        })
+
         const fragmentId = `User:${result.data.unfollowUser.userFollowId}`
         await cache.modify({
           id: fragmentId,
           fields: {
             isFollowing(prev) {
+              console.log("kek")
               return !prev
             },
             totalFollowers(prev) {
@@ -78,16 +98,7 @@ const Home = () => {
             }
           }
         })
-        const myOwnID = userData.me.id
-        console.log("myOwnID", myOwnID)
-        await cache.modify({
-          id: `User:${myOwnID}`,
-          fields: {
-            totalFollowing(prev) {
-              return prev - 1
-            }
-          }
-        })
+
         // await cache.evict({ id: `User:${myOwnID}` })
       },
     })

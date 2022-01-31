@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useReactiveVar } from "@apollo/client"
 import { NavLink as NavLinkNS } from "react-router-dom"
 import { loggedInVar } from "../graphql/apollo"
+import useScroll from '../hooks/useScroll'
 
 // styled
 import styled from "styled-components"
@@ -13,10 +14,13 @@ import { useUserHook } from "../graphql/useUserHook"
 import Avatar from "./Avatar"
 import SearchForm from './SearchForm'
 import ProfileMenu from "./ProfileMenu"
+import UploadModal from './UploadModal'
 
 
 const Navbar = ({ setDarkMode }) => {
+  const { y } = useScroll()
   const [menuOpenB, setMenuOpenB] = useState(false)
+  const [uploadModalOpenB, setUploadModalOpenB] = useState(false)
   const loggedInBool = useReactiveVar(loggedInVar)
   const user = useUserHook()
 
@@ -25,18 +29,23 @@ const Navbar = ({ setDarkMode }) => {
     setMenuOpenB(p => !p)
   }
 
+  const openModal = () => {
+    console.log("modal klacked")
+    setMenuOpenB(false)
+    setUploadModalOpenB(p => !p)
+  }
+
   return (
     <>
-      <Header>
+      <Header y={y}>
         <CW>
-
           <MainLogo><NavLink to="/">Instapound</NavLink></MainLogo>
           <SearchForm />
 
           <MainNav>
             <NavLink to="/"> <HomeIcon /> </NavLink>
             {loggedInBool && <NavLink to="/feed"><FeedIcon /></NavLink>}
-            <NavLink to="/about"><NewPostIcon /></NavLink>
+            <ModalButton onClick={openModal}><NewPostIcon /></ModalButton>
             <NavLink to="/about"><SendIcon /></NavLink>
             {!loggedInBool && <NavLink to="/login">Login</NavLink>}
             {!loggedInBool && <NavLink to="/signup">Signup</NavLink>}
@@ -47,6 +56,7 @@ const Navbar = ({ setDarkMode }) => {
         </CW>
       </Header>
       <ProfileMenu visible={loggedInBool && menuOpenB} setDarkMode={setDarkMode} />
+      {uploadModalOpenB && <UploadModal setUploadModalOpenB={setUploadModalOpenB} />}
     </>
   )
 }
@@ -59,7 +69,8 @@ const MainNav = styled.nav`
 `
 
 const Header = styled.header`
-  height: ${p => p.theme.navbarHeight};;
+  transition: height 0.2s;
+  height: ${p => p.y > 20 ? "46px" : p.theme.navbarHeight};
   width: 100%;
   position: fixed;
   top: 0;
@@ -89,6 +100,14 @@ const MainLogo = styled(Title)`
 const NavLink = styled(NavLinkNS)`
   text-decoration: none;
   color: ${p => p.theme.FC1};
+`
+
+const ModalButton = styled.button`
+    display: inline;
+    background: none;
+    border: none;
+    color: ${p => p.theme.FC1};
+    cursor: pointer;
 `
 
 const HomeIcon = styled(CgHomeAlt)`

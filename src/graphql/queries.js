@@ -29,6 +29,7 @@ export const ME = gql`
       id
       username
       avatar
+      totalFollowing
     }
   }
 `

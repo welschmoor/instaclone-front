@@ -1,15 +1,18 @@
 import { useReactiveVar } from "@apollo/client"
 import { loggedInVar } from "../graphql/apollo"
+import useScroll from '../hooks/useScroll'
 
+//styles
 import styled from "styled-components"
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 import { useUserHook } from "../graphql/useUserHook"
 import { Link } from "react-router-dom"
 
 const ProfileMenu = ({ visible, setDarkMode }) => {
+  const { y } = useScroll()
   const loggedInBool = useReactiveVar(loggedInVar)
   const { data: userData } = useUserHook()
-  console.log("userData", userData)
+
   const logout = () => {
     loggedInVar(false)
     localStorage.removeItem("instapoundtoken")
@@ -24,7 +27,7 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
   }
 
   return (
-    <MenuWrapper visible={visible}>
+    <MenuWrapper visible={visible} y={y}>
       <div>Hello, {userData?.me?.username} </div>
       <Link to={`/profile/${userData?.me?.username}`}>See Profile</Link>
       <button onClick={darkModeHandler} >change theme</button>
@@ -45,7 +48,11 @@ const MenuWrapper = styled.div`
   padding-top: 40px;
 
   /* visible must be one pixel less than the height of navbar */
-  top: ${p => p.visible ? "59px" : "-199px"};  
+  top: ${p => p.visible
+    ? p.y > 20 ? "45px" : "59px"
+    : p.y > 20 ? "-185px" : "-199px"
+
+  };  
   right: -1px;
   background-color: ${p => p.theme.BG1};
   z-index: 12;

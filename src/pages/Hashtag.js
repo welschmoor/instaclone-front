@@ -16,7 +16,7 @@ const Hashtag = () => {
   const { data } = useQuery(SEARCH_BY_HASHTAG, {
     variables: { hashtag }
   })
-  console.log("hashtagdata", data)
+
   return (
     <MWr>
       <Helmet><title>Instapound  &nbsp; #{hashtag} </title></Helmet>

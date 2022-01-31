@@ -56,7 +56,7 @@ const Login = () => {
     const { username, password } = getValues()
     const response = await login({ variables: { username, password } })
     window.localStorage.setItem("instapoundtoken", response.data.login.token)
-    console.log("response", response)
+
   }
   const onFailure = data => {
     console.log("Login Failed")

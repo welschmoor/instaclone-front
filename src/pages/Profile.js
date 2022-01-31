@@ -26,7 +26,6 @@ const Profile = () => {
     variables: { username: userName }
   })
 
-  // console.log("profileData", profileData)
 
   const [followUser] = useMutation(FOLLOW_USER, {
     variables: { username: userName },

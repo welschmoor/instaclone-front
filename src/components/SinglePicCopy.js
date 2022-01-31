@@ -16,7 +16,7 @@ import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 const SinglePic = () => {
   const { id } = useParams()
   const [seePhoto, { called, loading: dataLoading, data: e }] = useLazyQuery(SEE_PIC)
-  console.log("e", e)
+
   // const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
   //   update: (cache, result) => {
   //     const ok = result.data.toggleLike.ok

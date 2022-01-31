@@ -15,8 +15,10 @@ const Feed = () => {
   const { data } = useQuery(FEED)
   const { cache } = useApolloClient()
 
+  // find a better solution to update cache:
   useEffect(() => {
-    if (userData.me.id) {
+    console.log("checking how often useEffect runs")
+    if (userData?.me?.id) {
       cache.evict({ id: `User:${userData?.me?.id}` })
     }
 

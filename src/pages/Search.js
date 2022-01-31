@@ -18,7 +18,7 @@ const Search = () => {
     variables: { keyword: searchTerm }
   })
 
-  console.log("searchData", data)
+
   return (
     <MWr>
       <Helmet><title>Instapound search {searchTerm} </title></Helmet>
