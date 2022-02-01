@@ -34,6 +34,17 @@ const UploadModal = ({ setUploadModalOpenB }) => {
     setFile(file)
   }
 
+  const onChange = ({ validity, files }) => {
+    validity.valid && uploadPhoto({ variables: { file: fileST } })
+  }
+  function onChange2({
+    target: {
+      validity,
+      files: [file],
+    },
+  }) {
+    if (validity.valid) uploadPhoto({ variables: { file } });
+  }
   const uploadHandler = async e => {
     console.log("submitted1")
     e.preventDefault()
@@ -67,7 +78,7 @@ const UploadModal = ({ setUploadModalOpenB }) => {
             Select from computer
           </Label>
           <FileInput type="file" id="file-upload"
-            onChange={fileInputHandler} required
+            onChange={onChange2} required
           />
           <BlueBTN type="submit" >Submit</BlueBTN>
         </DragDropForm>

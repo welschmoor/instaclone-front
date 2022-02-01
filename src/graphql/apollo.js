@@ -2,13 +2,23 @@
 
 import { makeVar, ApolloClient, InMemoryCache, HttpLink, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context'
+import { createUploadLink } from 'apollo-upload-client'
 
 export const loggedInVar = makeVar(Boolean(localStorage.getItem('instapoundtoken')))
 
+// 1 Feb 22 this seems correct:
 
+// old code:
 const httpLink = createHttpLink({
   uri: "http://localhost:4002/graphql",
 })
+
+const uploadLink = createUploadLink({
+  uri: "http://localhost:4002/graphql",
+  headers: {
+    token: localStorage.getItem("instapoundtoken"),
+  }
+},)
 
 const authLink = setContext((_, { headers }) => {
   return {
@@ -20,7 +30,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
 })
 

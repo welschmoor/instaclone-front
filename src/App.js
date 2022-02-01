@@ -22,6 +22,7 @@ import SignupRedirect from './pages/SignupRedirect'
 
 import YesNavbar from './components/YesNavbar'
 import SinglePic from "./components/SinglePic";
+import FileUpload from "./pages/FileUpload";
 
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
             <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />
             <Route path='/about' element={<YesNavbar setDarkMode={setDarkMode}><About /></YesNavbar>} />
+            <Route path='/upload' element={<YesNavbar setDarkMode={setDarkMode}><FileUpload /></YesNavbar>} />
             <Route path='/feed' element={!loggedInBool ? <Navigate to='/' /> : <YesNavbar setDarkMode={setDarkMode}><Feed /></YesNavbar>} />
             <Route path='/' element={<YesNavbar setDarkMode={setDarkMode}><Home /> </YesNavbar>} exact />
             <Route path='*' element={<YesNavbar setDarkMode={setDarkMode}><Page404 /></YesNavbar>} />
