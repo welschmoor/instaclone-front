@@ -74,7 +74,7 @@ const PhotoCard = ({ e }) => {
             <Username> {e.user.username} <CgChevronRight /></Username>
 
             {/* This is how to safely wrap #hashtags with <Link></Link> */}
-            <Caption>{e.caption.split(" ").map((e, i) => /#[\w]+/.test(e)
+            <Caption>{e?.caption?.split(" ").map((e, i) => /#[\w]+/.test(e)
               ? <React.Fragment key={i}><Link to={`/hashtag/${e.slice(1)}`} >{e}</Link>{" "}</React.Fragment>
               : <React.Fragment key={i}>{e}{" "}</React.Fragment>)}
             </Caption>

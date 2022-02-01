@@ -3,6 +3,7 @@ import { useReactiveVar } from "@apollo/client"
 import { NavLink as NavLinkNS } from "react-router-dom"
 import { loggedInVar } from "../graphql/apollo"
 import useScroll from '../hooks/useScroll'
+import UploadModal from './UploadModal'
 
 // styled
 import styled from "styled-components"
@@ -14,7 +15,6 @@ import { useUserHook } from "../graphql/useUserHook"
 import Avatar from "./Avatar"
 import SearchForm from './SearchForm'
 import ProfileMenu from "./ProfileMenu"
-import UploadModal from './UploadModal2'
 
 
 const Navbar = ({ setDarkMode }) => {

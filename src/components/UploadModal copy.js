@@ -1,6 +1,5 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { UPLOAD_PIC } from '../graphql/queries'
-import { useDropzone } from 'react-dropzone';
 
 // styles
 import styled from 'styled-components'
@@ -11,61 +10,100 @@ import { useMutation } from '@apollo/client'
 
 
 const UploadModal = ({ setUploadModalOpenB }) => {
-  const [fileError, setFileError] = useState(null)
-  const [uploadFile, { loading }] = useMutation(UPLOAD_PIC);
+  const [uploadFile] = useMutation(UPLOAD_PIC);
   const onDrop = useCallback(
-    async (acceptedFiles) => {
-      if (loading) { return }
+    (acceptedFiles) => {
       // select the first file from the Array of files
       const file = acceptedFiles[0];
       // use the uploadFile variable created earlier
-      try {
-        await uploadFile({
-          // use the variables option so that you can pass in the file we got above
-          variables: { file },
-          update: (cache, result) => {
-            console.log(result)
-          },
-          onCompleted: () => {
-            setUploadModalOpenB(false)
-          },
-        });
-      } catch (error) {
-        setFileError(error.message)
-      }
-
-    }, [uploadFile]
-  ); // pass in uploadFile as a dependency
-
-
+      uploadFile({
+        // use the variables option so that you can pass in the file we got above
+        variables: { file },
+        onCompleted: () => {},
+      });
+    },
+    // pass in uploadFile as a dependency
+    [uploadFile]
+  );
+  
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
 
+
+
+
+  const [fileST, setFile] = useState(null)
+  const [fileError, setFileError] = useState(null)
+  const [uploadPhoto, { loading }] = useMutation(UPLOAD_PIC)
+  console.log("fileST", fileST)
+
+  const fileInputHandler = e => {
+    setFile(null)
+    let file = e.target.files[0]
+
+    if (!file) {
+      setFileError('Please, select a file')
+      return
+    }
+    if (!file.type.includes("image/jpeg")) {
+      setFileError('Only .jpg allowed!')
+      return
+    }
+    if (file.size > 1000000) {
+      setFileError('max file size: 1 MB')
+      return
+    }
+    setFile(file)
+  }
+
+  const onChange = ({ validity, files }) => {
+    validity.valid && uploadPhoto({ variables: { file: fileST } })
+  }
+  function onChange2({
+    target: {
+      validity,
+      files: [file],
+    },
+  }) {
+    if (validity.valid) uploadPhoto({ variables: { file } });
+  }
+  const uploadHandler = async e => {
+    console.log("submitted1")
+    e.preventDefault()
+    // if (loading) { return }
+    // if (file === null) { return }
+    try {
+      await uploadPhoto({
+        variables: {
+          file: fileST,
+        }
+      })
+
+    } catch (error) {
+      console.log('error', error)
+      setFileError(error.message)
+    }
+    console.log("submitted2")
+  }
 
   return (
     <>
       <ModalPlane onClick={() => setUploadModalOpenB(false)} />
       <ModalWrapper >
         <TitleDiv>
-          <ModalText>Create new post!</ModalText>
+          <ModalText>Create new post</ModalText>
           {fileError && <div>{fileError}</div>}
         </TitleDiv>
-        <DragDropForm
-          {...getRootProps()}
-          className={`dropzone ${isDragActive && 'isActive'}`}
-        >
+        <DragDropForm onSubmit={uploadHandler}>
           <InstaIcon />
-
-          <FileInput {...getInputProps()} disabled={loading} />
-          {isDragActive ? (
-            <UploadText>Drop the files here ...</UploadText>
-          ) : (
-            <UploadText>Drag photos and videos here</UploadText>
-          )}
           <Label htmlFor="file-upload">
             Select from computer
           </Label>
+          <FileInput type="file" id="file-upload"
+            onChange={onChange2} required
+          />
+          <BlueBTN type="submit" >Submit</BlueBTN>
         </DragDropForm>
       </ModalWrapper>
     </>
@@ -135,7 +173,7 @@ const InstaIcon = styled(RiInstagramLine)`
 
 /////////////////////////////////////////////
 // FORM
-const DragDropForm = styled.div`
+const DragDropForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,13 +183,6 @@ const DragDropForm = styled.div`
 
 const FileInput = styled.input`
   display: none;
-`
-
-const UploadText = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
-  color: #414141;
-  margin-bottom: 20px;
-  cursor: default;
 `
 
 const Label = styled.label`
@@ -174,5 +205,3 @@ const Label = styled.label`
   font-weight: 600;
 `
 
-
-export default UploadModal

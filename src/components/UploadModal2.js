@@ -163,6 +163,3 @@ const Label = styled.label`
   color: white;
   font-weight: 600;
 `
-
-
-export default UploadModal
