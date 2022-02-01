@@ -13,21 +13,17 @@ import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 import PhotoCard from "../components/PhotoCard"
 
 const Feed = () => {
-  const [cursorST, setCursorST] = useState(4)
+  const [cursorST, setCursorST] = useState(8)
   const { data: userData } = useUserHook()
   // const { data } = useQuery(FEED, {
   //   variables: { cursor: 4 }
   // })
-  const [loadAgain, { data }] = useLazyQuery(FEED, {
+  const { data, fetchMore } = useQuery(FEED, {
     variables: { cursor: 4 }
   })
 
-  useEffect(() => {
-    loadAgain({ variables: { cursor: 4 } })
-  }, [])
 
   const { cache } = useApolloClient()
-
   // find a better solution to update cache:
   // useEffect(() => {
   //   console.log("checking how often useEffect runs")
@@ -38,11 +34,17 @@ const Feed = () => {
   // }, [userData?.me?.id])
 
   const incrementCursor = () => {
+    console.log(cursorST, 'cursorST')
+    fetchMore({
+      variables: { cursor: cursorST },
+      updateQuery: (prev, fMresult) => {
+        console.log("prev", prev)
+        console.log('fMresult', fMresult)
+        return fMresult.fetchMoreResult
+      }
+    })
     setCursorST(p => {
       const newP = p + 4
-      loadAgain({
-        variables: { cursor: newP }
-      })
       return newP
     })
 

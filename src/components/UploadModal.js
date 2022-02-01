@@ -74,7 +74,7 @@ const UploadModal = ({ setUploadModalOpenB, username }) => {
           {isDragActive ? (
             <UploadText>Drop the files here ...</UploadText>
           ) : (
-            <UploadText>Drag photos and videos here</UploadText>
+            <UploadText>Drag photos here</UploadText>
           )}
           <Label htmlFor="file-upload" uploadLoading={uploadLoading} >
             {uploadLoading ? "Loading..." : "Select from computer"}
