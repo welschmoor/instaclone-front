@@ -35,8 +35,8 @@ export const ME = gql`
 `
 
 export const FEED = gql`
-  query seeFeed{
-    seeFeed {
+  query seeFeed($cursor: Int){
+    seeFeed(cursor: $cursor) {
       id
       file
       caption

@@ -127,4 +127,9 @@ export const lightTheme = {
   // margins
   navbarHeight: "60px",
   zIndexTop: 12,
+
+  BTN: {
+    blue: "#0095F6",
+    lightblue: "rgb(178, 223, 252) ",
+  },
 }
