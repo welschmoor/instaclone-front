@@ -23,7 +23,7 @@ const Navbar = ({ setDarkMode }) => {
   const [uploadModalOpenB, setUploadModalOpenB] = useState(false)
   const loggedInBool = useReactiveVar(loggedInVar)
   const user = useUserHook()
-
+  console.log("user", user)
   const openMenu = () => {
     console.log("menu toggle klacked")
     setMenuOpenB(p => !p)
@@ -56,7 +56,7 @@ const Navbar = ({ setDarkMode }) => {
         </CW>
       </Header>
       <ProfileMenu visible={loggedInBool && menuOpenB} setDarkMode={setDarkMode} />
-      {uploadModalOpenB && <UploadModal setUploadModalOpenB={setUploadModalOpenB} />}
+      {uploadModalOpenB && <UploadModal setUploadModalOpenB={setUploadModalOpenB} username={user?.data?.me?.username} />}
     </>
   )
 }

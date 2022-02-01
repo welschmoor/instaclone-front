@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { UPLOAD_PIC } from '../graphql/queries'
+import { SEE_PROFILE, UPLOAD_PIC } from '../graphql/queries'
 import { useDropzone } from 'react-dropzone';
 
 // styles
@@ -8,14 +8,15 @@ import { Username } from '../STYLES/styleProfile'
 import { RiInstagramLine } from 'react-icons/ri'
 import { BlueBTN } from '../STYLES/styleForm'
 import { useMutation } from '@apollo/client'
+import { cacheSlot } from '@apollo/client/cache';
 
 
-const UploadModal = ({ setUploadModalOpenB }) => {
+const UploadModal = ({ setUploadModalOpenB, username }) => {
   const [fileError, setFileError] = useState(null)
-  const [uploadFile, { loading }] = useMutation(UPLOAD_PIC);
+  const [uploadFile, { loading: uploadLoading }] = useMutation(UPLOAD_PIC);
   const onDrop = useCallback(
     async (acceptedFiles) => {
-      if (loading) { return }
+      if (uploadLoading) { return }
       // select the first file from the Array of files
       const file = acceptedFiles[0];
       // use the uploadFile variable created earlier
@@ -24,11 +25,23 @@ const UploadModal = ({ setUploadModalOpenB }) => {
           // use the variables option so that you can pass in the file we got above
           variables: { file },
           update: (cache, result) => {
-            console.log(result)
+            console.log("result", result)
+            if (!result.data.uploadPhoto.ok) return;
+
+            cache.modify({
+              id: `ROOT_QUERY`,
+              fields: {
+                seeFeed(previous) {
+                  // and now I don't know what to do here
+                  console.log("previous", previous)
+                }
+              }
+            })
           },
           onCompleted: () => {
             setUploadModalOpenB(false)
           },
+          refetchQueries: [{ query: SEE_PROFILE, variables: { username } }]
         });
       } catch (error) {
         setFileError(error.message)
@@ -57,14 +70,14 @@ const UploadModal = ({ setUploadModalOpenB }) => {
         >
           <InstaIcon />
 
-          <FileInput {...getInputProps()} disabled={loading} />
+          <FileInput {...getInputProps()} disabled={uploadLoading} />
           {isDragActive ? (
             <UploadText>Drop the files here ...</UploadText>
           ) : (
             <UploadText>Drag photos and videos here</UploadText>
           )}
-          <Label htmlFor="file-upload">
-            Select from computer
+          <Label htmlFor="file-upload" uploadLoading={uploadLoading} >
+            {uploadLoading ? "Loading..." : "Select from computer"}
           </Label>
         </DragDropForm>
       </ModalWrapper>
@@ -76,6 +89,7 @@ const UploadModal = ({ setUploadModalOpenB }) => {
 const ModalWrapper = styled.div`
   position: fixed;
   max-width: 700px;
+  min-height: 250px;
   width: 80%;
   height: 70%;
   object-fit: cover;
@@ -162,7 +176,7 @@ const Label = styled.label`
   padding: 6px 12px;
   cursor: pointer;
   width: 180px;
-  background-color: #0095F6;
+  background-color:  ${p => p.uploadLoading ? "#69bbf1" : "#0095F6"};
 
   height: 32px;
 

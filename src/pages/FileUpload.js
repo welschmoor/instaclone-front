@@ -1,3 +1,5 @@
+/// this is a test component for file upload reachable per url.../upload
+
 import { useMutation } from '@apollo/client';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';

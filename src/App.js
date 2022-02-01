@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { useReactiveVar } from "@apollo/client";
+import { useReactiveVar } from "@apollo/client"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { loggedInVar } from "./graphql/apollo";
+import { loggedInVar } from "./graphql/apollo"
 import { useUserHook } from "./graphql/useUserHook"
 import { HelmetProvider } from "react-helmet-async"
 
 // styles
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components"
 import { GlobalStyle, darkTheme, lightTheme } from "./STYLES/globalStyles"
 
 import Home from './pages/Home'
@@ -21,8 +21,8 @@ import Hashtag from './pages/Hashtag'
 import SignupRedirect from './pages/SignupRedirect'
 
 import YesNavbar from './components/YesNavbar'
-import SinglePic from "./components/SinglePic";
-import FileUpload from "./pages/FileUpload";
+import SinglePic from "./components/SinglePic"
+import FileUpload from "./pages/FileUpload"
 
 
 const App = () => {
