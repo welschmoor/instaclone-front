@@ -15,13 +15,9 @@ import PhotoCard from "../components/PhotoCard"
 const Feed = () => {
   const [cursorST, setCursorST] = useState(8)
   const { data: userData } = useUserHook()
-  // const { data } = useQuery(FEED, {
-  //   variables: { cursor: 4 }
-  // })
   const { data, fetchMore } = useQuery(FEED, {
     variables: { cursor: 4 }
   })
-
 
   const { cache } = useApolloClient()
   // find a better solution to update cache:
