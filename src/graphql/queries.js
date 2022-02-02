@@ -131,6 +131,7 @@ export const SEE_PROFILE = gql`
       username
       bio
       avatar
+
       photos {
         id
         file
@@ -153,7 +154,13 @@ export const SEE_PROFILE = gql`
         isMine
         isLikedByMe
         createdAt
+        user {
+          id
+          username
+          avatar
+        }
       }
+
       isMe
       totalFollowing
       totalFollowers

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
@@ -17,9 +18,12 @@ import { IoIosArrowUp } from 'react-icons/io'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
 
+import PicModal from "../components/PicModal"
 
 
 const Profile = () => {
+  const [showModalPicutre, setShowModalPicutre] = useState(false)
+  const [selectedPic, setSelectedPic] = useState(null)
   const { data: userData } = useUserHook()
   const { userName } = useParams()
   const { data: profileData } = useQuery(SEE_PROFILE, {
@@ -76,62 +80,69 @@ const Profile = () => {
     unfollowUser()
   }
 
+  const modalPicOpener = (e) => {
+    setShowModalPicutre(true)
+    setSelectedPic(e)
+  }
+
   return (
-    <ProfileWrapper>
-      <Helmet ><title>{userName}'s profile</title></Helmet>
-      <CWProfile>
+    <>
+      {showModalPicutre && <PicModal setShowModalPicutre={setShowModalPicutre} picData={selectedPic} />}
+      <ProfileWrapper>
+        <Helmet ><title>{userName}'s profile</title></Helmet>
+        <CWProfile>
 
 
-        <UserPicAndDescription>
-          <AvatarDiv>
-            <Avatar src={profileData?.seeProfile?.avatar} alt="user picture" />
-          </AvatarDiv>
+          <UserPicAndDescription>
+            <AvatarDiv>
+              <Avatar src={profileData?.seeProfile?.avatar} alt="user picture" />
+            </AvatarDiv>
 
-          <NameAndInfo>
-            <NameHeader>
-              <Name>{userName} <CheckMark /></Name>
-              <ButtonGroup>
-                <FollowButton>Message</FollowButton>
-                <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
-                <FollowButton><IoIosArrowUp /></FollowButton>
-                <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
-                {profileData?.seeProfile?.isMe && <EditProfileBTN><GrUserSettings /></EditProfileBTN>}
-              </ButtonGroup>
-            </NameHeader>
+            <NameAndInfo>
+              <NameHeader>
+                <Name>{userName} <CheckMark /></Name>
+                <ButtonGroup>
+                  <FollowButton>Message</FollowButton>
+                  <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
+                  <FollowButton><IoIosArrowUp /></FollowButton>
+                  <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
+                  {profileData?.seeProfile?.isMe && <EditProfileBTN><GrUserSettings /></EditProfileBTN>}
+                </ButtonGroup>
+              </NameHeader>
 
-            <Numbers>
-              <NumAndText><BoldText>{profileData?.seeProfile?.totalPics}</BoldText><Text>posts</Text> </NumAndText>
-              <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowers}</BoldText><Text>followers</Text> </NumAndText>
-              <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowing}</BoldText><Text>following</Text> </NumAndText>
-            </Numbers>
+              <Numbers>
+                <NumAndText><BoldText>{profileData?.seeProfile?.totalPics}</BoldText><Text>posts</Text> </NumAndText>
+                <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowers}</BoldText><Text>followers</Text> </NumAndText>
+                <NumAndText><BoldText>{profileData?.seeProfile?.totalFollowing}</BoldText><Text>following</Text> </NumAndText>
+              </Numbers>
 
-            <BioWrapper>
-              <Username>{userName}</Username>
-              <Text>Biography goes here</Text>
-              <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
-            </BioWrapper>
-          </NameAndInfo>
+              <BioWrapper>
+                <Username>{userName}</Username>
+                <Text>Biography goes here</Text>
+                <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
+              </BioWrapper>
+            </NameAndInfo>
 
-          <EmptySpace></EmptySpace>
+            <EmptySpace></EmptySpace>
 
-        </UserPicAndDescription>
+          </UserPicAndDescription>
 
-        <PicGrid>
-          {profileData?.seeProfile?.photos?.map(e => {
-            return (
-              <PicSquare key={e.id} to={`/pic/${e.id}`}>
-                {/* <Link to={`/pic/${e.id}`}> */}
-                <Picture src={`${e.file}`} />
-                {/* </Link> */}
-              </PicSquare>
-            )
-          })}
-        </PicGrid>
+          <PicGrid>
+            {profileData?.seeProfile?.photos?.map(e => {
+              return (
+                <PicSquare key={e.id} onClick={() => modalPicOpener(e)} >
+                  <Picture src={`${e.file}`} />
+                </PicSquare>
+              )
+            })}
+          </PicGrid>
 
 
 
-      </CWProfile>
-    </ProfileWrapper>
+        </CWProfile>
+      </ProfileWrapper>
+
+    </>
   )
 }
 
@@ -175,16 +186,17 @@ const PicGrid = styled.div`
 // finally managed to do this:...
 // this way the picture is square, aspect ratio is preserved, and it adapts
 // to the width of the browser
-const PicSquare = styled(Link)`
-   display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    max-width: 300px;
-    max-height: 300px;
-    width: auto;
-    height: auto;
-    object-fit: cover; 
+const PicSquare = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  max-width: 300px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
+  object-fit: cover; 
+  cursor: pointer;
 `
 
 const Picture = styled.img`
