@@ -48,7 +48,7 @@ const Navbar = ({ setDarkMode }) => {
             <ModalButton onClick={openModal}><NewPostIcon /></ModalButton>
             <NavLink to="/about"><SendIcon /></NavLink>
             {!loggedInBool && <NavLink to="/login">Login</NavLink>}
-            {!loggedInBool && <NavLink to="/signup">Signup</NavLink>}
+            {/* {!loggedInBool && <NavLink to="/signup">Signup</NavLink>} */}
           </MainNav>
 
           {user.data && <Avatar imageURL={user?.data?.me?.avatar} onClick={openMenu} />}
@@ -66,6 +66,7 @@ const MainNav = styled.nav`
   margin-right: 80px;
   display: flex;
   gap: 20px;
+  align-items: center;
 `
 
 const Header = styled.header`

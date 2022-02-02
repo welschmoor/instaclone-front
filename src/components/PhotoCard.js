@@ -14,8 +14,8 @@ import { Link3 } from '../STYLES/styleLinks'
 import CommentForm from "./CommentForm"
 
 
-const PhotoCard = ({ e }) => {
-
+const PhotoCard = ({ e, cursorST }) => {
+  // we use cursorST-ate to pass it to singlePic component so we keep our pagination.
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
@@ -56,7 +56,7 @@ const PhotoCard = ({ e }) => {
           </Username>
         </TopContainer>
 
-        <Link to={`/pic/${e.id}`}><Picture src={e?.file} alt={e?.caption} /></Link>
+        <Link to={`/pic/${e.id}`} state={{ cursorST }} ><Picture src={e?.file} alt={e?.caption} /></Link>
 
         <BottomContainer >
           <MainIconGroup>
@@ -93,7 +93,6 @@ const PhotoCard = ({ e }) => {
     </>
   )
 }
-
 
 
 const PhotoCardWrapper = styled.div`

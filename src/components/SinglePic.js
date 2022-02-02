@@ -1,9 +1,9 @@
 
 
 
-import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
+import { DELETE_PHOTO, FEED, SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
-import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
+import { Link as LinkNS, useParams, useNavigate, useLocation } from "react-router-dom"
 import React, { useState, useEffect, useRef } from "react"
 
 // styles
@@ -19,6 +19,9 @@ import { Link3 } from '../STYLES/styleLinks'
 
 
 const SinglePic = () => {
+  const location = useLocation()
+  const cursorST = location?.state?.cursorST
+  console.log(cursorST)
   const { data: userData } = useUserHook()
 
   const commentIconRef = useRef()
@@ -53,6 +56,15 @@ const SinglePic = () => {
   }
 
 
+  const [deletePhoto] = useMutation(DELETE_PHOTO, {
+    refetchQueries: [{ query: FEED }],
+    onCompleted: () => goBack(),
+  })
+  const deletePhotoHandler = async (id) => {
+    await deletePhoto({ variables: { deletePhotoId: Number(id) } })
+  }
+
+
   const [toggleLike, { data: uselessData, loading: uselessLoading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
@@ -75,7 +87,8 @@ const SinglePic = () => {
   })
 
   console.log("photoId", data?.seePhoto?.id)
-
+  console.log("username", data?.seePhoto?.user?.username)
+  console.log("EQ:::", userData?.me?.username === data?.seePhoto?.user?.username)
   const likeHandler = async (id) => {
     await toggleLike({ variables: { id: id } })
   }
@@ -90,7 +103,7 @@ const SinglePic = () => {
   }
 
   const goBack = () => {
-    navigate(-1)
+    navigate(`/feed`, { state: { cursorST } })
   }
 
   return (
@@ -99,6 +112,7 @@ const SinglePic = () => {
       <SPWrapper>
 
         <PicGrid >
+
           <LeftColumn>
             <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
           </LeftColumn>
@@ -107,15 +121,17 @@ const SinglePic = () => {
           <RightColumn>
             <TopContainer>
               <AvatarDiv>
+
                 <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
               </AvatarDiv>
               <Username>
                 <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}>{data?.seePhoto?.user?.username}</Link3> <CheckMark />
               </Username>
+              {userData?.me?.username === data?.seePhoto?.user?.username && <TrashcanIconBig onClick={() => deletePhotoHandler(data?.seePhoto?.id)} />}
+
             </TopContainer>
 
             <BottomContainer>
-
               <Comments>
                 {comments?.map(e => {
                   return (
@@ -134,7 +150,6 @@ const SinglePic = () => {
             </BottomContainer>
 
             <BottomGroup>
-
               <IconGroupContainer>
                 <MainIconGroup>
                   <LeftIconGroup >
@@ -152,6 +167,7 @@ const SinglePic = () => {
           </RightColumn>
 
         </PicGrid>
+
       </SPWrapper>
     </>
   )
@@ -200,7 +216,7 @@ const AvatarDiv = styled(AvatarDivNS)`
 const LeftColumn = styled.div`
   align-content: center;
   align-self: center;
-
+  position: relative;
   justify-self: center;
   justify-content: center; 
 `
@@ -309,6 +325,23 @@ const TrashcanIcon = styled(CgTrashEmpty)`
 
   top: 50%;
   right: 2%;
+  transform: translateY(-50%);
+`
+
+const TrashcanIconBig = styled(TrashcanIcon)`
+  font-size: 0.8rem;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  color: #d84040;
+  z-index: 300;
+
+  ${TopContainer}:hover & {
+    display: inline;
+  }
+
+  top: 50%;
+  right: 5%;
   transform: translateY(-50%);
 `
 

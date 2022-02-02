@@ -30,7 +30,7 @@ const Profile = () => {
     variables: { username: userName }
   })
 
-
+  
   const [followUser] = useMutation(FOLLOW_USER, {
     variables: { username: userName },
     update: async (cache, result) => {

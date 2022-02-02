@@ -11,23 +11,47 @@ import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 
 
 import PhotoCard from "../components/PhotoCard"
+import { useLocation } from "react-router-dom"
+import Home from "./Home"
 
+// very complicated logic for remembering number of loaded pictures
+// I first send cursorST per Link to child singlePic. From there I send dit back
+// and call it cursorSTback. With useEffect I fetch more with -4 (otherwise I have 4 too many)
 const Feed = () => {
-  const [cursorST, setCursorST] = useState(8)
+  const location = useLocation()
+  const cursorSTback = location?.state?.cursorST
+  console.log("cursorSTback", cursorSTback)
+  const [cursorST, setCursorST] = useState(cursorSTback || 8)
   const { data: userData } = useUserHook()
   const { data, fetchMore } = useQuery(FEED, {
-    variables: { cursor: 4 }
+    variables: { cursor: 4 },
+    fetchPolicy: "network-only",   // Used for first execution
+    nextFetchPolicy: "network-only" // Used for subsequent executions
   })
+
+
+  useEffect(() => {
+    if (cursorSTback) {
+      fetchMore({
+        variables: { cursor: cursorSTback - 4 },
+        updateQuery: (prev, fMresult) => {
+          console.log("prev", prev)
+          console.log('fMresult', fMresult)
+          return fMresult.fetchMoreResult
+        }
+      })
+    }
+  }, [cursorSTback])
 
   const { cache } = useApolloClient()
   // find a better solution to update cache:
-  // useEffect(() => {
-  //   console.log("checking how often useEffect runs")
-  //   if (userData?.me?.id) {
-  //     cache.evict({ id: `User:${userData?.me?.id}` })
-  //   }
+  useEffect(() => {
+    console.log("checking how often useEffect runs")
+    if (userData?.me?.id) {
+      cache.evict({ id: `User:${userData?.me?.id}` })
+    }
 
-  // }, [userData?.me?.id])
+  }, [userData?.me?.id])
 
   const incrementCursor = () => {
     console.log(cursorST, 'cursorST')
@@ -52,10 +76,11 @@ const Feed = () => {
       <CWr>
         {data?.seeFeed?.map(e => {
           return (
-            <PhotoCard e={e} key={e.id} />
+            <PhotoCard e={e} key={e.id} cursorST={cursorST} />
           )
         })}
-        <BlueBTN onClick={incrementCursor}>Load more pictures</BlueBTN>
+        {data?.seeFeed?.length > 0 && data?.seeFeed?.length % 4 === 0 && <BlueBTN onClick={incrementCursor}>Load more pictures</BlueBTN>}
+        {data?.seeFeed?.length < 1 && <NoPicturesText>This is your personal feed. <br />Follow some people to see their pictures!</NoPicturesText>}
       </CWr>
     </MWr>
   )
@@ -63,6 +88,15 @@ const Feed = () => {
 
 const BlueBTN = styled(BlueBTNNS)`
   background-color: ${p => p.theme.BTN.blue};
+`
+
+const NoPicturesText = styled.h2`
+  margin-top: 26px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.82rem;
+  color: grey;
+  line-height: 1.3;
 `
 
 export default Feed

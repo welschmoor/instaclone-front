@@ -123,9 +123,18 @@ export const DELETE_COMMENT = gql`
   }
 `
 
+export const DELETE_PHOTO = gql`
+  mutation DeletePhoto($deletePhotoId: Int!) {
+    deletePhoto(id: $deletePhotoId) {
+      ok
+      error
+    }
+  }
+`
+
 export const SEE_PROFILE = gql`
-  query SeeProfile($username: String!) {
-    seeProfile(username: $username) {
+  query SeeProfile($username: String!, $take: Int) {
+    seeProfile(username: $username, take: $take) {
       id
       fullName
       username

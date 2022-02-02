@@ -1,24 +1,24 @@
 // if you scroll for 5 years you might reach the midpoint of this file
 
-import { DELETE_COMMENT } from "../graphql/queries"
-import { useUserHook } from "../graphql/useUserHook"
-import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
+import { DELETE_COMMENT } from "../../graphql/queries"
+import { useUserHook } from "../../graphql/useUserHook"
+import { SEE_PIC, TOGGLE_LIKE } from "../../graphql/queries"
 import React, { useState, useEffect, useRef, useCallback } from "react"
-import { SEE_PROFILE, UPLOAD_PIC } from '../graphql/queries'
+import { SEE_PROFILE, UPLOAD_PIC } from '../../graphql/queries'
 import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
 
 // styles
 import styled from 'styled-components'
-import { Link3 } from '../STYLES/styleLinks'
-import { BlueBTN } from '../STYLES/styleForm'
+import { Link3 } from '../../STYLES/styleLinks'
+import { BlueBTN } from '../../STYLES/styleForm'
 import { RiInstagramLine } from 'react-icons/ri'
 import { IoCheckmarkCircle } from "react-icons/io5"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
-import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../../STYLES/styleProfile'
 
-import CommentForm from "./CommentForm"
+import CommentForm from "../CommentForm"
 
 
 const PicModal = ({ setShowModalPicutre, picData }) => {
