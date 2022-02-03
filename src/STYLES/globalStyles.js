@@ -43,6 +43,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
+    transition: ${p => p.theme.TIMES.zero2};
   }
   ol, ul {
     list-style: none;
@@ -70,6 +71,7 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     background-color: ${p => p.theme.BG1};
+    transition: ${p => p.theme.TIMES.zero2};
     font-size: 125%;
     font-family: Arial, Helvetica, sans-serif;
     overflow-y: scroll;
@@ -106,6 +108,16 @@ export const darkTheme = {
   // margins
   navbarHeight: "60px",
   zIndexTop: 12,
+
+  BTN: {
+    blue: "#0095F6",
+    lightblue: "rgb(178, 223, 252) ",
+  },
+  TIMES: {
+    zero1: "0.2s",
+    zero2: "0.2s",
+    zero3: "0.3s",
+  }
 }
 
 export const lightTheme = {
@@ -132,4 +144,9 @@ export const lightTheme = {
     blue: "#0095F6",
     lightblue: "rgb(178, 223, 252) ",
   },
+  TIMES: {
+    zero1: "0.2s",
+    zero2: "0.2s",
+    zero3: "0.3s",
+  }
 }

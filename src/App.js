@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
-import { useReactiveVar } from "@apollo/client"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { loggedInVar } from "./graphql/apollo"
-import { useUserHook } from "./graphql/useUserHook"
 import { HelmetProvider } from "react-helmet-async"
+import { useUserHook } from "./graphql/useUserHook"
+import { useReactiveVar } from "@apollo/client"
+import { loggedInVar } from "./graphql/apollo"
+import { useEffect, useState } from "react"
 
 // styles
-import { ThemeProvider } from "styled-components"
 import { GlobalStyle, darkTheme, lightTheme } from "./STYLES/globalStyles"
+import { ThemeProvider } from "styled-components"
 
 import Home from './pages/Home'
 import Feed from './pages/Feed'
@@ -20,8 +20,8 @@ import Page404 from './pages/Page404'
 import Hashtag from './pages/Hashtag'
 import SignupRedirect from './pages/SignupRedirect'
 
-import YesNavbar from './components/YesNavbar'
 import SinglePic from "./components/SinglePic"
+import YesNavbar from './components/YesNavbar'
 import FileUpload from "./pages/FileUpload"
 
 

@@ -47,6 +47,16 @@ Woo hoo, I did it with:     refetchQueries: [{ query: SEE_PROFILE, variables: { 
 
 - use the efficient hook instead for scrolling
 
+- add comment added message when adding from feed view.
+
+- implement favorites list
+
+-implement change avatar
+
+- implement change picture description
+
+- fix "load more" button, but the scroll and the % operator
+
 ## Functionality
 You can
 upload images

@@ -18,7 +18,7 @@ import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 
-import { SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
+import { SinglePicWrapper, PicGrid, AvatarDiv,
   Picture,
   RightColumn,
   BottomContainer,
@@ -240,8 +240,6 @@ const ModalWrapper = styled.div`
     width: 84%;
     margin-top: 20px;
   }
-
-
 `
 
 const ModalPlane = styled.div`
@@ -287,7 +285,6 @@ const DragDropForm = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 `
 
 const FileInput = styled.input`
@@ -322,49 +319,14 @@ const Label = styled.label`
 `
 
 
-
-
-
-
+//////////////////////////////////////////////////////
+// styles that are different from SinglePic component
 
 const SPWrapper = styled.div`
   display: flex;
   align-items: center;
-  
   padding: 0;
-
-
   z-index: 5;
-`
-
-const SinglePicWrapper = styled.div`
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-  z-index: 0;
-`
-
-const PicGrid = styled.div`
-  z-index: 10;
-  margin: auto auto;
-  background-color: hsl(0, 0%, 91%);
-
-
-  min-width: 400px;
-  max-width: 1200px;
-
-  display: grid;
-  grid-template-columns: 1fr 300px;
-
-  @media (max-width: 736px) {
-    margin-top: 36px;
-    grid-template-columns: 1fr;
-    background-color: white;
-  }
-`
-
-const AvatarDiv = styled(AvatarDivNS)`
-  flex-shrink: 0;
 `
 
 const LeftColumn = styled.div`
@@ -373,178 +335,6 @@ const LeftColumn = styled.div`
 
   justify-self: center;
   justify-content: center; 
-`
-
-const Picture = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 700px;
-  object-fit: contain;
-`
-
-const RightColumn = styled.div`
-  border-left: 1px solid ${p => p.theme.BORCOL1};
-  border-right: 1px solid ${p => p.theme.BORCOL1};
-  border-bottom: 1px solid ${p => p.theme.BORCOL1};
-  background-color:  ${p => p.theme.BG1};
-
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 736px) {
-    border-left: none;
-    border: 1px solid ${p => p.theme.BORCOL1};
-  }
-`
-
-const BottomContainer = styled.div`
-  /* background-color: ${p => p.theme.BG1}; */
-  /* background-color: transparent; */
-  padding-bottom: 0px;
-  display: block;
-  flex-grow: 100;
-`
-
-const TopContainer = styled(TopContainerNS)`
-  border-top: 1px solid ${p => p.theme.BORCOL1};
-
-  @media (max-width: 736px) {
-    border-left: none;
-    border-top: none;
-  }
-`
-
-const CheckMark = styled(IoCheckmarkCircle)`
-  margin-left: 4px;
-  color: #9b52ee;
-`
-
-///////////////////////////////////////////////
-// Comments
-
-const Comments = styled.div`
-  overflow-y: scroll;
-  max-height: 400px;
-  padding-bottom: 0px;
-`
-
-const Comment = styled.div`
-  
-`
-
-const AvatarDivComment = styled(AvatarDiv)`
-  border: none;
-`
-
-const CommentText = styled.div`
-  font-weight: normal;
-  font-size: 0.7rem;
-  
-`
-
-const ContainerFromTop = styled(TopContainer)`
-  border: none;
-  position: relative;
-`
-
-const MarginDiv = styled.div`
-  margin-left: 16px;
-  margin-bottom: 12px;
-`
-
-
-//////////////////////////////////////////////
-// KEEP SCROLLING, YOU'RE ALMOST THERE
-
-
-//////////////////////////////
-// ICONS
-const IconGroupContainer = styled.div`
-  padding: 14px;
-  border-top: ${p => p.theme.BOR1};
-`
-
-const TrashcanIcon = styled(CgTrashEmpty)`
-  font-size: 0.8rem;
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  color: #d84040;
-
-  ${ContainerFromTop}:hover & {
-    display: inline;
-  }
-
-  top: 50%;
-  right: 2%;
-  transform: translateY(-50%);
-`
-
-const TrashcanIconBig = styled(TrashcanIcon)`
-  font-size: 0.8rem;
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  color: #d84040;
-  z-index: 300;
-
-  ${TopContainer}:hover & {
-    display: inline;
-  }
-
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
-`
-
-const HeartIcon = styled(CgHeart)`
-  font-size: 1.2rem;
-  cursor: pointer;
-`
-
-const HeartIcon2 = styled(HeartFilled)`
-  background-color: white;
-  cursor: pointer;
-`
-
-const CommentIcon = styled(CgComment)`
-  font-size: 1.2rem;
-  transform: translateY(1px);
-  cursor: pointer;
-`
-
-const SendIcon = styled(CgMailOpen)`
-  font-size: 1.2rem;
-  transform: translateY(-1.5px);
-  cursor: pointer;
-`
-
-const BookmarkIcon = styled(CgBookmark)`
-  font-size: 1.3rem;
-  cursor: pointer;
-`
-
-const MainIconGroup = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`
-
-const LeftIconGroup = styled.div`
-  display: flex;
-  gap: 12px;
-`
-
-const Likes = styled.div`
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 4px 16px;
-`
-
-const BottomGroup = styled.div`
-  flex-shrink: 0;
-  flex-grow: 0;
 `
 
 export default PicModal

@@ -282,3 +282,12 @@ export const UPLOAD_PIC = gql`
     }
   }
 `
+
+export const EDIT_AVATAR = gql`
+  mutation EditAvatar($avatar: Upload!) {
+    editProfile(avatar: $avatar) {
+      ok
+      error
+    }
+  }
+`
