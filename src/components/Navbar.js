@@ -55,7 +55,7 @@ const Navbar = ({ setDarkMode }) => {
 
         </CW>
       </Header>
-      <ProfileMenu visible={loggedInBool && menuOpenB} setDarkMode={setDarkMode} />
+      <ProfileMenu visible={loggedInBool && menuOpenB} setDarkMode={setDarkMode} setMenuOpenB={setMenuOpenB} />
       {uploadModalOpenB && <UploadModal setUploadModalOpenB={setUploadModalOpenB} username={user?.data?.me?.username} />}
     </>
   )

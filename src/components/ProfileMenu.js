@@ -8,7 +8,7 @@ import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 import { useUserHook } from "../graphql/useUserHook"
 import { Link } from "react-router-dom"
 
-const ProfileMenu = ({ visible, setDarkMode }) => {
+const ProfileMenu = ({ visible, setDarkMode, setMenuOpenB }) => {
   const { y } = useScroll()
   const loggedInBool = useReactiveVar(loggedInVar)
   const { data: userData } = useUserHook()
@@ -29,7 +29,7 @@ const ProfileMenu = ({ visible, setDarkMode }) => {
   return (
     <MenuWrapper visible={visible} y={y}>
       <div>Hello, {userData?.me?.username} </div>
-      <Link to={`/profile/${userData?.me?.username}`}>See Profile</Link>
+      <Link to={`/profile/${userData?.me?.username}`} onClick={() => setMenuOpenB(false)} >See Profile</Link>
       <button onClick={darkModeHandler} >change theme</button>
       <div>MENU</div>
       <div>MENU</div>

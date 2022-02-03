@@ -26,7 +26,7 @@ const Feed = () => {
   const { data, fetchMore } = useQuery(FEED, {
     variables: { cursor: 4 },
     fetchPolicy: "network-only",   // Used for first execution
-    nextFetchPolicy: "network-only" // Used for subsequent executions
+    nextFetchPolicy: "cache-and-network" // Used for subsequent executions
   })
 
 

@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 import { useUserHook } from "../graphql/useUserHook"
 import { BsFillPersonCheckFill } from 'react-icons/bs'
-import { useMutation, useQuery } from "@apollo/client"
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
 
 
@@ -26,11 +26,21 @@ const Profile = () => {
   const [selectedPic, setSelectedPic] = useState(null)
   const { data: userData } = useUserHook()
   const { userName } = useParams()
-  const { data: profileData } = useQuery(SEE_PROFILE, {
-    variables: { username: userName }
+  // const { data: profileData } = useQuery(SEE_PROFILE, {
+  //   variables: { username: userName },
+  //   fetchPolicy: "network-only",   // Used for first execution
+  //   nextFetchPolicy: "network-only" // Used for subsequent executions
+  // })
+  const [seeProfile, { data: profileData, refetch }] = useLazyQuery(SEE_PROFILE, {
+    variables: { username: userName },
+    fetchPolicy: "network-only",   // Used for first execution
+    nextFetchPolicy: "network-only" // Used for subsequent executions
   })
 
-  
+  useEffect(() => {
+    seeProfile()
+  }, [])
+
   const [followUser] = useMutation(FOLLOW_USER, {
     variables: { username: userName },
     update: async (cache, result) => {
@@ -87,7 +97,7 @@ const Profile = () => {
 
   return (
     <>
-      {showModalPicutre && <PicModal setShowModalPicutre={setShowModalPicutre} picData={selectedPic} />}
+      {showModalPicutre && <PicModal setShowModalPicutre={setShowModalPicutre} picData={selectedPic} seeProfileLazyQuery={seeProfile} refetch={refetch} />}
       <ProfileWrapper>
         <Helmet ><title>{userName}'s profile</title></Helmet>
         <CWProfile>
@@ -193,6 +203,7 @@ const PicSquare = styled.div`
   overflow: hidden;
   max-width: 300px;
   max-height: 300px;
+  
   width: auto;
   height: auto;
   object-fit: cover; 

@@ -1,6 +1,6 @@
 // if you scroll for 5 years you might reach the midpoint of this file
 
-import { DELETE_COMMENT } from "../graphql/queries"
+import { DELETE_COMMENT, DELETE_PHOTO } from "../graphql/queries"
 import { useUserHook } from "../graphql/useUserHook"
 import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
 import React, { useState, useEffect, useRef, useCallback } from "react"
@@ -18,10 +18,37 @@ import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 
+import { SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
+  Picture,
+  RightColumn,
+  BottomContainer,
+  TopContainer,
+  CheckMark,
+  Comments,
+  Comment,
+  AvatarDivComment,
+  CommentText,
+  ContainerFromTop,
+  MarginDiv,
+  IconGroupContainer,
+  TrashcanIcon,
+  TrashcanIconBig,
+  HeartIcon,
+  HeartIcon2,
+  CommentIcon,
+  SendIcon,
+  BookmarkIcon,
+  MainIconGroup,
+  LeftIconGroup,
+  Likes,
+  BottomGroup } from "../STYLES/stylePicDetails" //heilige sch0isse
+
+
+
 import CommentForm from "./CommentForm"
 
 
-const PicModal = ({ setShowModalPicutre, picData }) => {
+const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }) => {
   const [dummyState, setDummyState] = useState(false)
   console.log("picData", picData)
   const { data: userData } = useUserHook()
@@ -91,10 +118,25 @@ const PicModal = ({ setShowModalPicutre, picData }) => {
     commentIconRef.current.focus()
   }
 
+  const [deletePhoto] = useMutation(DELETE_PHOTO, {
+    refetchQueries: [{ query: SEE_PROFILE, variables: { username: userData?.me?.username } }],
+    onCompleted: () => setShowModalPicutre(false),
+  })
+  const deletePhotoHandler = async (id) => {
+    await deletePhoto({ variables: { deletePhotoId: Number(id) } })
+  }
+
+  const closeModal = () => {
+    seeProfileLazyQuery()
+    setShowModalPicutre(false)
+    setTimeout(() => {
+      refetch()
+    }, 100)
+  }
 
   return (
     <>
-      <ModalPlane onClick={() => setShowModalPicutre(false)} />
+      <ModalPlane onClick={closeModal} />
       <ModalWrapper >
 
         <DragDropForm>
@@ -116,6 +158,7 @@ const PicModal = ({ setShowModalPicutre, picData }) => {
                     <Username>
                       <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}>{data?.seePhoto?.user?.username}</Link3> <CheckMark />
                     </Username>
+                    {userData?.me?.username === data?.seePhoto?.user?.username && <TrashcanIconBig onClick={() => deletePhotoHandler(data?.seePhoto?.id)} />}
                   </TopContainer>
 
                   <BottomContainer>
@@ -142,7 +185,7 @@ const PicModal = ({ setShowModalPicutre, picData }) => {
                     <IconGroupContainer>
                       <MainIconGroup>
                         <LeftIconGroup >
-                          {data?.seePhoto?.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />}
+                          {data?.seePhoto?.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />} {/* Congratulations, you've made it this far! So, do you like horizontal scrolling? */}
                           <CommentIcon onClick={commentIconHandler} />
                           <SendIcon />
                         </LeftIconGroup>
@@ -168,7 +211,7 @@ const PicModal = ({ setShowModalPicutre, picData }) => {
 const ModalWrapper = styled.div`
   position: fixed;
   margin-top: -10px;
-  width: 84%;
+  width: 92%;
 
   object-fit: cover;
 
@@ -193,7 +236,9 @@ const ModalWrapper = styled.div`
   } */
 
   @media (max-width: 736px) {
+    position: absolute;
     width: 84%;
+    margin-top: 20px;
   }
 
 
@@ -433,6 +478,23 @@ const TrashcanIcon = styled(CgTrashEmpty)`
 
   top: 50%;
   right: 2%;
+  transform: translateY(-50%);
+`
+
+const TrashcanIconBig = styled(TrashcanIcon)`
+  font-size: 0.8rem;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  color: #d84040;
+  z-index: 300;
+
+  ${TopContainer}:hover & {
+    display: inline;
+  }
+
+  top: 50%;
+  right: 5%;
   transform: translateY(-50%);
 `
 

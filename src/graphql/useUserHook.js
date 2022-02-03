@@ -9,7 +9,9 @@ import { ME } from "./queries";
 export const useUserHook = () => {
   const loggedInBool = useReactiveVar(loggedInVar)
   const { data, error } = useQuery(ME, {
-    skip: !loggedInBool
+    skip: !loggedInBool,
+    fetchPolicy: "network-only",   // Used for first execution
+    nextFetchPolicy: "network-only", // Used for subsequent executions
   })
 
   useEffect(() => {

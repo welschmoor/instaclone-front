@@ -25,6 +25,8 @@ const Login = () => {
   })
 
   const [login, { loading }] = useMutation(LOGIN, {
+    fetchPolicy: "network-only",   // Used for first execution
+    nextFetchPolicy: "network-only", // Used for subsequent executions
     onCompleted: (data) => {
       setError("result", { message: null })
       clearErrors()
@@ -43,7 +45,7 @@ const Login = () => {
       if (token) {
         window.localStorage.setItem("instapoundtoken", token)
         loggedInVar(true)
-        window.location.reload(true)
+        // window.location.reload(true) // this reloads the browser 
         navigate('/')
       }
     }
