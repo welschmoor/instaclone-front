@@ -113,10 +113,11 @@ const BlueBTN = styled(BlueBTNNS)`
 
 const WelcomeText = styled.div`
   font-size: 0.9rem;
-  color: #414141;
+  color: ${p => p.theme.TEXT.greyText};
   font-style: italic;
 
 `
+
 const Bold = styled.div`
   font-weight: 600;
   display: inline;
@@ -124,7 +125,7 @@ const Bold = styled.div`
 
 const Text = styled.div`
   font-size: 0.8rem;
-  color: #414141;
+  color: ${p => p.theme.TEXT.greyText};
   margin-bottom: 5px;
 `
 
@@ -147,7 +148,7 @@ const Space = styled.div`
 
 const UploadIcon = styled(CgArrowUpO)`
   font-size: 1.4rem;
-  color: #414141;
+  color:${p => p.theme.ICON.uploadIcon};
   cursor: pointer;
 `
 

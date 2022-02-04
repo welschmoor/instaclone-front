@@ -122,13 +122,29 @@ export const darkTheme = {
   TEXT: {
     mainLogo: "#e6d2d2",
     link3: "#e6e6e6",
+    greyText: "#b3b3b3",
   },
   BG: {
     col1: "hsl(0, 0%, 8.0392156862745%)",
     col2: "hsl(0, 0%, 22.0392156862745%)", // SearchForm
     greyBrown: "hsl(0, 0%, 8.0392156862745%)",
+    picGrid: "hsl(0, 0%, 13.0392156862745%)",
+
+  },
+  ICON: {
+    uploadIcon: "#9b9b9b",
+  },
+  PROFILE: {
+    name: "#c2aeae",
+    bioLink: "#72609e",
+    btnText: '#c2aeae',
   }
 }
+
+
+
+
+
 
 export const lightTheme = {
 
@@ -162,10 +178,20 @@ export const lightTheme = {
   TEXT: {
     mainLogo: "#383838",
     link3: "#353535",
+    greyText: "#414141",
   },
   BG: {
     col1: "white",
     col2: "rgb(239, 239, 239)", // SearchForm
     greyBrown: "rgb(250, 250, 250)",
+    picGrid: "hsl(0, 0%, 91%)",
+  },
+  ICON: {
+    uploadIcon: "#414141",
+  },
+  PROFILE: {
+    name: "#444444",
+    bioLink: "#3a1b81",
+    btnText: '#424242',
   }
 }

@@ -116,7 +116,7 @@ const Profile = () => {
                   <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
                   <FollowButton><IoIosArrowUp /></FollowButton>
                   <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
-                  {profileData?.seeProfile?.isMe && <EditProfileBTN><GrUserSettings /></EditProfileBTN>}
+                  {profileData?.seeProfile?.isMe && <EditProfileBTN><DotDotDot /></EditProfileBTN>}
                 </ButtonGroup>
               </NameHeader>
 
@@ -127,7 +127,7 @@ const Profile = () => {
               </Numbers>
 
               <BioWrapper>
-                <Username>{userName}</Username>
+                <Username2>{userName}</Username2>
                 <Text>Biography goes here</Text>
                 <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
               </BioWrapper>
@@ -259,7 +259,7 @@ const NameAndInfo = styled.div`
 const Name = styled.h5`
   font-size: 1.2rem;
   font-weight: 200;
-  color: #444444;
+  color: ${p => p.theme.PROFILE.name};
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   letter-spacing: 1.3px;
 `
@@ -275,6 +275,7 @@ const ButtonGroup = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  
 `
 
 const Numbers = styled.div`
@@ -293,18 +294,19 @@ const BioWrapper = styled.div`
   gap: 7px;
   a {
     text-decoration: none;
-    color: #3a1b81;
+    color: ${p => p.theme.PROFILE.bioLink};
   }
 `
 
 const Text = styled(Username)`
   font-weight: normal;
   letter-spacing: 0.4px;
+  color: ${p => p.theme.PROFILE.name};
 `
 
 const BoldText = styled(Username)`
   letter-spacing: 0.4px;
-
+  color: ${p => p.theme.PROFILE.name};
 `
 
 const NumAndText = styled.div`
@@ -320,17 +322,18 @@ const CheckMark = styled(IoCheckmarkCircle)`
 `
 
 const DotsMenu = styled(BsThreeDots)`
+  color: ${p => p.theme.PROFILE.name};
   @media (max-width: 736px) {
     display: none;
   
   }
 `
 
-const GrUserSettings = styled(GrUserSettingsNS)`
+/// this icon is not affected by color change
+const DotDotDot = styled(GrUserSettingsNS)`
   background-color: none;
-  color: #7c7c7c;
-  fill: #7c7c7c;
-
+  color: ${p => p.theme.PROFILE.name};
+  fill: ${p => p.theme.PROFILE.name};
   font-size: 0.8rem;
 `
 
@@ -357,13 +360,16 @@ const FollowButton = styled.button`
   background-color: ${p => p.theme.BG10};
   cursor: pointer;
   font-weight: bold;
-  color: #424242;
+  color: ${p => p.theme.PROFILE.btnText};
 `
 
 const FollowButton2 = styled(FollowButton)`
   min-width: 64px;
 `
 
+const Username2 = styled(Username)`
+  color: ${p => p.theme.PROFILE.name};
+`
 
 ///////////////////////////////////////
 //  MISC

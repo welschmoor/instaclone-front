@@ -28,7 +28,7 @@ export const SinglePicWrapper = styled.div`
 export const PicGrid = styled.div`
   z-index: 10;
   margin: auto auto;
-  background-color: hsl(0, 0%, 91%);
+  background-color: ${p => p.theme.BG.picGrid};
 
 
   min-width: 400px;
@@ -88,7 +88,12 @@ export const BottomContainer = styled.div`
   padding-bottom: 0px;
   display: block;
   flex-grow: 100;
-  max-height: 500px;
+  max-height: 400px;
+  /* max-width: 600px; */
+
+  @media (max-width: 736px) {
+    max-width: 440px;
+  }
 `
 
 export const TopContainer = styled(TopContainerNS)`
@@ -188,6 +193,16 @@ export const HeartIcon = styled(CgHeart)`
 export const HeartIcon2 = styled(HeartFilled)`
   background-color: ${p => p.theme.TEXT.col1};
   cursor: pointer;
+
+  animation: littlePuff 0.2s;
+  @keyframes littlePuff {
+    from {
+      transform: scale(1.7);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 `
 
 export const CommentIcon = styled(CgComment)`
@@ -225,6 +240,7 @@ export const Likes = styled.div`
   font-size: 0.7rem;
   font-weight: 600;
   padding: 4px 16px;
+  color: ${p => p.theme.TEXT.mainLogo};
 `
 
 export const BottomGroup = styled.div`

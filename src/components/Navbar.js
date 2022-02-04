@@ -70,8 +70,7 @@ const MainNav = styled.nav`
 `
 
 const Header = styled.header`
-  transition: ${p => p.theme.TIMES.zero2};
-  transition: height 0.2s;
+  transition: ${p => p.theme.TIMES.zero2}, height 0.2s;
   height: ${p => p.y > 20 ? "46px" : p.theme.navbarHeight};
   width: 100%;
   position: fixed;

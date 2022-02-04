@@ -5,7 +5,7 @@ import styled from "styled-components"
 const Footer = () => {
   return (
     <FooterDiv>
-      footer!
+      &nbsp;
     </FooterDiv>
   )
 }

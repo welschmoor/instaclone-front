@@ -174,6 +174,16 @@ const HeartIcon = styled(CgHeart)`
 const HeartIconFilled = styled(HeartFilled)`
   background-color: ${p => p.theme.TEXT.col1};
   cursor: pointer;
+
+  animation: littlePuff 0.2s;
+  @keyframes littlePuff {
+    from {
+      transform: scale(1.7);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 `
 
 const CommentIcon = styled(CgComment)`

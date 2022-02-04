@@ -45,6 +45,10 @@ old cache not updating?
 
 - fix dark mode change not working when logged out
 
+- fix comment added message being in the wrong spot.
+
+- Add back-arrows for closing the picModal!
+
 ## Functionality
 You can
 upload images
