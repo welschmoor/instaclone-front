@@ -212,7 +212,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   margin-top: -10px;
   width: 92%;
-
+  max-width: 970px;
   object-fit: cover;
 
   left: 50%;

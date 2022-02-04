@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useUserHook } from "../graphql/useUserHook"
-import { BsFillPersonCheckFill } from 'react-icons/bs'
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
 
 
 //styles
-import styled from 'styled-components'
 import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLES/styleProfile'
-
-
-import { BsThreeDots } from "react-icons/bs";
-import { IoIosArrowUp } from 'react-icons/io'
-import { IoCheckmarkCircle } from 'react-icons/io5'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
+import { BsFillPersonCheckFill } from 'react-icons/bs'
+import { IoCheckmarkCircle } from 'react-icons/io5'
+import { IoIosArrowUp } from 'react-icons/io'
+import { BsThreeDots } from "react-icons/bs"
+import styled from 'styled-components'
+import { MdSettingsSuggest } from 'react-icons/md'
 
 import PicModal from "../components/PicModal"
 
@@ -116,7 +115,7 @@ const Profile = () => {
                   <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
                   <FollowButton><IoIosArrowUp /></FollowButton>
                   <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
-                  {profileData?.seeProfile?.isMe && <EditProfileBTN><DotDotDot /></EditProfileBTN>}
+                  {profileData?.seeProfile?.isMe && <EditProfileBTN><UserSettingsIcon /></EditProfileBTN>}
                 </ButtonGroup>
               </NameHeader>
 
@@ -330,11 +329,11 @@ const DotsMenu = styled(BsThreeDots)`
 `
 
 /// this icon is not affected by color change
-const DotDotDot = styled(GrUserSettingsNS)`
+const UserSettingsIcon = styled(MdSettingsSuggest)`
   background-color: none;
   color: ${p => p.theme.PROFILE.name};
   fill: ${p => p.theme.PROFILE.name};
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 `
 
 const FollowPersonIcon = styled(BsFillPersonCheckFill)`
@@ -353,7 +352,7 @@ const EditProfileBTN = styled.button`
 `
 
 const FollowButton = styled.button`
-  border: 1px solid ${p => p.theme.BORCOL1};
+  border: 1px solid ${p => p.theme.PROFILE.btnBorderCol};
   border-radius: 3px;
   padding: 0px 9px;
   min-height: 32px;
@@ -365,6 +364,7 @@ const FollowButton = styled.button`
 
 const FollowButton2 = styled(FollowButton)`
   min-width: 64px;
+  color: ${p => p.theme.PROFILE.btnText};
 `
 
 const Username2 = styled(Username)`

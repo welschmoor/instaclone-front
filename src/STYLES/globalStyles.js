@@ -138,6 +138,7 @@ export const darkTheme = {
     name: "#c2aeae",
     bioLink: "#72609e",
     btnText: '#c2aeae',
+    btnBorderCol: "#9c9292",
   }
 }
 
@@ -193,5 +194,6 @@ export const lightTheme = {
     name: "#444444",
     bioLink: "#3a1b81",
     btnText: '#424242',
+    btnBorderCol: "#DBDBDB",
   }
 }
