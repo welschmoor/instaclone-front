@@ -42,7 +42,7 @@ const Home = () => {
             }
           }
         })
-        
+
         const myOwnId = `User:${userData.me.id}`
         await cache.modify({
           id: myOwnId,
@@ -68,7 +68,7 @@ const Home = () => {
         if (!ok) return;
 
 
-        
+
         const fragmentId2 = `User:${userData.me.id}`
         await cache.modify({
           id: fragmentId2,
@@ -135,7 +135,8 @@ const Home = () => {
 
 
 const HomeWrapper = styled.div`
-  background-color: ${p => p.theme.BG10};
+  transition: ${p => p.theme.TIMES.zero2};
+  background-color: ${p => p.theme.BG.col1};
   width: 100%;
   display: flex;
   justify-content: center;
@@ -143,11 +144,12 @@ const HomeWrapper = styled.div`
 `
 
 const CWHome = styled.div`
+  transition: ${p => p.theme.TIMES.zero2};
   margin-left: 10px;
   max-width: 940px;
   margin: 0 auto;
   padding-top: 40px;
-  background-color: ${p => p.theme.BG10};
+  background-color: ${p => p.theme.BG.col1};
 `
 
 const Hometext = styled.div`

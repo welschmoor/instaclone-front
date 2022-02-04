@@ -104,6 +104,8 @@ const Form = styled.form`
 `
 
 const Input = styled.input`
+  background-color: ${p => p.theme.BG.col1};
+  color: ${p => p.theme.TEXT.mainLogo};
   padding: 5px 0;
   border: none;
   border-bottom: 1px solid ${p => p.theme.BORCOL1};

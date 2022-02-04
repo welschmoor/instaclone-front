@@ -84,7 +84,6 @@ export const Title = styled.h1`
   font-size: 2.2rem;
   font-weight: 600;
 
-
 `
 
 export const Subtitle = styled.h2`

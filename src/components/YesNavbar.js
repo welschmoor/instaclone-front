@@ -18,7 +18,7 @@ const YesNavbar = ({ children, setDarkMode }) => {
 const Wrapper = styled.div`
   transition: ${p => p.theme.TIMES.zero2};
   padding-top: ${p=>p.theme.navbarHeight};
-  background-color: ${p=>p.theme.BG10};
+  background-color: ${p => p.theme.BG.greyBrown};
   padding-left: 10px;
   padding-right: 10px;
 `

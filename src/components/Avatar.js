@@ -23,7 +23,7 @@ const IMG = styled.img`
   height:  ${p => p.y > 20 ? "27px" : "50px"};
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 0 ${p => p.y > 20 ? "6px" : "6px"} white, 0 0 0 ${p => p.y > 20 ? "0px" : "7px"} ${p => p.theme.BORCOL1};
+  box-shadow: 0 0 0 ${p => p.y > 20 ? "6px" : "6px"} ${p => p.theme.BG.col1}, 0 0 0 ${p => p.y > 20 ? "0px" : "7px"} ${p => p.theme.BORCOL1};
   z-index: 102;
 `
 
@@ -49,7 +49,7 @@ const Halfcircle = styled.div`
   background-color: transparent;
   border-top-left-radius: 72px;  /* 100px of height + 10px of border */
   border-top-right-radius: 72px; /* 100px of height + 10px of border */
-  border: 6px solid white;
+  border: 6px solid ${p => p.theme.BG.col1};
   border-bottom: 0;
   transform: translate(-8px, -62px);
 `

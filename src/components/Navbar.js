@@ -39,7 +39,7 @@ const Navbar = ({ setDarkMode }) => {
     <>
       <Header y={y}>
         <CW>
-          <MainLogo><NavLink to="/">Instapound</NavLink></MainLogo>
+          <NavLink to="/"><MainLogo>Instapound</MainLogo></NavLink>
           <SearchForm />
 
           <MainNav>
@@ -77,7 +77,7 @@ const Header = styled.header`
   position: fixed;
   top: 0;
   border-bottom: 1px solid ${p => p.theme.BORCOL1};
-  background-color: white;
+  background-color: ${p => p.theme.BG.col1};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,13 +95,18 @@ const CW = styled.div`
   margin-left: 10px;
 `
 
-const MainLogo = styled(Title)`
+const MainLogo = styled.h1`
   font-size: 1.4rem;
+  color: ${p => p.theme.TEXT.mainLogo};
+
+
+  font-family: Monotype Corsiva;
+  font-weight: 600;
 `
 
 const NavLink = styled(NavLinkNS)`
   text-decoration: none;
-  color: ${p => p.theme.FC1};
+  color: ${p => p.theme.TEXT.mainLogo} !important;
 `
 
 const ModalButton = styled.button`
@@ -114,6 +119,7 @@ const ModalButton = styled.button`
 
 const HomeIcon = styled(CgHomeAlt)`
   font-size: 1.3rem;
+  
 `
 
 const SendIcon = styled(CgMailOpen)`
@@ -125,11 +131,12 @@ const SendIcon = styled(CgMailOpen)`
 const NewPostIcon = styled(CgAddR)`
   font-size: 1.3rem;
   transform: translateY(1px);
+  color:${p => p.theme.TEXT.mainLogo};
 `
 
 const FeedIcon = styled(CgInstagram)`
   font-size: 1.2rem;
-  transform: translateY(2px);
+  transform: translateY(1px);
 `
 
 export default Navbar

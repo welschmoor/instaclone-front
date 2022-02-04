@@ -61,7 +61,7 @@ const PhotoCard = ({ e, cursorST }) => {
         <BottomContainer >
           <MainIconGroup>
             <LeftIconGroup >
-              {e.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
+              {e.isLikedByMe ? <HeartIconFilled onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
               <CommentIcon />
               <SendIcon />
             </LeftIconGroup>
@@ -140,6 +140,7 @@ const Likes = styled.div`
   font-size: 0.7rem;
   font-weight: 600;
   padding: 12px 0;
+  color: ${p => p.theme.TEXT.mainLogo};
 `
 
 const Caption = styled.p`
@@ -165,28 +166,32 @@ const Comments = styled.div`
 // ICONS
 
 const HeartIcon = styled(CgHeart)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   cursor: pointer;
 `
 
-const HeartIcon2 = styled(HeartFilled)`
-  background-color: white;
+const HeartIconFilled = styled(HeartFilled)`
+  background-color: ${p => p.theme.TEXT.col1};
   cursor: pointer;
 `
 
 const CommentIcon = styled(CgComment)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   transform: translateY(1px);
   cursor: pointer;
 `
 
 const SendIcon = styled(CgMailOpen)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   transform: translateY(-1.5px);
   cursor: pointer;
 `
 
 const BookmarkIcon = styled(CgBookmark)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.3rem;
   cursor: pointer;
 `

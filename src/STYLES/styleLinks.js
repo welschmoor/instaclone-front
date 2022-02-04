@@ -7,5 +7,6 @@ import styled from "styled-components"
 
 export const Link3 = styled(Link)`
   text-decoration: none;
-  color: #353535;
+  color: ${p => p.theme.TEXT.link3};
+
 `

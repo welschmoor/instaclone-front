@@ -71,7 +71,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    background-color: ${p => p.theme.BG1};
+    background-color: ${p => p.theme.BG.greyBrown};
     transition: ${p => p.theme.TIMES.zero2};
     font-size: 125%;
     font-family: Arial, Helvetica, sans-serif;
@@ -102,7 +102,7 @@ export const darkTheme = {
   C1: "grey",
 
   BOR1: "1px solid #DBDBDB",
-  BORCOL1: "#DBDBDB",
+  BORCOL1: "#645050",
 
   blueBTN1: "#0095F6",
 
@@ -118,6 +118,15 @@ export const darkTheme = {
     zero1: "0.2s",
     zero2: "0.2s",
     zero3: "0.3s",
+  },
+  TEXT: {
+    mainLogo: "#e6d2d2",
+    link3: "#e6e6e6",
+  },
+  BG: {
+    col1: "hsl(0, 0%, 8.0392156862745%)",
+    col2: "hsl(0, 0%, 22.0392156862745%)", // SearchForm
+    greyBrown: "hsl(0, 0%, 8.0392156862745%)",
   }
 }
 
@@ -149,5 +158,14 @@ export const lightTheme = {
     zero1: "0.2s",
     zero2: "0.2s",
     zero3: "0.3s",
+  },
+  TEXT: {
+    mainLogo: "#383838",
+    link3: "#353535",
+  },
+  BG: {
+    col1: "white",
+    col2: "rgb(239, 239, 239)", // SearchForm
+    greyBrown: "rgb(250, 250, 250)",
   }
 }

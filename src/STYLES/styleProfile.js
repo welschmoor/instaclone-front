@@ -25,7 +25,7 @@ export const TopContainer = styled(CW)`
   justify-content: left;
   gap: 16px;
   margin: 0;
-
+  background-color: ${p => p.theme.BG.col1};
   height: 60px;
   width: 100%;
 
@@ -51,4 +51,5 @@ export const Username = styled.h4`
   font-weight: bold;
   display: flex;
   align-items: center;
+  color: ${p => p.theme.TEXT.link3};
 `

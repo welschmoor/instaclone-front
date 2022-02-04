@@ -26,11 +26,12 @@ const Form = styled.form`
 `
 
 const Input = styled.input`
-  background-color: rgb(239, 239, 239);
+  background-color: ${p => p.theme.BG.col2};
   padding: 9px;
   padding-left: 16px;
   border: none;
   border-radius: 6px;
+  color: ${p => p.theme.TEXT.mainLogo};
 `
 
 export default SearchForm

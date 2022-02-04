@@ -22,7 +22,7 @@ export const SinglePicWrapper = styled.div`
   height: 200vh;
   z-index: 0;
   /* transform: translate(-50%, -50%); */
-  background-color: ${p=>p.theme.BG10};
+  background-color: ${p => p.theme.BG10};
 `
 
 export const PicGrid = styled.div`
@@ -49,6 +49,7 @@ export const AvatarDiv = styled(AvatarDivNS)`
 `
 
 export const LeftColumn = styled.div`
+  background-color:  ${p => p.theme.BG.greyBrown};
   align-content: center;
   align-self: center;
   position: relative;
@@ -57,6 +58,7 @@ export const LeftColumn = styled.div`
 `
 
 export const Picture = styled.img`
+  background-color:  ${p => p.theme.BG.greyBrown};
   width: 100%;
   height: auto;
   display: block;
@@ -68,7 +70,7 @@ export const RightColumn = styled.div`
   border-left: 1px solid ${p => p.theme.BORCOL1};
   border-right: 1px solid ${p => p.theme.BORCOL1};
   border-bottom: 1px solid ${p => p.theme.BORCOL1};
-  background-color:  ${p => p.theme.BG1};
+  background-color:  ${p => p.theme.BG.col1};
 
   display: flex;
   flex-direction: column;
@@ -124,7 +126,7 @@ export const AvatarDivComment = styled(AvatarDiv)`
 export const CommentText = styled.div`
   font-weight: normal;
   font-size: 0.7rem;
-  
+  color: ${p => p.theme.TEXT.mainLogo};
 `
 
 export const ContainerFromTop = styled(TopContainer)`
@@ -178,28 +180,32 @@ export const TrashcanIconBig = styled(TrashcanIcon)`
 `
 
 export const HeartIcon = styled(CgHeart)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   cursor: pointer;
 `
 
 export const HeartIcon2 = styled(HeartFilled)`
-  background-color: white;
+  background-color: ${p => p.theme.TEXT.col1};
   cursor: pointer;
 `
 
 export const CommentIcon = styled(CgComment)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   transform: translateY(1px);
   cursor: pointer;
 `
 
 export const SendIcon = styled(CgMailOpen)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.2rem;
   transform: translateY(-1.5px);
   cursor: pointer;
 `
 
 export const BookmarkIcon = styled(CgBookmark)`
+  color: ${p => p.theme.TEXT.mainLogo};
   font-size: 1.3rem;
   cursor: pointer;
 `

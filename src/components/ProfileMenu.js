@@ -93,9 +93,9 @@ const MenuWrapper = styled.div`
 
   };  
   right: -1px;
-  background-color: ${p => p.theme.BG1};
+  background-color: ${p => p.theme.BG.col1};
   z-index: 12;
-  border: ${p => p.theme.BOR1};
+  border: 1px solid ${p => p.theme.BORCOL1};
   box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.05);
 `
 
