@@ -137,11 +137,11 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
   return (
     <>
       <ModalPlane onClick={closeModal} />
-      <ModalWrapper >
+      <ModalWrapper className="POOP">
 
         <DragDropForm>
           <>
-            <SinglePicWrapper onClick={() => setShowModalPicutre(false)}>  </SinglePicWrapper>
+            {/* <SinglePicWrapper onClick={() => setShowModalPicutre(false)}>  </SinglePicWrapper> */}
             <SPWrapper>
 
               <PicGrid >

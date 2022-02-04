@@ -144,7 +144,6 @@ const SinglePic = () => {
             <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
           </LeftColumn>
 
-
           <RightColumn>
             <TopContainer>
               <AvatarDiv>

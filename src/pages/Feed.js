@@ -1,18 +1,18 @@
+import { useQuery, useApolloClient } from "@apollo/client"
+import { useUserHook } from "../graphql/useUserHook"
 import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
-import { useLazyQuery, useQuery, useApolloClient } from "@apollo/client"
 import { FEED } from "../graphql/queries"
-import { useUserHook } from "../graphql/useUserHook"
 
 // styles
-import styled from "styled-components"
-import { MWr, CWr } from '../STYLES/styleWrappers'
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
+import { MWr, CWr } from '../STYLES/styleWrappers'
+import styled from "styled-components"
 
 
 import PhotoCard from "../components/PhotoCard"
 import { useLocation } from "react-router-dom"
-import Home from "./Home"
+
 
 // very complicated logic for remembering number of loaded pictures
 // I first send cursorST per Link to child singlePic. From there I send dit back
@@ -67,7 +67,6 @@ const Feed = () => {
       const newP = p + 4
       return newP
     })
-
   }
 
   return (
@@ -85,6 +84,7 @@ const Feed = () => {
     </MWr>
   )
 }
+
 
 const BlueBTN = styled(BlueBTNNS)`
   background-color: ${p => p.theme.BTN.blue};

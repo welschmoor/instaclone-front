@@ -42,8 +42,7 @@ const SliderSpan = styled.span`
 `
 
 const CheckBoxInput = styled.input`
-  background-color: ${p => p.theme.BTN.blue};
-  opacity: 1;
+  opacity: 0;
   width: 0;
   height: 0;
   &:checked + ${SliderSpan}:before {

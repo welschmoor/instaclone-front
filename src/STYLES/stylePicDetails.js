@@ -18,9 +18,11 @@ export const SPWrapper = styled.div`
 
 export const SinglePicWrapper = styled.div`
   position: fixed;
-  height: 100vh;
-  width: 100%;
+  width: 200vw;
+  height: 200vh;
   z-index: 0;
+  /* transform: translate(-50%, -50%); */
+  background-color: ${p=>p.theme.BG10};
 `
 
 export const PicGrid = styled.div`
@@ -71,6 +73,7 @@ export const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
 
+
   @media (max-width: 736px) {
     border-left: none;
     border: 1px solid ${p => p.theme.BORCOL1};
@@ -83,6 +86,7 @@ export const BottomContainer = styled.div`
   padding-bottom: 0px;
   display: block;
   flex-grow: 100;
+  max-height: 500px;
 `
 
 export const TopContainer = styled(TopContainerNS)`
@@ -104,8 +108,9 @@ export const CheckMark = styled(IoCheckmarkCircle)`
 
 export const Comments = styled.div`
   overflow-y: scroll;
-  max-height: 400px;
+
   padding-bottom: 0px;
+  height: 100%;
 `
 
 export const Comment = styled.div`
@@ -217,6 +222,7 @@ export const Likes = styled.div`
 `
 
 export const BottomGroup = styled.div`
+  height: 130px;
   flex-shrink: 0;
   flex-grow: 0;
 `

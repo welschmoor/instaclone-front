@@ -1,15 +1,15 @@
-import { TOGGLE_LIKE } from "../graphql/queries"
-import { gql, useMutation } from "@apollo/client"
 import { Link as LinkNS } from "react-router-dom"
+import { TOGGLE_LIKE } from "../graphql/queries"
+import { useMutation } from "@apollo/client"
 import React, { useState } from "react"
 
 // styles
-import styled from "styled-components"
-import { CW } from "../STYLES/styleForm"
+import { AvatarDiv, Avatar, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { AvatarDiv, Avatar, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
 import { Link3 } from '../STYLES/styleLinks'
+import { CW } from "../STYLES/styleForm"
+import styled from "styled-components"
 
 import CommentForm from "./CommentForm"
 
@@ -161,8 +161,6 @@ const Comments = styled.div`
   color: #9c9c9c;
 `
 
-
-
 //////////////////////////////
 // ICONS
 
@@ -175,7 +173,6 @@ const HeartIcon2 = styled(HeartFilled)`
   background-color: white;
   cursor: pointer;
 `
-
 
 const CommentIcon = styled(CgComment)`
   font-size: 1.2rem;
@@ -205,7 +202,6 @@ const Link = styled(LinkNS)`
 const Link2 = styled(Link)`
   color: #9c9c9c;
 `
-
 
 
 export default PhotoCard

@@ -44,6 +44,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     line-height: 1;
     transition: ${p => p.theme.TIMES.zero2};
+    height: 100%;
   }
   ol, ul {
     list-style: none;

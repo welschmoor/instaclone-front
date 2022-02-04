@@ -9,9 +9,10 @@ import ThemeSwitch from "./ThemeSwitch"
 
 //styles
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
+import { IoLogOutOutline } from "react-icons/io5"
+import { useDropzone } from "react-dropzone"
 import { CgArrowUpO } from "react-icons/cg"
 import styled from "styled-components"
-import { useDropzone } from "react-dropzone"
 
 
 const ProfileMenu = ({ visible, setDarkMode, setMenuOpenB }) => {
@@ -38,7 +39,6 @@ const ProfileMenu = ({ visible, setDarkMode, setMenuOpenB }) => {
   );
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-
   const logout = () => {
     loggedInVar(false)
     localStorage.removeItem("instapoundtoken")
@@ -54,8 +54,9 @@ const ProfileMenu = ({ visible, setDarkMode, setMenuOpenB }) => {
 
   return (
     <MenuWrapper visible={visible} y={y}>
-      <WelcomeText> Hello, {userData?.me?.username}! </WelcomeText>
+      <WelcomeText> Hello, <Bold>{userData?.me?.username}</Bold>! </WelcomeText>
       <Link to={`/profile/${userData?.me?.username}`} onClick={() => setMenuOpenB(false)} >See your profile</Link>
+
       <Text>Change the color mode:</Text>
       <ThemeSwitch setDarkMode={darkModeHandler} />
 
@@ -73,7 +74,7 @@ const ProfileMenu = ({ visible, setDarkMode, setMenuOpenB }) => {
       </UploadAvatarArea>
 
       <Space />
-      {loggedInBool && <BlueBTN onClick={() => logout()} >logout</BlueBTN>}
+      {loggedInBool && <BlueBTN onClick={() => logout()} >logout<LogOutIcon /></BlueBTN>}
     </MenuWrapper>
   )
 }
@@ -88,7 +89,7 @@ const MenuWrapper = styled.div`
   /* visible must be one pixel less than the height of navbar */
   top: ${p => p.visible
     ? p.y > 20 ? "45px" : "59px"
-    : p.y > 20 ? "-185px" : "-199px"
+    : p.y > 20 ? "-260px" : "-250px"
 
   };  
   right: -1px;
@@ -100,12 +101,25 @@ const MenuWrapper = styled.div`
 
 const BlueBTN = styled(BlueBTNNS)`
   background-color: ${p => p.theme.blueBTN1};
+  transition: 0.13s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    font-size: 0rem;
+  }
 `
 
 const WelcomeText = styled.div`
   font-size: 0.9rem;
   color: #414141;
   font-style: italic;
+
+`
+const Bold = styled.div`
+  font-weight: 600;
+  display: inline;
 `
 
 const Text = styled.div`
@@ -119,7 +133,8 @@ const Link = styled(LinkNS)`
   font-size: 0.6rem;
   color: #646464;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding: 1px 0;
 
   &:hover {
     text-decoration: underline;
@@ -142,6 +157,17 @@ const UploadAvatarArea = styled.div`
 
 const FileInput = styled.input`
   display: none;
+`
+
+const LogOutIcon = styled(IoLogOutOutline)`
+  transition: 0.13s;
+  transform: translateX(10px);
+  color: ${p => p.theme.logOutIconCol};
+  font-size: 0rem;
+  ${BlueBTN}:hover & {
+    transform: translateX(0px);
+    font-size: 1.2rem;
+  }
 `
 
 export default ProfileMenu
