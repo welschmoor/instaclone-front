@@ -136,7 +136,7 @@ const Home = () => {
 
 const HomeWrapper = styled.div`
   transition: ${p => p.theme.TIMES.zero2};
-  background-color: ${p => p.theme.BG.col1};
+  background-color: ${p => p.theme.BG.greyBrown};
   width: 100%;
   display: flex;
   justify-content: center;
@@ -149,7 +149,7 @@ const CWHome = styled.div`
   max-width: 940px;
   margin: 0 auto;
   padding-top: 40px;
-  background-color: ${p => p.theme.BG.col1};
+  background-color: ${p => p.theme.BG.greyBrown};
 `
 
 const Hometext = styled.div`

@@ -15,8 +15,10 @@ import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { IoCheckmarkCircle } from "react-icons/io5"
 import { Link3 } from '../STYLES/styleLinks'
 import styled from "styled-components"
+import { BsArrowReturnRight } from "react-icons/bs"
 
-import { SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
+import {
+  SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
   Picture,
   RightColumn,
   BottomContainer,
@@ -39,7 +41,8 @@ import { SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
   MainIconGroup,
   LeftIconGroup,
   Likes,
-  BottomGroup } from "../STYLES/stylePicDetails"
+  BottomGroup
+} from "../STYLES/stylePicDetails"
 
 import CommentForm from "./CommentForm"
 
@@ -139,7 +142,7 @@ const SinglePic = () => {
       <SPWrapper>
 
         <PicGrid >
-
+          <PicCloseIcon onClick={goBack} />
           <LeftColumn>
             <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
           </LeftColumn>
@@ -201,7 +204,16 @@ const SinglePic = () => {
 
 
 
-
+const PicCloseIcon = styled(BsArrowReturnRight)`
+  position: absolute;
+  font-size: 2rem;
+  color: ${p => p.theme.PROFILE.backArrowIcon};
+  transform: rotate(180deg);
+  top: -45px;
+  left: -4px;
+  z-index: 200;
+  cursor: pointer;
+`
 
 
 

@@ -29,7 +29,7 @@ old cache not updating?
 
 - change the default avatar pic (make it grey BG or something)
 
-- (done) picModal is not scrollable when the pic is too tall in narrow mobile view
+- picModal is not scrollable when the pic is too tall in narrow mobile view
 
 - use the efficient hook instead for scrolling
 
@@ -45,14 +45,24 @@ old cache not updating?
 
 - fix dark mode change not working when logged out
 
-- fix comment added message being in the wrong spot.
+- fix comment added message being in the wrong spot. (add relative somewhere)
 
-- Add back-arrows for closing the picModal!
+- (done) Add back-arrows for closing the picModal!
+
+- tomorrow add edit description and edit bio (maybe even through modal.)
+
+- Maybe remove modal wrapper and give its properties to Grid?
+
+- Dark Mode for login and signup! And for Upload modal duh
+
+- Deploy app
+
+- Scroll is not remembered after visiting SinglePic 
 
 ## Functionality
 You can
-upload images
-edit profile avatar
-authentication using JWT tokens
-follow/unfollow users
-personal feed with pictures from people you are following
+- upload images
+- edit profile avatar
+- follow/unfollow users
+- authentication using JWT tokens
+- personal feed with pictures from people you are following

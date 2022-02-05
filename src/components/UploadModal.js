@@ -98,7 +98,7 @@ const ModalWrapper = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 200;
-  background: #ffffff;
+  background: ${p => p.theme.MODAL.bg};
   border-radius: 12px;
 
   animation: modalAppear 0.1s;
@@ -121,7 +121,7 @@ const ModalPlane = styled.div`
 `
 
 const TitleDiv = styled.div`
-  border-bottom: 1px solid ${p => p.theme.BORCOL1};
+  border-bottom: 1px solid ${p => p.theme.MODAL.borCol};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,7 +131,7 @@ const TitleDiv = styled.div`
 
 const ModalText = styled(Username)`
   letter-spacing: 0.6px;
-  color: #525252;
+  color: ${p => p.theme.MODAL.text1};
   cursor: default;
 `
 
@@ -141,6 +141,7 @@ const InstaIcon = styled(RiInstagramLine)`
   font-size: 5rem;
   transition: 0.4s;
   margin-bottom: 20px;
+  color: ${p => p.theme.MODAL.icon};
 
   &:hover {
     transform: rotate(180deg);
@@ -163,7 +164,7 @@ const FileInput = styled.input`
 
 const UploadText = styled.div`
   font-family: Arial, Helvetica, sans-serif;
-  color: #414141;
+  color: ${p => p.theme.MODAL.dragTextCol};
   margin-bottom: 20px;
   cursor: default;
 `

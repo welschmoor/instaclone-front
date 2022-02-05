@@ -15,10 +15,13 @@ import { BlueBTN } from '../STYLES/styleForm'
 import { RiInstagramLine } from 'react-icons/ri'
 import { IoCheckmarkCircle } from "react-icons/io5"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
+import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty, CgClose } from "react-icons/cg"
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { VscArrowLeft } from 'react-icons/vsc'
+import { IoArrowBack } from 'react-icons/io5'
 
-import { SinglePicWrapper, PicGrid, AvatarDiv,
+import {
+  SinglePicWrapper, PicGrid, AvatarDiv,
   Picture,
   RightColumn,
   BottomContainer,
@@ -41,7 +44,8 @@ import { SinglePicWrapper, PicGrid, AvatarDiv,
   MainIconGroup,
   LeftIconGroup,
   Likes,
-  BottomGroup } from "../STYLES/stylePicDetails" //heilige sch0isse
+  BottomGroup
+} from "../STYLES/stylePicDetails" //heilige sch0isse
 
 
 
@@ -143,8 +147,8 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
           <>
             {/* <SinglePicWrapper onClick={() => setShowModalPicutre(false)}>  </SinglePicWrapper> */}
             <SPWrapper>
-
               <PicGrid >
+                <ModalCloseIcon onClick={closeModal} />
                 <LeftColumn>
                   <Picture src={data?.seePhoto?.file} alt={data?.seePhoto?.caption} />
                 </LeftColumn>
@@ -242,6 +246,16 @@ const ModalWrapper = styled.div`
   }
 `
 
+const ModalCloseIcon = styled(CgClose)`
+  position: absolute;
+  font-size: 3rem;
+  color: ${p => p.theme.PROFILE.arrowIcon};
+  cursor: pointer;
+  top: -70px;
+  right: -12px;
+  z-index: 10;
+`
+
 const ModalPlane = styled.div`
   position: fixed;
   width: 200vw;
@@ -249,6 +263,7 @@ const ModalPlane = styled.div`
   background: #000000b7;
   transform: translate(-50%, -50%);
   z-index: 140;
+
 `
 
 const TitleDiv = styled.div`

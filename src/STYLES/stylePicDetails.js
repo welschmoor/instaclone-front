@@ -29,7 +29,7 @@ export const PicGrid = styled.div`
   z-index: 10;
   margin: auto auto;
   background-color: ${p => p.theme.BG.picGrid};
-
+  position: relative;
 
   min-width: 400px;
   max-width: 1200px;
@@ -98,6 +98,7 @@ export const BottomContainer = styled.div`
 
 export const TopContainer = styled(TopContainerNS)`
   border-top: 1px solid ${p => p.theme.BORCOL1};
+  
 
   @media (max-width: 736px) {
     border-left: none;
@@ -168,7 +169,7 @@ export const TrashcanIcon = styled(CgTrashEmpty)`
 `
 
 export const TrashcanIconBig = styled(TrashcanIcon)`
-  font-size: 0.8rem;
+  font-size: 1rem;
   display: none;
   cursor: pointer;
   position: absolute;
@@ -176,11 +177,11 @@ export const TrashcanIconBig = styled(TrashcanIcon)`
   z-index: 300;
 
   ${TopContainer}:hover & {
-    display: inline;
+    display: inline-block;
   }
 
   top: 50%;
-  right: 5%;
+  right: 7%;
   transform: translateY(-50%);
 `
 

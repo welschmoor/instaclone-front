@@ -27,8 +27,6 @@ const IMG = styled.img`
   z-index: 102;
 `
 
-
-
 const AvatarWrapper = styled.div`
   transition: right 0.2s, top 0.2s;
   width: 40px;
@@ -41,8 +39,8 @@ const AvatarWrapper = styled.div`
   z-index: 103;
 `
 
-
 const Halfcircle = styled.div`
+  transition: ${p=>p.theme.TIMES.zero2};
   display: ${p => p.y > 20 ? "none" : "normal"};
   width: 66px;
   height: 33px; /* as the half of the width */

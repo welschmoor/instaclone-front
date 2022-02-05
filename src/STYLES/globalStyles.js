@@ -139,13 +139,17 @@ export const darkTheme = {
     bioLink: "#72609e",
     btnText: '#c2aeae',
     btnBorderCol: "#9c9292",
-  }
+    arrowIcon: "#50505044",
+    backArrowIcon: "#a1a1a144",
+  },
+  MODAL: {
+    bg: "hsl(0, 0%, 22.0392156862745%)",
+    text1: "#d8cdcd",
+    borCol: "#ffffff",
+    icon: "#d8cdcd",
+    dragTextCol: "#d8cdcd",
+  },
 }
-
-
-
-
-
 
 export const lightTheme = {
 
@@ -195,5 +199,14 @@ export const lightTheme = {
     bioLink: "#3a1b81",
     btnText: '#424242',
     btnBorderCol: "#DBDBDB",
+    arrowIcon: "#81818144",
+    backArrowIcon: "#81818144",
+  },
+  MODAL: {
+    bg: "#ffffff",
+    text1: "#525252",
+    borCol: "#d8cdcd",
+    icon: "black",
+    dragTextCol: "#414141",
   }
 }

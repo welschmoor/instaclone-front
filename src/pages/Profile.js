@@ -322,13 +322,13 @@ const CheckMark = styled(IoCheckmarkCircle)`
 
 const DotsMenu = styled(BsThreeDots)`
   color: ${p => p.theme.PROFILE.name};
+  transform: translate(2px, 0px);
   @media (max-width: 736px) {
     display: none;
   
   }
 `
 
-/// this icon is not affected by color change
 const UserSettingsIcon = styled(MdSettingsSuggest)`
   background-color: none;
   color: ${p => p.theme.PROFILE.name};
