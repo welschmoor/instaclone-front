@@ -12,7 +12,7 @@ import styled from "styled-components"
 import { CgCheck } from "react-icons/cg"
 
 // createComment requires the ID of photo; so send it from parent
-const CommentForm = ({ photoId, refProp }) => {
+const CommentForm = ({ photoId, feedB }) => { // feedB true means it's for Feed component
   const [commentResultStr, setCommentResultStr] = useState('')
   const { data: userData } = useUserHook()
   const { register, handleSubmit, setValue, getValues } = useForm()
@@ -87,11 +87,11 @@ const CommentForm = ({ photoId, refProp }) => {
       // ref={refProp}  // <= this breaks the form, why?
       />
       {commentResultStr !== "" &&
-        <CommentIconGroup>
+        <CommentAndIcon feedB={feedB} >
           <CommentMessage>
             <CheckMarkIcon /><>{commentResultStr}</>
           </CommentMessage>
-        </CommentIconGroup>
+        </CommentAndIcon>
       }
 
     </Form>
@@ -101,6 +101,7 @@ const CommentForm = ({ photoId, refProp }) => {
 
 const Form = styled.form`
   padding-top: 8px;
+  display: relative;
 `
 
 const Input = styled.input`
@@ -116,12 +117,20 @@ const Input = styled.input`
   
 `
 
+const CommentAndIcon = styled.div`
+  position: absolute;
+  bottom: ${p => p.feedB ? "-5px" : "-10px"};
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`
+
 const CommentMessage = styled.span`
   color: #28bb28;
   font-weight: bold;
   display: flex;
   align-items: center;
-
+  font-size: 0.7rem;
 `
 
 const CheckMarkIcon = styled(CgCheck)`
@@ -129,12 +138,5 @@ const CheckMarkIcon = styled(CgCheck)`
   transform: translateY(-2px);
 `
 
-const CommentIconGroup = styled.div`
-  position: absolute;
-  bottom: -5px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`
 
 export default CommentForm

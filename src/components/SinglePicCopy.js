@@ -39,7 +39,9 @@ const SinglePic = () => {
   // })
 
   useEffect(() => {
+    let unsub = false
     seePhoto({ variables: { id: id } })
+    return () => { unsub = true }
   }, [id]) //
 
   // const likeHandler = async (id) => {
@@ -52,9 +54,9 @@ const SinglePic = () => {
   // }
 
   return (
-      <div>
-        dwa
-      </div>
+    <div>
+      dwa
+    </div>
   )
 }
 
@@ -77,7 +79,7 @@ const SinglePicWrapper = styled.div`
 //   justify-content: left;
 //   gap: 16px;
 //   margin: 0;
-  
+
 
 //   height: 60px;
 //   width: 100%;

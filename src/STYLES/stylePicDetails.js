@@ -88,6 +88,7 @@ export const BottomContainer = styled.div`
   padding-bottom: 0px;
   display: block;
   flex-grow: 100;
+
   max-height: 400px;
   /* max-width: 600px; */
 

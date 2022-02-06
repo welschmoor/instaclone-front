@@ -190,7 +190,7 @@ const SinglePic = () => {
                 </MainIconGroup>
               </IconGroupContainer>
               <Likes >{data?.seePhoto?.likes === 1 ? "1 like" : `${data?.seePhoto?.likes} likes`} </Likes>
-              <MarginDiv>  <CommentForm photoId={data?.seePhoto?.id} refProp={commentIconRef} />  </MarginDiv>
+              <MarginDiv>  <CommentForm photoId={data?.seePhoto?.id} refProp={commentIconRef} feed={false} />  </MarginDiv>
             </BottomGroup>
 
           </RightColumn>

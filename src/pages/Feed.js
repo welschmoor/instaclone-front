@@ -25,7 +25,7 @@ const Feed = () => {
   const { data: userData } = useUserHook()
   const { data, fetchMore } = useQuery(FEED, {
     variables: { cursor: 4 },
-    fetchPolicy: "network-only",   // Used for first execution
+    fetchPolicy: "cache-and-network",   // Used for first execution
     nextFetchPolicy: "cache-and-network" // Used for subsequent executions
   })
 
@@ -43,15 +43,6 @@ const Feed = () => {
     }
   }, [cursorSTback])
 
-  const { cache } = useApolloClient()
-  // find a better solution to update cache:
-  useEffect(() => {
-    console.log("checking how often useEffect runs")
-    if (userData?.me?.id) {
-      cache.evict({ id: `User:${userData?.me?.id}` })
-    }
-
-  }, [userData?.me?.id])
 
   const incrementCursor = () => {
     console.log(cursorST, 'cursorST')
@@ -100,3 +91,19 @@ const NoPicturesText = styled.h2`
 `
 
 export default Feed
+
+
+
+
+//// old code
+
+
+  // const { cache } = useApolloClient()
+  // // find a better solution to update cache: (i used network policty cache-and-network)
+  // useEffect(() => {
+  //   console.log("checking how often useEffect runs")
+  //   if (userData?.me?.id) {
+  //     cache.evict({ id: `User:${userData?.me?.id}` })
+  //   }
+
+  // }, [userData?.me?.id])

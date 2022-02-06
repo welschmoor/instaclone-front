@@ -1,3 +1,5 @@
+
+// this is for Feed 
 import { Link as LinkNS } from "react-router-dom"
 import { TOGGLE_LIKE } from "../graphql/queries"
 import { useMutation } from "@apollo/client"
@@ -84,7 +86,7 @@ const PhotoCard = ({ e, cursorST }) => {
             {e.commentsNumber === 0 ? "0 comments" : null}
             <Link2 to={`/pic/${e.id}`}>{e.commentsNumber === 1 ? "1 comment" : null}</Link2>
             <Link2 to={`/pic/${e.id}`}>{e.commentsNumber > 1 ? `view all ${e.commentsNumber} comments` : null}</Link2>
-            <CommentForm photoId={e?.id} />
+            <CommentForm photoId={e?.id} feedB={true} />
           </Comments>
 
         </BottomContainer>

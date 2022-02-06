@@ -31,10 +31,16 @@ const App = () => {
   console.log('loggedInBool', loggedInBool)
 
   useEffect(() => {
+    let unsub = false
     const tokenLS = window.localStorage.getItem('instapoundtoken')
     if (tokenLS) {
-      loggedInVar(true)
+      if (!unsub) {
+        loggedInVar(true)
+      }
     }
+
+    return () => { unsub = true }
+
   }, [loggedInBool])
 
 

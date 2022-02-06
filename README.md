@@ -59,6 +59,8 @@ old cache not updating?
 
 - Scroll is not remembered after visiting SinglePic 
 
+- (done) add cleanup to all useEffect
+
 ## Functionality
 You can
 - upload images

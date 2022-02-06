@@ -15,10 +15,14 @@ export const useUserHook = () => {
   })
 
   useEffect(() => {
+    let unsub = false
     if (data?.me === null) { // this means token exists but it's a wrong token
-      loggedInVar(false)
-      localStorage.removeItem("instapoundtoken")
+      if (!unsub) {
+        loggedInVar(false)
+        localStorage.removeItem("instapoundtoken")
+      }
     }
+    return () => { unsub = true }
   }, [data, loggedInBool])
   return { data, error };
 }
