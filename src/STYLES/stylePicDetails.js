@@ -2,8 +2,10 @@
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from './styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { IoCheckmarkCircle } from "react-icons/io5"
+import { IoCheckmarkCircle, IoCheckmarkOutline } from "react-icons/io5"
+import { AiOutlineEdit } from 'react-icons/ai'
 import styled from "styled-components"
+
 
 
 export const SPWrapper = styled.div`
@@ -180,14 +182,14 @@ export const TrashcanIconBig = styled(TrashcanIcon)`
   cursor: pointer;
   position: absolute;
   color: #d84040;
-  z-index: 300;
+  z-index: 1;
 
   ${TopContainer}:hover & {
     display: inline-block;
   }
 
   top: 50%;
-  right: 7%;
+  right: 8%;
   transform: translateY(-50%);
 `
 
@@ -263,4 +265,50 @@ export const CaptionDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+`
+
+export const EditIcon = styled(AiOutlineEdit)`
+  cursor: pointer;
+  font-size: 0.7rem;
+  position: absolute;
+  margin-left: 6px;
+  transform: translateY(2px);
+  color: #5f915f;
+  display: inline;
+
+  ${BottomContainer}:hover & {
+    display: inline;
+  }
+`
+
+export const CaptionForm = styled.form`
+  display: inline;
+  border: none;
+  position: relative;
+`
+
+export const InputCaption = styled.input`
+  border: none;
+  display: inline;
+
+  &:focus {
+    outline: none;
+    background-color: #dbc7f5;
+  }
+`
+
+export const SaveCaptionBTN = styled.button`
+  border: none;
+  background-color: none;
+  position: absolute;
+  right: 5px;
+  top: -16px;
+`
+
+export const CheckmarkIcon = styled(IoCheckmarkOutline)`
+  font-size: 0.9rem;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
 `

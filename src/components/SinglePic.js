@@ -20,6 +20,8 @@ import { AiOutlineEdit } from 'react-icons/ai'
 import { Link3 } from '../STYLES/styleLinks'
 import styled from "styled-components"
 
+import { EditIcon, CaptionForm, InputCaption } from "../STYLES/stylePicDetails"
+
 
 import {
   SPWrapper, SinglePicWrapper, PicGrid, AvatarDiv, LeftColumn,
@@ -46,7 +48,9 @@ import {
   LeftIconGroup,
   Likes,
   BottomGroup,
-  CaptionDiv
+  CaptionDiv,
+  SaveCaptionBTN,
+  CheckmarkIcon
 } from "../STYLES/stylePicDetails"
 
 import CommentForm from "./CommentForm"
@@ -151,11 +155,8 @@ const SinglePic = () => {
   }
 
 
-  const captionRef = useRef()
   const editCaptionHandler = () => { // this open edit input
     setOpenCaptionFormB(p => !p)
-    captionRef.current.focus()
-    console.log(openCaptionFormB)
   }
 
   const likeHandler = async (id) => {
@@ -213,10 +214,11 @@ const SinglePic = () => {
                     {openCaptionFormB &&
                       <CaptionForm onSubmit={handleSubmit(onCaptionSuccess)} >
                         <InputCaption type="text" {...register("caption", { required: true, minLength: 1 })} defaultValue={data?.seePhoto?.caption} autoFocus />
+                        <SaveCaptionBTN type="submit"><CheckmarkIcon /></SaveCaptionBTN>
                       </CaptionForm>}
 
                     {/* ********** UNDER CONSTRUCTION ********** */}
-                    {userData?.me?.username === data?.seePhoto?.user?.username && <EditIcon onClick={editCaptionHandler} />}
+                    {userData?.me?.username === data?.seePhoto?.user?.username && !openCaptionFormB && <EditIcon onClick={editCaptionHandler} />}
                   </CommentText>
                 </CaptionDiv>
 
@@ -261,20 +263,8 @@ const SinglePic = () => {
 }
 
 
-const CaptionForm = styled.form`
-  display: inline;
-  border: none;
-`
 
-const InputCaption = styled.input`
-  border: none;
-  display: inline;
 
-  &:focus {
-    outline: none;
-    background-color: #dbc7f5;
-  }
-`
 
 const PicCloseIcon = styled(BsArrowReturnRight)`
   position: absolute;
@@ -287,19 +277,7 @@ const PicCloseIcon = styled(BsArrowReturnRight)`
   cursor: pointer;
 `
 
-const EditIcon = styled(AiOutlineEdit)`
-  cursor: pointer;
-  font-size: 0.7rem;
-  display: absolute;
-  margin-left: 6px;
-  transform: translateY(2px);
-  color: #5f915f;
-  display: inline;
 
-  ${BottomContainer}:hover & {
-    display: inline;
-  }
-`
 
 
 

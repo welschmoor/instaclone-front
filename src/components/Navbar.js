@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import { useReactiveVar } from "@apollo/client"
 import { NavLink as NavLinkNS } from "react-router-dom"
+import { useReactiveVar } from "@apollo/client"
 import { loggedInVar } from "../graphql/apollo"
 import useScroll from '../hooks/useScroll'
 import UploadModal from './UploadModal'
+import { useState } from 'react'
 
 // styled
-import styled from "styled-components"
 import { MDtop, LoginForm, Input, BlueBTN, Title, Subtitle, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrHomeRounded, GrSend, GrAddCircle } from "react-icons/gr"
 import { CgAddR, CgHomeAlt, CgMailOpen, CgInstagram } from "react-icons/cg"
 import { useUserHook } from "../graphql/useUserHook"
+import styled from "styled-components"
 
-import Avatar from "./Avatar"
-import SearchForm from './SearchForm'
 import ProfileMenu from "./ProfileMenu"
+import SearchForm from './SearchForm'
+import Avatar from "./Avatar"
 
 
 const Navbar = ({ setDarkMode }) => {

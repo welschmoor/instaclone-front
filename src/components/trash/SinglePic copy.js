@@ -2,22 +2,22 @@
 
 
 import { Link as LinkNS, useParams, useNavigate, useLocation } from "react-router-dom"
-import { DELETE_PHOTO, FEED, SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
+import { DELETE_PHOTO, FEED, SEE_PIC, TOGGLE_LIKE } from "../../graphql/queries"
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
-import { DELETE_COMMENT, EDIT_CAPTION } from "../graphql/queries"
+import { DELETE_COMMENT, EDIT_CAPTION } from "../../graphql/queries"
 import React, { useState, useEffect, useRef } from "react"
-import { useUserHook } from "../graphql/useUserHook"
+import { useUserHook } from "../../graphql/useUserHook"
 
 
 // styles
-import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { IoCheckmarkCircle } from "react-icons/io5"
-import { Link3 } from '../STYLES/styleLinks'
-import styled from "styled-components"
 import { BsArrowReturnRight } from "react-icons/bs"
+import { IoCheckmarkCircle } from "react-icons/io5"
+import { Link3 } from '../../STYLES/styleLinks'
 import { AiOutlineEdit} from 'react-icons/'
+import styled from "styled-components"
 
 
 
@@ -47,9 +47,9 @@ import {
   Likes,
   BottomGroup,
   CaptionDiv
-} from "../STYLES/stylePicDetails"
+} from "../../STYLES/stylePicDetails"
 
-import CommentForm from "./CommentForm"
+import CommentForm from "../CommentForm"
 
 
 

@@ -78,10 +78,10 @@ const Home = () => {
               return prev - 1
             },
             // this does not work...
-            photos(prev) {
-              console.log("prev", prev)
-              return prev.filter(e => e.user.id !== result.data.unfollowUser.userFollowId)
-            }
+            // photos(prev) {
+            //   console.log("prev", prev)
+            //   return prev.filter(e => e?.user?.id !== result?.data?.unfollowUser?.userFollowId)
+            // }
           }
         })
 

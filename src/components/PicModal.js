@@ -1,24 +1,28 @@
 // if you scroll for 5 years you might reach the midpoint of this file
 
-import { DELETE_COMMENT, DELETE_PHOTO } from "../graphql/queries"
-import { useUserHook } from "../graphql/useUserHook"
-import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
-import React, { useState, useEffect, useRef, useCallback } from "react"
-import { SEE_PROFILE, UPLOAD_PIC } from '../graphql/queries'
-import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
+import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
+import React, { useState, useEffect, useRef, useCallback } from "react"
+import { DELETE_COMMENT, DELETE_PHOTO } from "../graphql/queries"
+import { SEE_PROFILE, UPLOAD_PIC, EDIT_CAPTION } from '../graphql/queries'
+import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
+import { useUserHook } from "../graphql/useUserHook"
+import { useForm } from "react-hook-form"
+
 
 // styles
-import styled from 'styled-components'
-import { Link3 } from '../STYLES/styleLinks'
-import { BlueBTN } from '../STYLES/styleForm'
-import { RiInstagramLine } from 'react-icons/ri'
-import { IoCheckmarkCircle } from "react-icons/io5"
-import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty, CgClose } from "react-icons/cg"
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty, CgClose } from "react-icons/cg"
+import { EditIcon, CaptionForm, InputCaption } from "../STYLES/stylePicDetails"
+import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
+import { IoCheckmarkCircle } from "react-icons/io5"
+import { RiInstagramLine } from 'react-icons/ri'
 import { VscArrowLeft } from 'react-icons/vsc'
+import { BlueBTN } from '../STYLES/styleForm'
 import { IoArrowBack } from 'react-icons/io5'
+import { Link3 } from '../STYLES/styleLinks'
+import styled from 'styled-components'
+
 
 import {
   SinglePicWrapper, PicGrid, AvatarDiv,
@@ -45,7 +49,9 @@ import {
   LeftIconGroup,
   Likes,
   BottomGroup,
-  CaptionDiv
+  CaptionDiv,
+  SaveCaptionBTN,
+  CheckmarkIcon
 } from "../STYLES/stylePicDetails" //heilige sch0isse
 
 
@@ -58,6 +64,8 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
   console.log("picData", picData)
   const { data: userData } = useUserHook()
 
+
+
   const commentIconRef = useRef()
   const id = picData.id
   const { loading, data } = useQuery(SEE_PIC, {
@@ -66,6 +74,44 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
   // const data = { seePhoto: picData }
 
   const comments = data?.seePhoto?.comments
+
+  const [openCaptionFormB, setOpenCaptionFormB] = useState(false)
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: { caption: data?.seePhoto?.caption } })
+
+  // EDIT CAPTION (image description)
+  const [editPhoto] = useMutation(EDIT_CAPTION)
+  // const editPhotoHandler = (id, caption) => {
+  //   editPhoto({ variables: { editPhotoId: id, caption: caption } })
+  // }
+  const onCaptionSuccess = async data => {
+    console.log("successdata", data)
+    await editPhoto({
+      variables: { editPhotoId: Number(id), caption: data.caption },
+      update: (cache, result) => {
+        const ok = result.data.editPhoto.ok
+        if (!ok) return;
+
+        cache.modify({
+          id: `Photo:${id}`,
+          fields: {
+            caption(prev) {
+              return data.caption
+            },
+          },
+        })
+      }
+    })
+    setOpenCaptionFormB(false)
+  }
+
+  // const captionRef = useRef()
+  const editCaptionHandler = () => { // this open edit input
+    setOpenCaptionFormB(p => !p)
+    console.log(openCaptionFormB)
+  }
+
+
+
 
   const [deleteComment] = useMutation(DELETE_COMMENT, {
     update: (cache, result) => {
@@ -174,8 +220,17 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                           <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
                         </AvatarDivComment>
                         <CommentText>
+                          <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username>
+                          {" "}>{" "}
+                          {!openCaptionFormB && `${data?.seePhoto?.caption}`}
+                          {openCaptionFormB &&
+                            <CaptionForm onSubmit={handleSubmit(onCaptionSuccess)} >
+                              <InputCaption type="text" {...register("caption", { required: true, minLength: 1 })} defaultValue={data?.seePhoto?.caption} autoFocus />
+                              <SaveCaptionBTN type="submit"><CheckmarkIcon /></SaveCaptionBTN>
+                            </CaptionForm>}
 
-                          <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username> > {data?.seePhoto?.caption}
+                          {/* ********** UNDER CONSTRUCTION ********** */}
+                          {userData?.me?.username === data?.seePhoto?.user?.username && !openCaptionFormB && <EditIcon onClick={editCaptionHandler} />}
                         </CommentText>
                       </CaptionDiv>
 

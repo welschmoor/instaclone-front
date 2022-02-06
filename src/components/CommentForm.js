@@ -8,8 +8,8 @@ import { useState } from "react"
 
 //styles
 import { useMutation } from "@apollo/client"
-import styled from "styled-components"
 import { CgCheck } from "react-icons/cg"
+import styled from "styled-components"
 
 // createComment requires the ID of photo; so send it from parent
 const CommentForm = ({ photoId, feedB }) => { // feedB true means it's for Feed component

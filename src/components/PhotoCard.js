@@ -147,7 +147,7 @@ const Likes = styled.div`
 
 const Caption = styled.p`
   font-size: 0.76rem;
-
+  color: ${p=>p.theme.TEXT.mainLogo}
 `
 
 const UsernameAndCaption = styled.div`
