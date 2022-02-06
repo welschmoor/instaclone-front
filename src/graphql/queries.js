@@ -291,3 +291,12 @@ export const EDIT_AVATAR = gql`
     }
   }
 `
+
+export const EDIT_CAPTION = gql`
+  mutation Mutation($editPhotoId: Int!, $caption: String!) {
+    editPhoto(id: $editPhotoId, caption: $caption) {
+      ok
+      error
+    }
+  }
+`

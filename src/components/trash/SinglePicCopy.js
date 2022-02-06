@@ -1,14 +1,14 @@
 
 
 //styles
-import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
+import { SEE_PIC, TOGGLE_LIKE } from "../../graphql/queries"
 import { gql, useLazyQuery, useMutation } from "@apollo/client"
 import { Link as LinkNS, useParams } from "react-router-dom"
 import React, { useState, useEffect } from "react"
 
 // styles
 import styled from "styled-components"
-import { CW } from "../STYLES/styleForm"
+import { CW } from "../../STYLES/styleForm"
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 

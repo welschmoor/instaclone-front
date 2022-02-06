@@ -22,7 +22,7 @@ const Feed = () => {
   const cursorSTback = location?.state?.cursorST
   console.log("cursorSTback", cursorSTback)
   const [cursorST, setCursorST] = useState(cursorSTback || 8)
-  const { data: userData } = useUserHook()
+  // const { data: userData } = useUserHook()
   const { data, fetchMore } = useQuery(FEED, {
     variables: { cursor: 4 },
     fetchPolicy: "cache-and-network",   // Used for first execution

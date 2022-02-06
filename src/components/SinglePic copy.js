@@ -7,18 +7,18 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { DELETE_COMMENT, EDIT_CAPTION } from "../graphql/queries"
 import React, { useState, useEffect, useRef } from "react"
 import { useUserHook } from "../graphql/useUserHook"
-import { useForm } from "react-hook-form"
 
 
 // styles
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
-import { BsArrowReturnRight } from "react-icons/bs"
 import { IoCheckmarkCircle } from "react-icons/io5"
-import { AiOutlineEdit } from 'react-icons/ai'
 import { Link3 } from '../STYLES/styleLinks'
 import styled from "styled-components"
+import { BsArrowReturnRight } from "react-icons/bs"
+import { AiOutlineEdit} from 'react-icons/'
+
 
 
 import {
@@ -52,9 +52,11 @@ import {
 import CommentForm from "./CommentForm"
 
 
+
 const SinglePic = () => {
   const location = useLocation()
   const cursorST = location?.state?.cursorST
+  console.log(cursorST)
   const { data: userData } = useUserHook()
 
   const commentIconRef = useRef()
@@ -62,14 +64,11 @@ const SinglePic = () => {
   const { loading, data } = useQuery(SEE_PIC, {
     variables: { seePhotoId: Number(id) }
   })
-
-  const [openCaptionFormB, setOpenCaptionFormB] = useState(false)
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: { caption: data?.seePhoto?.caption } })
-
+  console.log('data', data)
+  console.log('data?.seePhoto?.caption', data?.seePhoto?.caption)
   const navigate = useNavigate()
+
   const comments = data?.seePhoto?.comments
-
-
 
   const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT, {
     update: (cache, result) => {
@@ -126,36 +125,8 @@ const SinglePic = () => {
 
   // EDIT CAPTION (image description)
   const [editPhoto] = useMutation(EDIT_CAPTION)
-  // const editPhotoHandler = (id, caption) => {
-  //   editPhoto({ variables: { editPhotoId: id, caption: caption } })
-  // }
-  const onCaptionSuccess = async data => {
-    console.log("successdata", data)
-    await editPhoto({
-      variables: { editPhotoId: Number(id), caption: data.caption },
-      update: (cache, result) => {
-        const ok = result.data.editPhoto.ok
-        if (!ok) return;
-
-        cache.modify({
-          id: `Photo:${id}`,
-          fields: {
-            caption(prev) {
-              return data.caption
-            },
-          },
-        })
-      }
-    })
-    setOpenCaptionFormB(false)
-  }
-
-
-  const captionRef = useRef()
-  const editCaptionHandler = () => { // this open edit input
-    setOpenCaptionFormB(p => !p)
-    captionRef.current.focus()
-    console.log(openCaptionFormB)
+  const editPhotoHandler = (id) => {
+    editPhoto({ variables: { editPhotoId: id } })
   }
 
   const likeHandler = async (id) => {
@@ -207,16 +178,8 @@ const SinglePic = () => {
                     <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
                   </AvatarDivComment>
                   <CommentText>
-                    <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username>
-                    {" "}>{" "}
-                    {!openCaptionFormB && `${data?.seePhoto?.caption}`}
-                    {openCaptionFormB &&
-                      <CaptionForm onSubmit={handleSubmit(onCaptionSuccess)} >
-                        <InputCaption type="text" {...register("caption", { required: true, minLength: 1 })} defaultValue={data?.seePhoto?.caption} autoFocus />
-                      </CaptionForm>}
-
-                    {/* ********** UNDER CONSTRUCTION ********** */}
-                    {userData?.me?.username === data?.seePhoto?.user?.username && <EditIcon onClick={editCaptionHandler} />}
+                    {userData?.me?.username === data?.seePhoto?.user?.username && <TrashcanIcon onClick={() => deleteCommentHandler(data?.seePic?.id)} />}
+                    <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username> > {data?.seePhoto?.caption}
                   </CommentText>
                 </CaptionDiv>
 
@@ -261,44 +224,21 @@ const SinglePic = () => {
 }
 
 
-const CaptionForm = styled.form`
-  display: inline;
-  border: none;
-`
-
-const InputCaption = styled.input`
-  border: none;
-  display: inline;
-
-  &:focus {
-    outline: none;
-    background-color: #dbc7f5;
-  }
-`
 
 const PicCloseIcon = styled(BsArrowReturnRight)`
   position: absolute;
   font-size: 2rem;
   color: ${p => p.theme.PROFILE.backArrowIcon};
   transform: rotate(180deg);
-  top: -41px;
+  top: -45px;
   left: -4px;
   z-index: 200;
   cursor: pointer;
 `
 
-const EditIcon = styled(AiOutlineEdit)`
-  cursor: pointer;
-  font-size: 0.7rem;
-  display: absolute;
-  margin-left: 6px;
-  transform: translateY(2px);
-  color: #5f915f;
-  display: inline;
+const EditIcon = styled(wada)`
 
-  ${BottomContainer}:hover & {
-    display: inline;
-  }
+  font-size: 1rem;
 `
 
 

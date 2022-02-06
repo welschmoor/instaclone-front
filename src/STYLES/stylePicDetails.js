@@ -10,12 +10,14 @@ export const SPWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100vh;
+  
   padding: 0 10px;
   padding-bottom: 140px;
   background-color: ${p => p.theme.BG10};
   z-index: 5;
 `
 
+// this is the plane to click back
 export const SinglePicWrapper = styled.div`
   position: fixed;
   width: 200vw;
@@ -32,7 +34,8 @@ export const PicGrid = styled.div`
   position: relative;
 
   min-width: 400px;
-  max-width: 1200px;
+  max-width: 930px;
+
 
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -49,6 +52,7 @@ export const AvatarDiv = styled(AvatarDivNS)`
 `
 
 export const LeftColumn = styled.div`
+
   background-color:  ${p => p.theme.BG.greyBrown};
   align-content: center;
   align-self: center;
@@ -62,7 +66,7 @@ export const Picture = styled.img`
   width: 100%;
   height: auto;
   display: block;
-  max-height: 700px;
+  /* max-height: 700px; */
   object-fit: contain;
 `
 
@@ -74,7 +78,7 @@ export const RightColumn = styled.div`
 
   display: flex;
   flex-direction: column;
-
+  justify-content: space-between;
 
   @media (max-width: 736px) {
     border-left: none;
@@ -87,13 +91,13 @@ export const BottomContainer = styled.div`
   /* background-color: transparent; */
   padding-bottom: 0px;
   display: block;
-  flex-grow: 100;
+  flex: 1;
 
-  max-height: 400px;
+  max-height: 480px;
   /* max-width: 600px; */
 
   @media (max-width: 736px) {
-    max-width: 440px;
+    /* max-width: 440px; */
   }
 `
 
@@ -131,6 +135,7 @@ export const AvatarDivComment = styled(AvatarDiv)`
 `
 
 export const CommentText = styled.div`
+display: relative;
   font-weight: normal;
   font-size: 0.7rem;
   color: ${p => p.theme.TEXT.mainLogo};
@@ -249,4 +254,13 @@ export const BottomGroup = styled.div`
   height: 130px;
   flex-shrink: 0;
   flex-grow: 0;
+`
+
+export const CaptionDiv = styled.div`
+  padding: 8px 0;
+  padding-left: 14px;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `

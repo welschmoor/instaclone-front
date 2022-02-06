@@ -44,7 +44,8 @@ import {
   MainIconGroup,
   LeftIconGroup,
   Likes,
-  BottomGroup
+  BottomGroup,
+  CaptionDiv
 } from "../STYLES/stylePicDetails" //heilige sch0isse
 
 
@@ -168,6 +169,16 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                   <BottomContainer>
 
                     <Comments>
+                      <CaptionDiv>
+                        <AvatarDivComment>
+                          <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
+                        </AvatarDivComment>
+                        <CommentText>
+
+                          <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username> > {data?.seePhoto?.caption}
+                        </CommentText>
+                      </CaptionDiv>
+
                       {comments?.map(e => {
                         return (
                           <ContainerFromTop key={e.id}>

@@ -31,7 +31,7 @@ old cache not updating?
 
 - picModal is not scrollable when the pic is too tall in narrow mobile view
 
-- use the efficient hook instead for scrolling
+- (done) use the efficient hook instead for scrolling
 
 - (done) add comment added message when adding from feed view.
 
