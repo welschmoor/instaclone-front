@@ -13,8 +13,8 @@ export const loggedInVar = makeVar(Boolean(localStorage.getItem('instapoundtoken
 //   uri: "http://localhost:4002/graphql",
 // })
 
-// const baseURL = "http://localhost:4002/graphql" //
-const baseURL = "/graphql"
+const baseURL = "http://localhost:4002/graphql" //
+// const baseURL = "/graphql"
 const uploadLink = createUploadLink({
   uri: baseURL,
   headers: {

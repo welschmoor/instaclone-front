@@ -18,7 +18,10 @@ import { CgCheck } from 'react-icons/cg'
 
 const Home = () => {
   const loggedInBool = useReactiveVar(loggedInVar)
-  const { data: allUsersData } = useQuery(SHOW_ALL_USERS)
+  const { data: allUsersData } = useQuery(SHOW_ALL_USERS, {
+    fetchPolicy: "cache-and-network",
+    nextFetchPolicy: "cache-and-network",
+  })
   const { data: userData } = useUserHook()
   const [followUser] = useMutation(FOLLOW_USER)
   const [unfollowUser] = useMutation(UNFOLLOW_USER)

@@ -55,11 +55,21 @@ old cache not updating?
 
 - Dark Mode for login and signup! And for Upload modal duh
 
-- Deploy app
+- (done) Deploy app
 
 - Scroll is not remembered after visiting SinglePic 
 
 - (done) add cleanup to all useEffect
+
+- remove upload modal functionality when logged out!
+
+- (done) make home component refetch (cache-network) users!!! otherwise they don't appear after sign up
+
+- add helmet title everywhere
+
+- implement messaging
+
+- create skeleton
 
 ## Functionality
 You can

@@ -45,10 +45,10 @@ const Navbar = ({ setDarkMode }) => {
           <MainNav>
             <NavLink to="/"> <HomeIcon /> </NavLink>
             {loggedInBool && <NavLink to="/feed"><FeedIcon /></NavLink>}
-            <ModalButton onClick={openModal}><NewPostIcon /></ModalButton>
+            {loggedInBool && <ModalButton onClick={openModal}><NewPostIcon /></ModalButton>}
             <NavLink to="/about"><SendIcon /></NavLink>
             {!loggedInBool && <NavLink to="/login">Login</NavLink>}
-            {/* {!loggedInBool && <NavLink to="/signup">Signup</NavLink>} */}
+            {!loggedInBool && <NavLink to="/signup">Signup</NavLink>}
           </MainNav>
 
           {user.data && <Avatar imageURL={user?.data?.me?.avatar} onClick={openMenu} />}
@@ -98,7 +98,6 @@ const MainLogo = styled.h1`
   font-size: 1.4rem;
   color: ${p => p.theme.TEXT.mainLogo};
 
-
   font-family: Monotype Corsiva;
   font-weight: 600;
 `
@@ -109,16 +108,15 @@ const NavLink = styled(NavLinkNS)`
 `
 
 const ModalButton = styled.button`
-    display: inline;
-    background: none;
-    border: none;
-    color: ${p => p.theme.FC1};
-    cursor: pointer;
+  display: inline;
+  background: none;
+  border: none;
+  color: ${p => p.theme.FC1};
+  cursor: pointer;
 `
 
 const HomeIcon = styled(CgHomeAlt)`
   font-size: 1.3rem;
-  
 `
 
 const SendIcon = styled(CgMailOpen)`

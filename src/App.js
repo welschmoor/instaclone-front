@@ -6,8 +6,8 @@ import { loggedInVar } from "./graphql/apollo"
 import { useEffect, useState } from "react"
 
 // styles
-import { GlobalStyle, darkTheme, lightTheme } from "./STYLES/globalStyles"
 import { ThemeProvider } from "styled-components"
+import { GlobalStyle, darkTheme, lightTheme } from "./STYLES/globalStyles"
 
 import Home from './pages/Home'
 import Feed from './pages/Feed'
