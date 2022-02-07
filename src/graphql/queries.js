@@ -300,3 +300,12 @@ export const EDIT_CAPTION = gql`
     }
   }
 `
+
+export const DELETE_ACCOUNT = gql`
+  mutation DelAccount($id: Int!) {
+    deleteAccount(id:$id) {
+      ok
+      error
+    }
+  }
+`

@@ -71,10 +71,19 @@ old cache not updating?
 
 - create skeleton
 
+- add default description for photo caption
+
+- fix heroku not showing a user directly (direct url)
+
+- create delete account functionality
+
+- ask someone about the real-time updates (cache and whatnot)
+
 ## Functionality
 You can
-- upload images
+- register/login (authentication using JWT tokens)
+- upload images, edit image description
+- add/remove comments on videos
 - edit profile avatar
 - follow/unfollow users
-- authentication using JWT tokens
-- personal feed with pictures from people you are following
+- create your personalized feed with picturs from people (or dogs) you follow

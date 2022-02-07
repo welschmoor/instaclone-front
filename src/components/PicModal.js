@@ -1,6 +1,6 @@
 // if you scroll for 5 years you might reach the midpoint of this file
 
-import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
+import { gql, useApolloClient, useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import { DELETE_COMMENT, DELETE_PHOTO } from "../graphql/queries"
@@ -64,12 +64,20 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
   console.log("picData", picData)
   const { data: userData } = useUserHook()
 
+  const client = useApolloClient()
+  const { cache } = client
 
+  const [isLikedByMeST, setIsLikedByMeST] = useState(false)
+  const [numberOfLikes, setNumberOfLikes] = useState(0)
 
   const commentIconRef = useRef()
   const id = picData.id
   const { loading, data } = useQuery(SEE_PIC, {
-    variables: { seePhotoId: Number(id) }
+    variables: { seePhotoId: Number(id) },
+    onCompleted: (completedData) => {
+      setIsLikedByMeST(completedData.seePhoto.isLikedByMe)
+      setNumberOfLikes(completedData.seePhoto.likes)
+    }
   })
   // const data = { seePhoto: picData }
 
@@ -137,30 +145,52 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
 
 
   const [toggleLike, { data: uselessData, loading: uselessLoading, error }] = useMutation(TOGGLE_LIKE, {
-    update: (cache, result) => {
-      const ok = result.data.toggleLike.ok
-      if (ok) {
-        const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
-        cache.modify({
-          id: fragmentId,
-          fields: {
-            // we get previous values 
-            isLikedByMe(previous) {
-              return !previous
-            },
-            likes(previous) {
-              return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
-            }
-          },
-        })
-      }
-    },
+    // optimisticResponse: {
+    //   updateComment: {
+    //     id: commentId,
+    //     __typename: "Comment",
+    //     content: commentContent
+    //   }
+    // },
+    // update: (cache, result) => {
+    //   const ok = result.data.toggleLike.ok
+    //   if (ok) {
+    //     const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
+    //     cache.modify({
+    //       id: fragmentId,
+    //       fields: {
+    //         // we get previous values 
+    //         isLikedByMe(previous) {
+    //           return !previous
+    //         },
+    //         likes(previous) {
+    //           return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
+    //         }
+    //       },
+    //     })
+    //   }
+    // },
   })
 
   console.log("photoId", data?.seePhoto?.id)
 
   const likeHandler = async (id) => {
     console.log("id", id)
+    // cache.modify({
+    //   id: `Photo:${picData.id}`,
+    //   fields: {
+    //     isLikedByMe(prev) {
+    //       return !prev
+    //     }
+    //   }
+    // })
+    setIsLikedByMeST(p => !p)
+    setNumberOfLikes(p => {
+      if (isLikedByMeST) {
+        return p - 1
+      }
+      return p + 1
+    })
     await toggleLike({ variables: { id: id } })
     setDummyState(p => !p)
   }
@@ -255,14 +285,14 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                     <IconGroupContainer>
                       <MainIconGroup>
                         <LeftIconGroup >
-                          {data?.seePhoto?.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />} {/* Congratulations, you've made it this far! So, do you like horizontal scrolling? */}
+                          {isLikedByMeST ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />} {/* Congratulations, you've made it this far! So, do you like horizontal scrolling? */}
                           <CommentIcon onClick={commentIconHandler} />
                           <SendIcon />
                         </LeftIconGroup>
                         <BookmarkIcon />
                       </MainIconGroup>
                     </IconGroupContainer>
-                    <Likes >{data?.seePhoto?.likes === 1 ? "1 like" : `${data?.seePhoto?.likes} likes`} </Likes>
+                    <Likes >{numberOfLikes === 1 ? "1 like" : `${numberOfLikes} likes`} </Likes>
                     <MarginDiv>  <CommentForm photoId={data?.seePhoto?.id} refProp={commentIconRef} />  </MarginDiv>
                   </BottomGroup>
 

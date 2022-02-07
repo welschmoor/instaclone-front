@@ -46,7 +46,7 @@ const Navbar = ({ setDarkMode }) => {
             <NavLink to="/"> <HomeIcon /> </NavLink>
             {loggedInBool && <NavLink to="/feed"><FeedIcon /></NavLink>}
             {loggedInBool && <ModalButton onClick={openModal}><NewPostIcon /></ModalButton>}
-            <NavLink to="/about"><SendIcon /></NavLink>
+            <NavLink to="/message"><SendIcon /></NavLink>
             {!loggedInBool && <NavLink to="/login">Login</NavLink>}
             {!loggedInBool && <NavLink to="/signup">Signup</NavLink>}
           </MainNav>

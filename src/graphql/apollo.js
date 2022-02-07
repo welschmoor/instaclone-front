@@ -14,6 +14,7 @@ export const loggedInVar = makeVar(Boolean(localStorage.getItem('instapoundtoken
 // })
 
 const baseURL = "http://localhost:4002/graphql" //
+// const baseURL = "https://instasgramclone.herokuapp.com/graphql" //
 // const baseURL = "/graphql"
 const uploadLink = createUploadLink({
   uri: baseURL,
