@@ -12,15 +12,17 @@ import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLE
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
 import { BsFillPersonCheckFill } from 'react-icons/bs'
 import { IoCheckmarkCircle } from 'react-icons/io5'
+import { MdSettingsSuggest } from 'react-icons/md'
 import { IoIosArrowUp } from 'react-icons/io'
 import { BsThreeDots } from "react-icons/bs"
 import styled from 'styled-components'
-import { MdSettingsSuggest } from 'react-icons/md'
 
 import PicModal from "../components/PicModal"
+import DeleteModal from "../components/DeleteModal"
 
 
 const Profile = () => {
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const [showModalPicutre, setShowModalPicutre] = useState(false)
   const [selectedPic, setSelectedPic] = useState(null)
   const { data: userData } = useUserHook()
@@ -94,8 +96,14 @@ const Profile = () => {
     setSelectedPic(e)
   }
 
+  const modalMenuOpener = () => {
+    console.log("modalMenuOpened")
+    setShowUserMenu(true)
+  }
+
   return (
     <>
+      {showUserMenu && <DeleteModal showUserMenu={showUserMenu} setShowUserMenu={setShowUserMenu} userID={userData?.me?.id} />}
       {showModalPicutre && <PicModal setShowModalPicutre={setShowModalPicutre} picData={selectedPic} seeProfileLazyQuery={seeProfile} refetch={refetch} />}
       <ProfileWrapper>
         <Helmet ><title>{userName}'s profile</title></Helmet>
@@ -115,7 +123,7 @@ const Profile = () => {
                   <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
                   <FollowButton><IoIosArrowUp /></FollowButton>
                   <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
-                  {profileData?.seeProfile?.isMe && <EditProfileBTN><UserSettingsIcon /></EditProfileBTN>}
+                  {profileData?.seeProfile?.isMe && <EditProfileBTN><UserSettingsIcon onClick={modalMenuOpener} /></EditProfileBTN>}
                 </ButtonGroup>
               </NameHeader>
 

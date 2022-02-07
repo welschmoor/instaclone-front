@@ -77,7 +77,9 @@ old cache not updating?
 
 - create delete account functionality
 
-- ask someone about the real-time updates (cache and whatnot)
+- ask someone about the real-time updates (cache and whatnot).
+
+- Would it be better to split toggleLike in two different resolvers?
 
 ## Functionality
 You can

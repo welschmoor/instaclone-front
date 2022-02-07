@@ -79,7 +79,8 @@ export const BlueBTN = styled.button`
 
 
 export const Title = styled.h1`
-  color: #383838;
+  color: ${p => p.theme.TEXT.mainLogo};;
+
   font-family: Monotype Corsiva;
   font-size: 2.2rem;
   font-weight: 600;

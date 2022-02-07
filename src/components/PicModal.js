@@ -60,8 +60,7 @@ import CommentForm from "./CommentForm"
 
 
 const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }) => {
-  const [dummyState, setDummyState] = useState(false)
-  console.log("picData", picData)
+
   const { data: userData } = useUserHook()
 
   const client = useApolloClient()
@@ -112,12 +111,9 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
     setOpenCaptionFormB(false)
   }
 
-  // const captionRef = useRef()
   const editCaptionHandler = () => { // this open edit input
     setOpenCaptionFormB(p => !p)
-    console.log(openCaptionFormB)
   }
-
 
 
 
@@ -146,10 +142,11 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
 
   const [toggleLike, { data: uselessData, loading: uselessLoading, error }] = useMutation(TOGGLE_LIKE, {
     // optimisticResponse: {
-    //   updateComment: {
-    //     id: commentId,
-    //     __typename: "Comment",
-    //     content: commentContent
+    //   toggleLike: {
+    //     id: 'temp-id',
+    //     __typename: "Like",
+    //     ok: data?.seePhoto?.isLikedByMe ? true : false,
+    //     error: null,
     //   }
     // },
     // update: (cache, result) => {
@@ -172,10 +169,9 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
     // },
   })
 
-  console.log("photoId", data?.seePhoto?.id)
 
   const likeHandler = async (id) => {
-    console.log("id", id)
+
     // cache.modify({
     //   id: `Photo:${picData.id}`,
     //   fields: {
@@ -192,7 +188,6 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
       return p + 1
     })
     await toggleLike({ variables: { id: id } })
-    setDummyState(p => !p)
   }
 
   const commentIconHandler = () => {
@@ -215,6 +210,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
     }, 100)
   }
 
+  console.log("likes", data?.seePhoto?.isLikedByMe)
   return (
     <>
       <ModalPlane onClick={closeModal} />

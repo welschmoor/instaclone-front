@@ -6,13 +6,15 @@ import styled from 'styled-components'
 import { MDtop, CW, SignupText, SignupLink } from '../STYLES/styleForm'
 
 
-const AccountDeleteRedirect = () => {
+const AccountDeletedRedirect = () => {
   const location = useLocation()
+  console.log("location", location)
 
   if (location?.state?.ok) {
     return (
       <MDtop>
         <CWAccountDeleteRedirectRedirect>
+
           <SignupText>Success! Your account has been deleted. You can create a new one: <SignupLink to="/signup">Sign Up</SignupLink></SignupText>
         </CWAccountDeleteRedirectRedirect>
       </MDtop>
@@ -28,4 +30,4 @@ const CWAccountDeleteRedirectRedirect = styled(CW)`
   text-align: center;
 `
 
-export default AccountDeleteRedirect
+export default AccountDeletedRedirect

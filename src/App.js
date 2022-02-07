@@ -19,6 +19,7 @@ import Profile from './pages/Profile'
 import Page404 from './pages/Page404'
 import Hashtag from './pages/Hashtag'
 import SignupRedirect from './pages/SignupRedirect'
+import AccountDeletedRedirect from './pages/AccountDeletedRedirect'
 
 import SinglePic from "./components/SinglePic"
 import YesNavbar from './components/YesNavbar'
@@ -41,7 +42,6 @@ const App = () => {
     }
 
     return () => { unsub = true }
-
   }, [loggedInBool])
 
 
@@ -56,10 +56,12 @@ const App = () => {
             <Route path='/search/:searchTerm' element={<YesNavbar setDarkMode={setDarkMode}><Search /></YesNavbar>} />
             <Route path='/hashtag/:hashtag' element={<YesNavbar setDarkMode={setDarkMode}><Hashtag /></YesNavbar>} />
             <Route path='/profile/:userName' element={<YesNavbar setDarkMode={setDarkMode}><Profile /></YesNavbar>} />
+            <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />
             <Route path='/pic/:id' element={<YesNavbar setDarkMode={setDarkMode}><SinglePic /></YesNavbar>} />
             <Route path='/signup' element={loggedInBool ? <Navigate to='/' /> : <Signup />} />
-            <Route path='/signupRedirect' element={loggedInBool ? <Navigate to='/' /> : <SignupRedirect />} />
             <Route path='/about' element={<YesNavbar setDarkMode={setDarkMode}><About /></YesNavbar>} />
+
+            <Route path='/accountDeletedRedirect' element={<YesNavbar setDarkMode={setDarkMode}><AccountDeletedRedirect /></YesNavbar>} />
             <Route path='/message' element={<YesNavbar setDarkMode={setDarkMode}><Message /></YesNavbar>} />
             <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login />} />
             <Route path='/upload' element={<YesNavbar setDarkMode={setDarkMode}><FileUpload /></YesNavbar>} />
