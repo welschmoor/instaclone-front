@@ -188,7 +188,6 @@ export const FOLLOW_USER = gql`
       userFollowId
     }
   }
-
 `
 
 export const UNFOLLOW_USER = gql`

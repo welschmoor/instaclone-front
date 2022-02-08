@@ -25,6 +25,7 @@ import SinglePic from "./components/SinglePic"
 import YesNavbar from './components/YesNavbar'
 import FileUpload from "./pages/FileUpload"
 import Message from "./pages/Message"
+import TestPage from "./pages/TestPage"
 
 
 const App = () => {
@@ -68,6 +69,8 @@ const App = () => {
             <Route path='/feed' element={!loggedInBool ? <Navigate to='/' /> : <YesNavbar setDarkMode={setDarkMode}><Feed /></YesNavbar>} />
             <Route path='/' element={<YesNavbar setDarkMode={setDarkMode}><Home /> </YesNavbar>} exact />
             <Route path='*' element={<YesNavbar setDarkMode={setDarkMode}><Page404 /></YesNavbar>} />
+
+            <Route path='/TestPage' element={<TestPage />} />
 
           </Routes>
         </BrowserRouter>

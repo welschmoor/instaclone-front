@@ -175,7 +175,6 @@ const ProfileWrapper = styled.div`
 
   @media (max-width: 736px) {
     padding-top: 15px;
-  
   }
 `
 

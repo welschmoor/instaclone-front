@@ -75,11 +75,16 @@ old cache not updating?
 
 - fix heroku not showing a user directly (direct url)
 
-- create delete account functionality
+- (done) create delete account functionality
+
+- Would it be better to split toggleLike in two different resolvers? (no)
+
+- (done) fix vertical line through avatar pic
 
 - ask someone about the real-time updates (cache and whatnot).
 
-- Would it be better to split toggleLike in two different resolvers?
+- implement optimistic mutations
+
 
 ## Functionality
 You can

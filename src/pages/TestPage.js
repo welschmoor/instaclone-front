@@ -1,19 +1,22 @@
+
+// this component fixed the issue with a thin line amids a picture
+// the solution is to use top and right instead of transform: translate();
 import useScroll from '../hooks/useScroll'
 
 //styles
 import styled from "styled-components"
 
-const Avatar = ({ imageURL, onClick }) => {
+const TestPage = () => {
   const { y } = useScroll()
 
   return (
-    <>
-    <AvatarWrapper onClick={onClick} y={y}>
-      <IMG src={imageURL} y={y} />
-      <Halfcircle y={y} />
-    </AvatarWrapper>
+    <AvatarWrapper>
 
-    </>
+
+      <Halfcircle y={y} />
+
+
+    </AvatarWrapper>
   )
 }
 
@@ -32,28 +35,30 @@ const AvatarWrapper = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   right:  ${p => p.y > 20 ? "20px" : "17px"};
   top:  ${p => p.y > 20 ? "8px" : "35px"};
   cursor: pointer;
   z-index: 103;
+  background-color: white;
 `
 
 const Halfcircle = styled.div`
-  position: absolute;
-  transition: ${p=>p.theme.TIMES.zero2};
+
+  transition: NONE;
   display: ${p => p.y > 20 ? "none" : "normal"};
-  width: 66px;
-  height: 33px; /* as the half of the width */
+  width: 64px;
+  height: 22px; /* as the half of the width */
   background-color: transparent;
   border-top-left-radius: 72px;  /* 100px of height + 10px of border */
   border-top-right-radius: 72px; /* 100px of height + 10px of border */
   border: 6px solid ${p => p.theme.BG.col1};
-  /* border: 6px solid blue; */
+  border: 1px solid blue;
   border-bottom: none;
-  /* transform: translate(-8px, -62px); */
-  top: -9px;
-  right: -18px;
+  border-right: none;
+  /* transform: translate(-8px, 123px); */
+  position: absolute;
+  top: 10px;
 `
 
-export default Avatar
+export default TestPage
