@@ -23,7 +23,7 @@ const Home = () => {
     nextFetchPolicy: "cache-and-network",
   })
   const { data: userData } = useUserHook()
-  const [followUser] = useMutation(FOLLOW_USER)
+  const [followUser, { loading: followLoading }] = useMutation(FOLLOW_USER)
   const [unfollowUser] = useMutation(UNFOLLOW_USER)
 
   const followUserHadler = async (username) => {

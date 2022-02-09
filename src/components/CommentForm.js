@@ -81,6 +81,7 @@ const CommentForm = ({ photoId, feedB }) => { // feedB true means it's for Feed 
   return (
     <Form onSubmit={handleSubmit(onSuccess)}>
       <Input
+        autoComplete='off'
         placeholder="add comment, max 62 chars"
         {...register('comment', { required: true, maxLength: 70, })}
         name="comment"

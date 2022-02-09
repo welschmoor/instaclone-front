@@ -18,6 +18,10 @@ import CommentForm from "./CommentForm"
 
 const PhotoCard = ({ e, cursorST }) => {
   // we use cursorST-ate to pass it to singlePic component so we keep our pagination.
+
+  const [isLikedByMeST, setIsLikedByMeST] = useState(false)
+  const [numberOfLikes, setNumberOfLikes] = useState(0)
+
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
@@ -41,6 +45,13 @@ const PhotoCard = ({ e, cursorST }) => {
 
 
   const likeHandler = async (id) => {
+    setIsLikedByMeST(p => !p)
+    setNumberOfLikes(p => {
+      if (isLikedByMeST) {
+        return p - 1
+      }
+      return p + 1
+    })
     await toggleLike({ variables: { id: id } })
   }
 
@@ -63,7 +74,7 @@ const PhotoCard = ({ e, cursorST }) => {
         <BottomContainer >
           <MainIconGroup>
             <LeftIconGroup >
-              {e.isLikedByMe ? <HeartIconFilled onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
+              {isLikedByMeST ? <HeartIconFilled onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
               <CommentIcon />
               <SendIcon />
             </LeftIconGroup>
@@ -147,7 +158,7 @@ const Likes = styled.div`
 
 const Caption = styled.p`
   font-size: 0.76rem;
-  color: ${p=>p.theme.TEXT.mainLogo}
+  color: ${p => p.theme.TEXT.mainLogo}
 `
 
 const UsernameAndCaption = styled.div`

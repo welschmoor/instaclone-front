@@ -61,10 +61,17 @@ const SinglePic = () => {
   const cursorST = location?.state?.cursorST
   const { data: userData } = useUserHook()
 
+  const [isLikedByMeST, setIsLikedByMeST] = useState(false)
+  const [numberOfLikes, setNumberOfLikes] = useState(0)
+
   const commentIconRef = useRef()
   const { id } = useParams()
   const { loading, data } = useQuery(SEE_PIC, {
-    variables: { seePhotoId: Number(id) }
+    variables: { seePhotoId: Number(id) },
+    onCompleted: (completedData) => {
+      setIsLikedByMeST(completedData.seePhoto.isLikedByMe)
+      setNumberOfLikes(completedData.seePhoto.likes)
+    }
   })
 
   const [openCaptionFormB, setOpenCaptionFormB] = useState(false)
@@ -160,6 +167,13 @@ const SinglePic = () => {
   }
 
   const likeHandler = async (id) => {
+    setIsLikedByMeST(p => !p)
+    setNumberOfLikes(p => {
+      if (isLikedByMeST) {
+        return p - 1
+      }
+      return p + 1
+    })
     await toggleLike({ variables: { id: id } })
   }
 
@@ -242,7 +256,7 @@ const SinglePic = () => {
               <IconGroupContainer>
                 <MainIconGroup>
                   <LeftIconGroup >
-                    {data?.seePhoto?.isLikedByMe ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />}
+                    {isLikedByMeST ? <HeartIcon2 onClick={() => likeHandler(data?.seePhoto?.id)} /> : <HeartIcon onClick={() => likeHandler(data?.seePhoto?.id)} />}
                     <CommentIcon onClick={commentIconHandler} />
                     <SendIcon />
                   </LeftIconGroup>

@@ -171,15 +171,6 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
 
 
   const likeHandler = async (id) => {
-
-    // cache.modify({
-    //   id: `Photo:${picData.id}`,
-    //   fields: {
-    //     isLikedByMe(prev) {
-    //       return !prev
-    //     }
-    //   }
-    // })
     setIsLikedByMeST(p => !p)
     setNumberOfLikes(p => {
       if (isLikedByMeST) {
