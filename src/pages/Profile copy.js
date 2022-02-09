@@ -22,13 +22,20 @@ import DeleteModal from "../components/DeleteModal"
 
 
 const Profile = () => {
-  const [isFollowingST, setIsFollowingST] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showModalPicutre, setShowModalPicutre] = useState(false)
   const [selectedPic, setSelectedPic] = useState(null)
   const { data: userData } = useUserHook()
   const { userName } = useParams()
 
+
+  const client = useApolloClient()
+  const { cache } = client
+  const readCache = cache.readQuery({
+    query: SEE_PROFILE,
+    variables: { username: userName },
+  })
+  console.log("readCache", readCache)
 
   // const { data: profileData } = useQuery(SEE_PROFILE, {
   //   variables: { username: userName },
@@ -45,52 +52,72 @@ const Profile = () => {
     seeProfile()
   }, [])
 
-  const [followUser, { loading: followLoading }] = useMutation(FOLLOW_USER, {
+  const [followUser] = useMutation(FOLLOW_USER, {
     variables: { username: userName },
-    update: async (cache, result) => {
-      const ok = await result.data.followUser.ok
-      if (!ok) return;
-      const fragmentId = `User:${profileData?.seeProfile?.id}`
-      await cache.modify({
-        id: fragmentId,
-        fields: {
-          isFollowing(prev) {
-            return true
-          },
-          totalFollowers(prev) {
-            return prev + 1
-          }
-        }
-      })
-    },
+    // update: async (cache, result) => {
+    //   const ok = await result.data.followUser.ok
+    //   if (!ok) return;
+    //   const fragmentId = `User:${profileData?.seeProfile?.id}`
+    //   await cache.modify({
+    //     id: fragmentId,
+    //     fields: {
+    //       isFollowing(prev) {
+    //         return !prev
+    //       },
+    //       totalFollowers(prev) {
+    //         return prev + 1
+    //       }
+    //     }
+    //   })
+    // },
   })
 
-  const [unfollowUser, { loading: unfollowLoading }] = useMutation(UNFOLLOW_USER, {
+  const [unfollowUser] = useMutation(UNFOLLOW_USER, {
     variables: { username: userName },
-    update: async (cache, result) => {
-      console.log("unfollow result", result)
-      const ok = await result.data.unfollowUser.ok
-      if (!ok) return;
-      const fragmentId = `User:${profileData?.seeProfile?.id}`
-      await cache.modify({
-        id: fragmentId,
-        fields: {
-          isFollowing(prev) {
-            return false
-          },
-          totalFollowers(prev) {
-            return prev - 1
-          }
-        }
-      })
-    },
+    // update: async (cache, result) => {
+    //   console.log("unfollow result", result)
+    //   const ok = await result.data.unfollowUser.ok
+    //   if (!ok) return;
+    //   const fragmentId = `User:${profileData?.seeProfile?.id}`
+    //   await cache.modify({
+    //     id: fragmentId,
+    //     fields: {
+    //       isFollowing(prev) {
+    //         return !prev
+    //       },
+    //       totalFollowers(prev) {
+    //         return prev - 1
+    //       }
+    //     }
+    //   })
+    // },
   })
 
   const followHandler = async () => {
+    cache.writeQuery({
+      query: SEE_PROFILE,
+      variables: { username: userName },
+      data: {
+        seeProfile: {
+          ...profileData.seeProfile,
+          isFollowing: true,
+        }
+      }
+    })
     await followUser()
   }
 
   const unfollowHandler = async () => {
+    cache.writeQuery({
+      query: SEE_PROFILE,
+      variables: { username: userName },
+      data: {
+        seeProfile: {
+          ...profileData.seeProfile,
+          isFollowing: false,
+        }
+      }
+    })
     await unfollowUser()
   }
 
@@ -123,17 +150,7 @@ const Profile = () => {
                 <Name>{userName} <CheckMark /></Name>
                 <ButtonGroup>
                   <FollowButton>Message</FollowButton>
-
-                  {/* What the following code does: it updates the UI before mutation is over: */}
-                  <FollowButton2 onClick={profileData?.seeProfile?.isFollowing
-                    ? () => unfollowHandler()
-                    : () => followHandler()} >
-                    {followLoading ? <FollowPersonIcon />
-                      : unfollowLoading ? "Follow"
-                        : profileData?.seeProfile?.isFollowing ? <FollowPersonIcon />
-                          : "Follow"}
-                  </FollowButton2> 
-
+                  <FollowButton2 onClick={profileData?.seeProfile?.isFollowing ? () => unfollowHandler() : () => followHandler()} >{profileData?.seeProfile?.isFollowing ? <FollowPersonIcon /> : "Follow"}</FollowButton2>
                   <FollowButton><IoIosArrowUp /></FollowButton>
                   <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
                   {profileData?.seeProfile?.isMe && <EditProfileBTN><UserSettingsIcon onClick={modalMenuOpener} /></EditProfileBTN>}
