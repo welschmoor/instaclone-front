@@ -129,6 +129,7 @@ export const darkTheme = {
     col1: "hsl(0, 0%, 8.0392156862745%)",
     col2: "hsl(0, 0%, 22.0392156862745%)", // SearchForm
     greyBrown: "hsl(0, 0%, 8.0392156862745%)",
+    greyBrown2: "hsl(0, 0%, 13.0392156862745%)",
     picGrid: "hsl(0, 0%, 13.0392156862745%)",
 
   },
@@ -191,7 +192,9 @@ export const lightTheme = {
     col1: "white",
     col2: "rgb(239, 239, 239)", // SearchForm
     greyBrown: "rgb(250, 250, 250)",
+    greyBrown2: "rgb(250, 250, 250)",
     picGrid: "hsl(0, 0%, 91%)",
+
   },
   ICON: {
     uploadIcon: "#414141",

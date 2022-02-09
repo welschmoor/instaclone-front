@@ -23,12 +23,13 @@ const Feed = () => {
   console.log("cursorSTback", cursorSTback)
   const [cursorST, setCursorST] = useState(cursorSTback || 8)
   // const { data: userData } = useUserHook()
-  const { data, fetchMore } = useQuery(FEED, {
+  const { data, fetchMore, loading: loadingFeed } = useQuery(FEED, {
     variables: { cursor: 4 },
     fetchPolicy: "cache-and-network",   // Used for first execution
-    nextFetchPolicy: "cache-and-network" // Used for subsequent executions
+    nextFetchPolicy: "cache-and-network", // Used for subsequent executions
+    notifyOnNetworkStatusChange: true,
   })
-
+  console.log("loadingFeed", loadingFeed)
 
   useEffect(() => {
     if (cursorSTback) {
@@ -69,16 +70,18 @@ const Feed = () => {
             <PhotoCard e={e} key={e.id} cursorST={cursorST} />
           )
         })}
-        {data?.seeFeed?.length > 0 && data?.seeFeed?.length % 4 === 0 && <BlueBTN onClick={incrementCursor}>Load more pictures</BlueBTN>}
+
+        {!loadingFeed && data?.seeFeed?.length > 0 && data?.seeFeed?.length % 4 === 0 && <BlueBTN onClick={incrementCursor}>Load more pictures</BlueBTN>}
+        {loadingFeed && <BlueBTN loadingFeed={loadingFeed}>Loading...</BlueBTN>}
         {data?.seeFeed?.length < 1 && <NoPicturesText>This is your personal feed. <br />Follow some people to see their pictures!</NoPicturesText>}
       </CWr>
-    </MWr>
+    </MWr >
   )
 }
 
 
 const BlueBTN = styled(BlueBTNNS)`
-  background-color: ${p => p.theme.BTN.blue};
+  background-color: ${p => p.loadingFeed ? "grey" : p.theme.BTN.blue};
 `
 
 const NoPicturesText = styled.h2`

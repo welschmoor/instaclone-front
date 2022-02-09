@@ -53,7 +53,7 @@ old cache not updating?
 
 - Maybe remove modal wrapper and give its properties to Grid?
 
-- Dark Mode for login and signup! And for Upload modal duh
+- (done) Dark Mode for login and signup! And for Upload modal duh
 
 - (done) Deploy app
 
