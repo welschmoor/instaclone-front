@@ -28,6 +28,7 @@ const Page404Wrapper = styled.div`
 
   p {
     margin-bottom: 12px;
+    color: ${p => p.theme.TEXT.mainLogo};
   }
 `
 

@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom'
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
+
   const searchHandler = (e) => {
     e.preventDefault()
+    if (searchTerm.trim().length < 1) { return }
     navigate(`/search/${searchTerm}`, { state: searchTerm })
   }
 

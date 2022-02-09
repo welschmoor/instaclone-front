@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
 import { FEED } from "../graphql/queries"
 
+
 // styles
 import { BlueBTN as BlueBTNNS } from '../STYLES/styleForm'
 import { MWr, CWr } from '../STYLES/styleWrappers'
@@ -18,6 +19,7 @@ import { useLocation } from "react-router-dom"
 // I first send cursorST per Link to child singlePic. From there I send dit back
 // and call it cursorSTback. With useEffect I fetch more with -4 (otherwise I have 4 too many)
 const Feed = () => {
+
   const location = useLocation()
   const cursorSTback = location?.state?.cursorST
   console.log("cursorSTback", cursorSTback)
@@ -30,6 +32,7 @@ const Feed = () => {
     notifyOnNetworkStatusChange: true,
   })
   console.log("loadingFeed", loadingFeed)
+
 
   useEffect(() => {
     if (cursorSTback) {
@@ -61,6 +64,10 @@ const Feed = () => {
     })
   }
 
+  const scrollSomePlace = () => {
+    window.scrollTo(50, 500)
+  }
+
   return (
     <MWr>
       <Helmet><title>Instapound Feed </title></Helmet>
@@ -81,6 +88,7 @@ const Feed = () => {
 
 
 const BlueBTN = styled(BlueBTNNS)`
+  min-width: 100px;
   background-color: ${p => p.loadingFeed ? "grey" : p.theme.BTN.blue};
 `
 

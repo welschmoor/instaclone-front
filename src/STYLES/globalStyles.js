@@ -124,6 +124,7 @@ export const darkTheme = {
     link3: "#e6e6e6",
     greyText: "#b3b3b3",
     signUp: "#b9b9b9",
+    inputFocus: "hsl(266.08695652173907, 69.69696969696975%, 47.05882352941177%)",
   },
   BG: {
     col1: "hsl(0, 0%, 8.0392156862745%)",
@@ -187,6 +188,7 @@ export const lightTheme = {
     link3: "#353535",
     greyText: "#414141",
     signUp: "#2e2e2e",
+    inputFocus: "#dbc7f5",
   },
   BG: {
     col1: "white",

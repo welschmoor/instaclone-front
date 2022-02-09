@@ -123,7 +123,6 @@ export const CheckMark = styled(IoCheckmarkCircle)`
 
 export const Comments = styled.div`
   overflow-y: scroll;
-
   padding-bottom: 0px;
   height: 100%;
 `
@@ -157,7 +156,7 @@ export const MarginDiv = styled.div`
 // ICONS
 export const IconGroupContainer = styled.div`
   padding: 14px;
-  border-top: ${p => p.theme.BOR1};
+  border-top: 1px solid ${p => p.theme.BORCOL1};
 `
 
 export const TrashcanIcon = styled(CgTrashEmpty)`
@@ -290,10 +289,13 @@ export const CaptionForm = styled.form`
 export const InputCaption = styled.input`
   border: none;
   display: inline;
+  color: ${p => p.theme.TEXT.mainLogo};
+  background-color: ${p => p.theme.BG.greyBrown};
+
 
   &:focus {
     outline: none;
-    background-color: #dbc7f5;
+    background-color: ${p => p.theme.TEXT.inputFocus};
   }
 `
 
@@ -301,8 +303,8 @@ export const SaveCaptionBTN = styled.button`
   border: none;
   background-color: none;
   position: absolute;
-  right: 5px;
-  top: -16px;
+  left: 35px;
+  top: 18px;
 `
 
 export const CheckmarkIcon = styled(IoCheckmarkOutline)`
@@ -311,4 +313,5 @@ export const CheckmarkIcon = styled(IoCheckmarkOutline)`
   cursor: pointer;
   position: absolute;
   top: 0;
+  color: ${p => p.theme.TEXT.mainLogo};
 `

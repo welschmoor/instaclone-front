@@ -28,6 +28,7 @@ import Message from "./pages/Message"
 import TestPage from "./pages/TestPage"
 
 
+
 const App = () => {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("instapounddarkmode") === "false")
   const loggedInBool = useReactiveVar(loggedInVar)
@@ -56,7 +57,6 @@ const App = () => {
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyle />
         <BrowserRouter >
-          {/* <Navbar setDarkMode={setDarkMode} /> */}
           <Routes>
 
             <Route path='/search/:searchTerm' element={<YesNavbar setDarkMode={setDarkMode}><Search /></YesNavbar>} />
