@@ -10,12 +10,13 @@ import { useMutation } from "@apollo/client"
 import styled from 'styled-components'
 import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrFacebook } from "react-icons/gr"
+import { DarkModeBTN, SunIcon, MoonIcon } from "../STYLES/styleButtons"
 
 import ErrorSignup from '../components/ErrorSignup'
 import Footer from '../components/Footer'
 
 
-const Signup = () => {
+const Signup = ({ setDarkMode, darkMode, darkModeHandler }) => {
   const navigate = useNavigate()
 
   const { register, handleSubmit, formState, getValues, setError, clearErrors } = useForm({ mode: "onChange" })
@@ -51,6 +52,7 @@ const Signup = () => {
   return (
     <MDtop>
       <Helmet><title>Instapound :: signup</title></Helmet>
+      <DarkModeBTN onClick={darkModeHandler}>{darkMode ? <MoonIcon /> : <SunIcon />}</DarkModeBTN>
       <CW>
 
         <TitleAndSubtitle>
@@ -93,7 +95,7 @@ const Signup = () => {
         <SignupText>Have an account? <SignupLink to="/login">Sign In</SignupLink></SignupText>
       </CW>
       <Footer />
-    </MDtop>
+    </MDtop >
   )
 }
 
@@ -123,4 +125,6 @@ const Terms = styled.p`
 const Bold = styled.span`
   font-weight: bold;
 `
+
+
 export default Signup

@@ -2,13 +2,13 @@ import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { useUserHook } from "../graphql/useUserHook"
+import { useUserHook } from "../../graphql/useUserHook"
 import { useLazyQuery, useMutation, useQuery, useApolloClient } from "@apollo/client"
-import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
+import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../../graphql/queries'
 
 
 //styles
-import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLES/styleProfile'
+import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../../STYLES/styleProfile'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
 import { BsFillPersonCheckFill } from 'react-icons/bs'
 import { IoCheckmarkCircle } from 'react-icons/io5'
@@ -17,8 +17,8 @@ import { IoIosArrowUp } from 'react-icons/io'
 import { BsThreeDots } from "react-icons/bs"
 import styled from 'styled-components'
 
-import PicModal from "../components/PicModal"
-import DeleteModal from "../components/DeleteModal"
+import PicModal from "../../components/PicModal"
+import DeleteModal from "../../components/DeleteModal"
 
 
 const Profile = () => {

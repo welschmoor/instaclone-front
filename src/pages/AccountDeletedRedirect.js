@@ -1,4 +1,5 @@
 
+import { Helmet } from "react-helmet-async"
 import { useLocation, Navigate } from "react-router-dom"
 
 // styles
@@ -13,6 +14,7 @@ const AccountDeletedRedirect = () => {
   if (location?.state?.ok) {
     return (
       <MDtop>
+        <Helmet><title>Account deleted</title></Helmet>
         <CWAccountDeleteRedirectRedirect>
 
           <SignupText>Success! Your account has been deleted. You can create a new one: <SignupLink to="/signup">Sign Up</SignupLink></SignupText>

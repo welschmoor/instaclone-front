@@ -103,6 +103,7 @@ const MainLogo = styled.h1`
 `
 
 const NavLink = styled(NavLinkNS)`
+  font-size: 0.9rem;
   text-decoration: none;
   color: ${p => p.theme.TEXT.mainLogo} !important;
 `

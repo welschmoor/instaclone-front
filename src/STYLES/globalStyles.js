@@ -123,6 +123,7 @@ export const darkTheme = {
     mainLogo: "#e6d2d2",
     link3: "#e6e6e6",
     greyText: "#b3b3b3",
+    signUp: "#b9b9b9",
   },
   BG: {
     col1: "hsl(0, 0%, 8.0392156862745%)",
@@ -184,6 +185,7 @@ export const lightTheme = {
     mainLogo: "#383838",
     link3: "#353535",
     greyText: "#414141",
+    signUp: "#2e2e2e",
   },
   BG: {
     col1: "white",

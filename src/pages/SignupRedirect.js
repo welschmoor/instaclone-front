@@ -1,9 +1,11 @@
 
+import { Helmet } from "react-helmet-async"
 import { useLocation, Navigate } from "react-router-dom"
 
 // styles
 import styled from 'styled-components'
 import { MDtop, CW, SignupText, SignupLink } from '../STYLES/styleForm'
+
 
 
 const SignupRedirect = () => {
@@ -12,6 +14,7 @@ const SignupRedirect = () => {
   if (location?.state?.ok) {
     return (
       <MDtop>
+        <Helmet><title>Account created! Instapound</title></Helmet>
         <CWsignupRedirect>
           <SignupText>Success! Your account has been created. You can login now: <SignupLink to="/login">Sign In</SignupLink></SignupText>
         </CWsignupRedirect>

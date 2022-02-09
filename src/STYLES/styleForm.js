@@ -5,7 +5,8 @@ import { Link } from "react-router-dom"
 
 
 export const MD = styled.div`
-  background-color: rgb(250, 250, 250);
+  transition: ${p => p.theme.TIMES.zero2};
+  background-color: ${p => p.theme.BG.greyBrown};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +22,7 @@ export const MDtop = styled(MD)`
 export const CW = styled.div`
   flex-direction: column;
   gap: 20px;
-  background-color: white;
+  background-color: ${p => p.theme.MODAL.bg};
   display: flex;
   
   align-items: center;
@@ -41,7 +42,7 @@ export const CW = styled.div`
 //     FORM
 export const LoginForm = styled.form`
   width: 100%;
-  background-color: white;
+  background-color: ${p => p.theme.MODAL.bg};
   display: flex;
   flex-direction:column;
   gap: 6px;
@@ -52,10 +53,11 @@ export const LoginForm = styled.form`
 export const Input = styled.input`
   width: 100%;
   height: 38px;
-  background-color: ${p => p.theme.BG10};
+  background-color: ${p => p.theme.BG.greyBrown};
   border: ${p => p.theme.BOR1};
   padding-left: 10px;
   border-radius: 4px;
+  color: ${p => p.theme.TEXT.mainLogo};
 
   ::placeholder {
     font-size: 0.62rem;
@@ -72,15 +74,13 @@ export const BlueBTN = styled.button`
   border: none;
   border-radius: 4px;
 
-
   color: white;
   font-weight: 600;
 `
 
 
 export const Title = styled.h1`
-  color: ${p => p.theme.TEXT.mainLogo};;
-
+  color: ${p => p.theme.TEXT.mainLogo};
   font-family: Monotype Corsiva;
   font-size: 2.2rem;
   font-weight: 600;
@@ -131,7 +131,7 @@ export const SeparatorSpan = styled.span`
 `
 
 export const SignupText = styled.p`
-  color: #2e2e2e;
+color: ${p => p.theme.TEXT.signUp};
   font-size: 0.7rem;
 
 `
