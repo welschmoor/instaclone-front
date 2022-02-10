@@ -24,7 +24,7 @@ const Feed = () => {
   const cursorSTback = location?.state?.cursorST
   console.log("cursorSTback", cursorSTback)
   const [cursorST, setCursorST] = useState(cursorSTback || 8)
-  // const { data: userData } = useUserHook()
+
   const { data, fetchMore, loading: loadingFeed } = useQuery(FEED, {
     variables: { cursor: 4 },
     fetchPolicy: "cache-and-network",   // Used for first execution
@@ -38,10 +38,10 @@ const Feed = () => {
     if (cursorSTback) {
       fetchMore({
         variables: { cursor: cursorSTback - 4 },
-        updateQuery: (prev, fMresult) => {
+        updateQuery: (prev, fetchMoreResult) => {
           console.log("prev", prev)
-          console.log('fMresult', fMresult)
-          return fMresult.fetchMoreResult
+          console.log('fMresult', fetchMoreResult)
+          return fetchMoreResult.fetchMoreResult
         }
       })
     }
@@ -64,6 +64,7 @@ const Feed = () => {
     })
   }
 
+  // failed to implement scroll restoration
   const scrollSomePlace = () => {
     window.scrollTo(50, 500)
   }

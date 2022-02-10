@@ -71,13 +71,13 @@ const Signup = ({ setDarkMode, darkMode, darkModeHandler }) => {
         </Separator>
         <LoginForm onSubmit={handleSubmit(onSuccess, onFailure)}>
           <Input type="text" placeholder="Email"
-            {...register("email", { minLength: { value: 2, message: "email too short" }, required: true })} />
+            {...register("email", { minLength: { value: 2, message: "email too short" }, required: true })} autoComplete="off" />
           <Input type="text" placeholder="Full Name"
-            {...register("fullName", { minLength: { value: 2, message: "fullname too short" }, required: true })} />
+            {...register("fullName", { minLength: { value: 2, message: "fullname too short" }, required: true })} autoComplete="off" />
           <Input type="text" placeholder="Username"
-            {...register("username", { minLength: { value: 2, message: "username too short" }, required: true })} />
+            {...register("username", { minLength: { value: 2, message: "username too short" }, required: true })} autoComplete="off" />
           <Input type="password" placeholder="Password"
-            {...register("password", { minLength: { value: 2, message: "password too short" }, required: true })} />
+            {...register("password", { minLength: { value: 2, message: "password too short" }, required: true })} autoComplete="off" />
           <SignupBTN type='submit' disabled={!loading || formState.isValid ? false : true} >Sign Up</SignupBTN>
         </LoginForm>
 

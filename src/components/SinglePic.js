@@ -114,7 +114,7 @@ const SinglePic = () => {
   }
 
 
-  const [toggleLike, { data: uselessData, loading: uselessLoading, error }] = useMutation(TOGGLE_LIKE, {
+  const [toggleLike, { loading: likeLoading }] = useMutation(TOGGLE_LIKE, {
     update: (cache, result) => {
       const ok = result.data.toggleLike.ok
       if (ok) {

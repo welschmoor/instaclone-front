@@ -7,13 +7,16 @@ You can:
 - add/remove comments on videos
 - edit profile avatar
 - follow/unfollow users
-- create your personalized feed with picturs from people (or dogs) you follow
+- create your personalized feed with pictures from people (or dogs) you follow. On instapound you follow dogs, in real life dogs follow YOU!
+- dark mode - choice remembered by the browser.
 
 
 ## Fail
 
 - I have failed to implement optimistic response, because I that requires me to redo all backend and have the resolvers return the Comment, Photo, User instead of a simple Boolean
 - I failed to implement real-time UI updates for certain components which require loops. I will try it again later. 
+woo hoo I managed to implement real-time UI updates after 3 days of struggle!
+- I failed to implement react router scroll restoration. When I go back from a single picture view, the scroll position I had previously is not remembered and window.scrollTo was of no help, because it scrolls before data loads. Solution would be to implement single view ABOVE the picture feed, like a modal.
 
 
 ###### ToDo
@@ -30,30 +33,30 @@ old cache not updating?
 
 - add some hover effect (like show icons or something) for grid pics
 - styled the modal form better!
-- change the default avatar pic (make it grey BG or something)
+- (done) change the default avatar pic (make it grey BG or something)
 - picModal is not scrollable when the pic is too tall in narrow mobile view
 - (done) use the efficient hook instead for scrolling
 - (done) add comment added message when adding from feed view.
 - implement favorites list
 - (done) implement change avatar
-- implement change picture description
+- (done) implement change picture description
 - fix "load more" button, but the scroll and the % operator
-- fix dark mode change not working when logged out
-- fix comment added message being in the wrong spot. (add relative somewhere)
+- (done) fix dark mode change not working when logged out
+- (done) fix comment added message being in the wrong spot. (add relative somewhere)
 - (done) Add back-arrows for closing the picModal!
-- tomorrow add edit description and edit bio (maybe even through modal.)
+- (edit description done, bio not yet) tomorrow add edit description and edit bio (maybe even through modal.)
 - Maybe remove modal wrapper and give its properties to Grid?
 - (done) Dark Mode for login and signup! And for Upload modal duh
 - (done) Deploy app
 - Scroll is not remembered after visiting SinglePic 
 - (done) add cleanup to all useEffect
-- remove upload modal functionality when logged out!
+- (done) remove upload modal functionality when logged out!
 - (done) make home component refetch (cache-network) users!!! otherwise they don't appear after sign up
-- add helmet title everywhere
+- (done) add helmet title everywhere
 - implement messaging
 - create skeleton
-- add default description for photo caption
-- fix heroku not showing a user directly (direct url)
+- (done) add default description for photo caption
+- (done, thanks @angelxv01) fix heroku not showing a user directly (direct url to profile)
 - (done) create delete account functionality
 - Would it be better to split toggleLike in two different resolvers? (no)
 - (done) fix vertical line through avatar pic

@@ -24,8 +24,8 @@ import AccountDeletedRedirect from './pages/AccountDeletedRedirect'
 import SinglePic from "./components/SinglePic"
 import YesNavbar from './components/YesNavbar'
 import FileUpload from "./pages/FileUpload"
-import Message from "./pages/Message"
 import TestPage from "./pages/TestPage"
+import Message from "./pages/Message"
 
 
 
@@ -69,7 +69,7 @@ const App = () => {
 
             <Route path='/accountDeletedRedirect' element={<YesNavbar setDarkMode={setDarkMode}><AccountDeletedRedirect /></YesNavbar>} />
             <Route path='/message' element={<YesNavbar setDarkMode={setDarkMode}><Message /></YesNavbar>} />
-            <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login setDarkMode={setDarkMode} darkMode={darkMode} />} />
+            <Route path='/login' element={loggedInBool ? <Navigate to='/' /> : <Login setDarkMode={setDarkMode} darkMode={darkMode} darkModeHandler={darkModeHandler} />} />
             <Route path='/upload' element={<YesNavbar setDarkMode={setDarkMode}><FileUpload /></YesNavbar>} />
             <Route path='/feed' element={!loggedInBool ? <Navigate to='/' /> : <YesNavbar setDarkMode={setDarkMode}><Feed /></YesNavbar>} />
             <Route path='/' element={<YesNavbar setDarkMode={setDarkMode}><Home /> </YesNavbar>} exact />

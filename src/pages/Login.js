@@ -1,5 +1,7 @@
-import { loggedInVar } from "../graphql/apollo"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { loggedInVar } from "../graphql/apollo"
+import { LOGIN } from '../graphql/queries.js'
+import { useMutation } from "@apollo/client"
 import { Helmet } from "react-helmet-async"
 import { useForm } from "react-hook-form"
 
@@ -7,15 +9,14 @@ import { useForm } from "react-hook-form"
 import styled from 'styled-components'
 import { useState } from "react"
 import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
+import { DarkModeBTN, SunIcon, MoonIcon } from "../STYLES/styleButtons"
 
-import { LOGIN } from '../graphql/queries.js'
-import { useMutation } from "@apollo/client"
 
 import ErrorLogin from "../components/ErrorLogin"
 import Footer from '../components/Footer'
 
 
-const Login = () => {
+const Login = ({ setDarkMode, darkMode, darkModeHandler }) => {
   const location = useLocation()
 
   const navigate = useNavigate()
@@ -70,6 +71,7 @@ const Login = () => {
   return (
     <MDtop>
       <Helmet><title>Instapound :: login</title></Helmet>
+      <DarkModeBTN onClick={darkModeHandler}>{darkMode ? <MoonIcon /> : <SunIcon />}</DarkModeBTN>
       <div>
         <CW>
           <TitleAndSubtitle>

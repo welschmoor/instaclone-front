@@ -211,7 +211,7 @@ const BookmarkIcon = styled(CgBookmark)`
 `
 
 const Link = styled(LinkNS)`
-  color: #7413e4;
+  color: ${p => p.theme.TEXT.hashtag};
   text-decoration: none;
   &:hover {
     text-decoration: underline;
