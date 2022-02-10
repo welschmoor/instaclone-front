@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 // styles
 import styled from 'styled-components'
 import { useState } from "react"
-import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
+import { MDtop as MDtopNS, CW, LoginForm, Input, BlueBTN, Title, Subtitle, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { DarkModeBTN, SunIcon, MoonIcon } from "../STYLES/styleButtons"
 
 
@@ -106,7 +106,12 @@ const Login = ({ setDarkMode, darkMode, darkModeHandler }) => {
 
 const LoginBTN = styled(BlueBTN)`
   margin-top: 11px;
-  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1}
+  background-color: ${p => p.disabled ? "rgb(178, 223, 252)" : p.theme.blueBTN1};
+`
+
+const MDtop = styled(MDtopNS)`
+  padding-top: 50px;
+  min-height: 100vh;
 `
 
 

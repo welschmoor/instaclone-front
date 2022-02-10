@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/client"
 
 // styles
 import styled from 'styled-components'
-import { MDtop, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
+import { MDtop as MDtopNS, CW, LoginForm, Input, BlueBTN, Title, Subtitle, Subtitle2, TitleAndSubtitle, Separator, SeparatorLine, SeparatorSpan, SignupText, SignupLink } from '../STYLES/styleForm'
 import { GrFacebook } from "react-icons/gr"
 import { DarkModeBTN, SunIcon, MoonIcon } from "../STYLES/styleButtons"
 
@@ -99,6 +99,10 @@ const Signup = ({ setDarkMode, darkMode, darkModeHandler }) => {
   )
 }
 
+const MDtop = styled(MDtopNS)`
+  padding-top: 50px;
+  min-height: 100vh;
+`
 
 const SignupBTN = styled(BlueBTN)`
   margin-top: 11px;

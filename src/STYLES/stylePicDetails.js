@@ -100,6 +100,7 @@ export const BottomContainer = styled.div`
 
   @media (max-width: 736px) {
     /* max-width: 440px; */
+    max-height: 280px;
   }
 `
 
@@ -136,7 +137,7 @@ export const AvatarDivComment = styled(AvatarDiv)`
 `
 
 export const CommentText = styled.div`
-display: relative;
+position: relative;
   font-weight: normal;
   font-size: 0.7rem;
   color: ${p => p.theme.TEXT.mainLogo};

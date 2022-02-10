@@ -61,7 +61,10 @@ old cache not updating?
 - Would it be better to split toggleLike in two different resolvers? (no)
 - (done) fix vertical line through avatar pic
 - ask someone about the real-time updates (cache and whatnot).
-- implement optimistic mutations
+- (done my own way) implement optimistic mutations
+- (done) fix edit caption icon (position absolute!)
+- hide Load more pictures button when there are only 4 pictures! (but I would need to .count() pictures for that because we don't know how many more are available)
+- (done) fix login/signup screen showing uneven change in color when changing theme (only Firefox)
 
 
 
