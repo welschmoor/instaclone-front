@@ -1,38 +1,59 @@
 
 
 
-import { Helmet } from "react-helmet-async"
-import { loggedInVar } from "../graphql/apollo";
-import { Link as LinkNS } from "react-router-dom"
-import { useUserHook } from "../graphql/useUserHook";
 import { FOLLOW_USER, SHOW_ALL_USERS, UNFOLLOW_USER } from '../graphql/queries'
+import { useMutation, useQuery, useReactiveVar } from "@apollo/client"
+import { useUserHook } from "../graphql/useUserHook";
+import { loggedInVar } from "../graphql/apollo";
+import { Helmet } from "react-helmet-async"
+import { useState } from 'react'
 
 //styles
-import styled from "styled-components"
-import { MWr, CWr } from '../STYLES/styleWrappers'
+import { AvatarDiv, Avatar, Username } from '../STYLES/styleProfile'
 import { Link3 as Link3NS } from '../STYLES/styleLinks'
-import { useMutation, useQuery, useReactiveVar } from "@apollo/client"
-import { AvatarDiv, Avatar, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
 import { CgCheck } from 'react-icons/cg'
+import styled from "styled-components"
 
 
 const Home = () => {
+  const [fastUpdateST, setFastUpdateST] = useState([])
   const loggedInBool = useReactiveVar(loggedInVar)
-  const { data: allUsersData } = useQuery(SHOW_ALL_USERS, {
+  const { data: allUsersData, loading: loadingData } = useQuery(SHOW_ALL_USERS, {
+    variables: { limit: 10 }, // show only 10 users
     fetchPolicy: "cache-and-network",
     nextFetchPolicy: "cache-and-network",
+    onCompleted: completedData => {
+      setFastUpdateST(
+        allUsersData.showAllUsers.map(e => {
+          return { id: e.id, isFollowing: e.isFollowing }
+        })
+      )
+    }
   })
+  console.log("fastUpdateST", fastUpdateST)
+
   const { data: userData } = useUserHook()
   const [followUser, { loading: followLoading }] = useMutation(FOLLOW_USER)
-  const [unfollowUser] = useMutation(UNFOLLOW_USER)
+  const [unfollowUser, { loading: unfollowLoading }] = useMutation(UNFOLLOW_USER)
 
-  const followUserHadler = async (username) => {
+  const followUserHadler = async (username, userid) => {
+    setFastUpdateST(p => {
+      const newState = [...p.filter(e => e.id !== userid), { id: userid, isFollowing: !p.find(e => e.id === userid).isFollowing }]
+      return newState
+    })
+
     await followUser({
       variables: { username: username },
       update: async (cache, result) => {
 
         const ok = await result.data.followUser.ok
-        if (!ok) return;
+
+        if (!ok) {
+          setFastUpdateST(p => {
+            return []
+          })
+          return
+        };
         const fragmentId = `User:${result.data.followUser.userFollowId}`
         await cache.modify({
           id: fragmentId,
@@ -51,7 +72,7 @@ const Home = () => {
           id: myOwnId,
           fields: {
             totalFollowing(prev) {
-              console.log('333')
+
               return prev + 1
             },
           },
@@ -62,7 +83,12 @@ const Home = () => {
     })
   }
 
-  const unfollowUserHadler = async (username) => {
+  const unfollowUserHadler = async (username, userid) => {
+    setFastUpdateST(p => {
+      const newState = [...p.filter(e => e.id !== userid), { id: userid, isFollowing: !p.find(e => e.id === userid).isFollowing }]
+      return newState
+    })
+
     await unfollowUser({
       variables: { username: username },
       update: async (cache, result) => {
@@ -77,7 +103,6 @@ const Home = () => {
           id: fragmentId2,
           fields: {
             totalFollowing(prev) {
-              console.log("prev", prev)
               return prev - 1
             },
             // this does not work...
@@ -107,6 +132,10 @@ const Home = () => {
     })
   }
 
+  if (loadingData) { // return skeleton here
+    return <div>Loading...</div>
+  }
+
   return (
     <HomeWrapper>
       <Helmet><title>Instapound Homepage </title></Helmet>
@@ -124,7 +153,10 @@ const Home = () => {
                   </AvatarDiv>
                   <Username><Link3 to={`/profile/${e.username}`}>{e.username}</Link3></Username>
                 </PicAndName>
-                {loggedInBool && <FollowBTN onClick={e.isFollowing ? () => unfollowUserHadler(e.username) : () => followUserHadler(e.username)}>{e.isFollowing ? <CheckMarkIcon /> : "Follow"}</FollowBTN>}
+                {loggedInBool &&
+                  <FollowBTN disabled={unfollowLoading || followLoading} onClick={e.isFollowing ? () => unfollowUserHadler(e.username, e.id) : () => followUserHadler(e.username, e.id)}>
+                    {fastUpdateST.length > 0 && fastUpdateST.find(each => each.id === e.id).isFollowing ? <CheckMarkIcon /> : "Follow"}
+                  </FollowBTN>}
               </SuggestionFlex>
             )
           })}

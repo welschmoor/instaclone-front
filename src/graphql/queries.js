@@ -261,8 +261,8 @@ export const SEARCH_PHOTOS = gql`
 `
 
 export const SHOW_ALL_USERS = gql`
-  query ShowAllUsers {
-    showAllUsers {
+  query ShowAllUsers($limit: Int) {
+    showAllUsers(limit: $limit) {
       username
       id
       avatar
