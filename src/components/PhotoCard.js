@@ -113,7 +113,7 @@ const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST }) => {
 const PhotoCardWrapper = styled.div`
   margin-top: 36px;
   max-width: 660px;
-  min-width: 420px;
+  /* min-width: 420px; */
   /* width: 560px; */
   /* border: ${p => p.theme.BOR1}; */
   border: 0.4px solid ${p => p.theme.BORCOL1};

@@ -65,6 +65,6 @@ old cache not updating?
 - (done) fix edit caption icon (position absolute!)
 - hide Load more pictures button when there are only 4 pictures! (but I would need to .count() pictures for that because we don't know how many more are available)
 - (done) fix login/signup screen showing uneven change in color when changing theme (only Firefox)
-
+- does not work well on mobile, everything is wider than it should be. (probably min-width settings)
 
 

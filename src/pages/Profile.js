@@ -2,8 +2,9 @@ import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { loggedInVar } from "../graphql/apollo"
 import { useUserHook } from "../graphql/useUserHook"
-import { useLazyQuery, useMutation, useQuery, useApolloClient } from "@apollo/client"
+import { useLazyQuery, useMutation, useQuery, useApolloClient, useReactiveVar } from "@apollo/client"
 import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
 
 
@@ -22,6 +23,7 @@ import DeleteModal from "../components/DeleteModal"
 
 
 const Profile = () => {
+  const loggedInBool = useReactiveVar(loggedInVar)
   const [isFollowingST, setIsFollowingST] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showModalPicutre, setShowModalPicutre] = useState(false)
@@ -125,16 +127,16 @@ const Profile = () => {
                   <FollowButton>Message</FollowButton>
 
                   {/* What the following code does: it updates the UI before mutation is over: */}
-                  <FollowButton2 onClick={profileData?.seeProfile?.isFollowing
+                  <FollowButton2 disabled={!loggedInBool} onClick={profileData?.seeProfile?.isFollowing
                     ? () => unfollowHandler()
                     : () => followHandler()} >
                     {followLoading ? <FollowPersonIcon />
                       : unfollowLoading ? "Follow"
                         : profileData?.seeProfile?.isFollowing ? <FollowPersonIcon />
                           : "Follow"}
-                  </FollowButton2> 
+                  </FollowButton2>
 
-                  <FollowButton><IoIosArrowUp /></FollowButton>
+                  <ArrowButton><IoIosArrowUp /></ArrowButton>
                   <DotsMenu style={{ marginLeft: "10px", cursor: "pointer" }} />
                   {profileData?.seeProfile?.isMe && <EditProfileBTN><UserSettingsIcon onClick={modalMenuOpener} /></EditProfileBTN>}
                 </ButtonGroup>
@@ -230,13 +232,13 @@ const PicSquare = styled.div`
 `
 
 const Picture = styled.img`
-    /* width: 10%; */
-    flex-shrink: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  /* width: 10%; */
+  flex-shrink: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `
 
 ////////////////////////////////////////////////////
@@ -251,7 +253,12 @@ const UserPicAndDescription = styled.div`
 
   @media (max-width: 736px) {
     gap: 24px;
-  
+  }
+  @media (max-width: 481px) {
+    gap: 12px;
+  }
+  @media (max-width: 449px) {
+    gap: 12px;
   }
 `
 
@@ -264,6 +271,10 @@ const AvatarDiv = styled(AvatarDivNS)`
   @media (max-width: 736px) {
     width: 80px;
     height: 80px;
+  }
+  @media (max-width: 428px) {
+    width: 60px;
+    height: 60px;
   }
 `
 
@@ -302,6 +313,10 @@ const Numbers = styled.div`
   display: flex;
   gap: 5px;
   justify-content: space-between;
+
+  @media (max-width: 736px) {
+    gap: 10px;
+  }
 `
 
 ///////////////////////////////////////
@@ -331,6 +346,9 @@ const BoldText = styled(Username)`
 const NumAndText = styled.div`
   display: flex;
   gap: 5px;
+  @media (max-width: 736px) {
+    gap: 1px;
+  }
 `
 
 ///////////////////////////////////////
@@ -380,11 +398,25 @@ const FollowButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   color: ${p => p.theme.PROFILE.btnText};
+
+  @media (max-width: 481px) {
+    display: none;
+  }
 `
 
 const FollowButton2 = styled(FollowButton)`
+  display: block;
   min-width: 64px;
   color: ${p => p.theme.PROFILE.btnText};
+  @media (max-width: 481px) {
+    display: block;
+  }
+`
+
+const ArrowButton = styled(FollowButton)`
+  @media (max-width: 481px) {
+    display: none;
+  }
 `
 
 const Username2 = styled(Username)`

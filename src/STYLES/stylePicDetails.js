@@ -46,6 +46,7 @@ export const PicGrid = styled.div`
     margin-top: 36px;
     grid-template-columns: 1fr;
     background-color: white;
+    min-width: 0;
   }
 `
 
@@ -316,3 +317,4 @@ export const CheckmarkIcon = styled(IoCheckmarkOutline)`
   top: 0;
   color: ${p => p.theme.TEXT.mainLogo};
 `
+

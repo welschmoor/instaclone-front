@@ -67,6 +67,12 @@ const MainNav = styled.nav`
   display: flex;
   gap: 20px;
   align-items: center;
+
+
+  @media (max-width: 481px) {
+    gap: 10px;
+  }
+
 `
 
 const Header = styled.header`
@@ -124,6 +130,10 @@ const SendIcon = styled(CgMailOpen)`
   font-size: 1.3rem;
   transform: translateY(-0.5px);
   /* margin: 0 3px; */
+
+  @media (max-width: 481px) {
+    display: none;
+  }
 `
 
 const NewPostIcon = styled(CgAddR)`

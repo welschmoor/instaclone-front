@@ -14,14 +14,14 @@ export const loggedInVar = makeVar(Boolean(localStorage.getItem('instapoundtoken
 // })
 
 // const baseURL = "http://localhost:4002/graphql" //
-const baseURL = "https://instopound.herokuapp.com/graphql" //
-// const baseURL = "/graphql" // url for deploying
+// const baseURL = "https://instopound.herokuapp.com/graphql" //
+const baseURL = "/graphql" // url for deploying
 const uploadLink = createUploadLink({
   uri: baseURL,
   headers: {
     token: localStorage.getItem("instapoundtoken"),
   }
-},)
+})
 
 const authLink = setContext((_, { headers }) => {
   return {
