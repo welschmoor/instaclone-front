@@ -1,6 +1,11 @@
 #  Instagram Clone
 
-visit it here: `https://instopound.herokuapp.com`
+![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg)
+
+working live demo: `instopound.herokuapp.com`
+
+backend repo can be found here: `https://github.com/welschmoor/instaclone-nc`
+
 
 ## Functionality
 You can:
