@@ -19,7 +19,8 @@ import { useLocation } from "react-router-dom"
 // I first send cursorST per Link to child singlePic. From there I send dit back
 // and call it cursorSTback. With useEffect I fetch more with -4 (otherwise I have 4 too many)
 const Feed = () => {
-
+  const [fastUpdateST, setFastUpdateST] = useState([])
+  console.log('is liked', fastUpdateST?.find(each => each.id === 17)?.isLikedByMe)
   const location = useLocation()
   const cursorSTback = location?.state?.cursorST
   console.log("cursorSTback", cursorSTback)
@@ -30,6 +31,14 @@ const Feed = () => {
     fetchPolicy: "cache-and-network",   // Used for first execution
     nextFetchPolicy: "cache-and-network", // Used for subsequent executions
     notifyOnNetworkStatusChange: true,
+    onCompleted: completedData => {
+      console.log('data', data.seeFeed)
+      setFastUpdateST(
+        data.seeFeed.map(e => {
+          return { id: e.id, isLikedByMe: e.isLikedByMe }
+        })
+      )
+    }
   })
   console.log("loadingFeed", loadingFeed)
 
@@ -52,10 +61,10 @@ const Feed = () => {
     console.log(cursorST, 'cursorST')
     fetchMore({
       variables: { cursor: cursorST },
-      updateQuery: (prev, fMresult) => {
+      updateQuery: (prev, fetchMoreResult) => {
         console.log("prev", prev)
-        console.log('fMresult', fMresult)
-        return fMresult.fetchMoreResult
+        console.log('fMresult', fetchMoreResult)
+        return fetchMoreResult.fetchMoreResult
       }
     })
     setCursorST(p => {
@@ -75,7 +84,7 @@ const Feed = () => {
       <CWr>
         {data?.seeFeed?.map(e => {
           return (
-            <PhotoCard e={e} key={e.id} cursorST={cursorST} />
+            <PhotoCard e={e} key={e.id} cursorST={cursorST} fastUpdateST={fastUpdateST} setFastUpdateST={setFastUpdateST} />
           )
         })}
 

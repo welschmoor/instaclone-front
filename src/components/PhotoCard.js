@@ -16,7 +16,7 @@ import styled from "styled-components"
 import CommentForm from "./CommentForm"
 
 
-const PhotoCard = ({ e, cursorST }) => {
+const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST }) => {
   // we use cursorST-ate to pass it to singlePic component so we keep our pagination.
 
 
@@ -42,8 +42,19 @@ const PhotoCard = ({ e, cursorST }) => {
   })
 
 
-  const likeHandler = async (id) => {
-    await toggleLike({ variables: { id: id } })
+  const likeHandler = async (id) => { // finally got this to work
+    setFastUpdateST(p => {
+      const newState = [...p.filter(e => e.id !== id), { id: id, isLikedByMe: !p.find(e => e.id === id)?.isLikedByMe }]
+      return newState
+    })
+
+    await toggleLike({
+      variables: { id: id },
+      updateQuery: (prev) => {
+        console.log("prev", prev)
+        return prev
+      }
+    })
   }
 
 
@@ -65,7 +76,7 @@ const PhotoCard = ({ e, cursorST }) => {
         <BottomContainer >
           <MainIconGroup>
             <LeftIconGroup >
-              {e.isLikedByMe ? <HeartIconFilled onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
+              {fastUpdateST?.find(each => each.id === e.id)?.isLikedByMe ? <HeartIconFilled onClick={() => likeHandler(e.id)} /> : <HeartIcon onClick={() => likeHandler(e.id)} />}
               <CommentIcon />
               <SendIcon />
             </LeftIconGroup>

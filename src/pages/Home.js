@@ -83,6 +83,7 @@ const Home = () => {
     })
   }
 
+
   const unfollowUserHadler = async (username, userid) => {
     setFastUpdateST(p => {
       const newState = [...p.filter(e => e.id !== userid), { id: userid, isFollowing: !p.find(e => e.id === userid)?.isFollowing }]
@@ -95,8 +96,6 @@ const Home = () => {
 
         const ok = await result.data.unfollowUser.ok
         if (!ok) return;
-
-
 
         const fragmentId2 = `User:${userData?.me?.id}`
         await cache.modify({
