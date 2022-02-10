@@ -90,7 +90,7 @@ export const RightColumn = styled.div`
 `
 
 export const BottomContainer = styled.div`
-  /* background-color: ${p => p.theme.BG1}; */
+  background-color: ${p => p.theme.BG.greyBrown};
   /* background-color: transparent; */
   padding-bottom: 0px;
   display: block;
@@ -101,7 +101,7 @@ export const BottomContainer = styled.div`
 
   @media (max-width: 736px) {
     /* max-width: 440px; */
-    max-height: 280px;
+    max-height: 180px;
   }
 `
 
@@ -138,10 +138,14 @@ export const AvatarDivComment = styled(AvatarDiv)`
 `
 
 export const CommentText = styled.div`
-position: relative;
+  /* position: relative; */
   font-weight: normal;
   font-size: 0.7rem;
   color: ${p => p.theme.TEXT.mainLogo};
+`
+
+export const CaptionText = styled(CommentText)`
+  position: relative;
 `
 
 export const ContainerFromTop = styled(TopContainer)`
@@ -260,6 +264,7 @@ export const BottomGroup = styled.div`
 `
 
 export const CaptionDiv = styled.div`
+  position: relative;
   padding: 8px 0;
   padding-left: 14px;
   padding-top: 16px;

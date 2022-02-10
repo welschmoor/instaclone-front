@@ -1,5 +1,7 @@
 #  Instagram Clone
 
+visit it here: `https://instopound.herokuapp.com`
+
 ## Functionality
 You can:
 - register/login (authentication using JWT tokens)

@@ -51,7 +51,8 @@ import {
   BottomGroup,
   CaptionDiv,
   SaveCaptionBTN,
-  CheckmarkIcon
+  CheckmarkIcon,
+  CaptionText
 } from "../STYLES/stylePicDetails" //heilige sch0isse
 
 
@@ -236,7 +237,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                         <AvatarDivComment>
                           <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
                         </AvatarDivComment>
-                        <CommentText>
+                        <CaptionText>
                           <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username>
                           {" "}>{" "}
                           {!openCaptionFormB && `${data?.seePhoto?.caption}`}
@@ -248,7 +249,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
 
                           {/* ********** UNDER CONSTRUCTION ********** */}
                           {userData?.me?.username === data?.seePhoto?.user?.username && !openCaptionFormB && <EditIcon onClick={editCaptionHandler} />}
-                        </CommentText>
+                        </CaptionText>
                       </CaptionDiv>
 
                       {comments?.map(e => {
@@ -434,5 +435,7 @@ const LeftColumn = styled.div`
   justify-self: center;
   justify-content: center; 
 `
+
+
 
 export default PicModal
