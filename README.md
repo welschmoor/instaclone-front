@@ -1,6 +1,6 @@
 #  Instagram Clone
 
-![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg)
+![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg | width=320)
 
 working live demo: `instopound.herokuapp.com`
 
@@ -20,10 +20,9 @@ You can:
 
 ## Fail
 
-- I have failed to implement optimistic response, because I that requires me to redo all backend and have the resolvers return the Comment, Photo, User instead of a simple Boolean
-- I failed to implement real-time UI updates for certain components which require loops. I will try it again later. 
-woo hoo I managed to implement real-time UI updates after 3 days of struggle!
-- I failed to implement react router scroll restoration. When I go back from a single picture view, the scroll position I had previously is not remembered and window.scrollTo was of no help, because it scrolls before data loads. Solution would be to implement single view ABOVE the picture feed, like a modal.
+- I have failed to implement optimistic response, because I that requires me to redo all backend and have the resolvers return the Comment, Photo, User instead of a simple Boolean. (I fixed it, see my blog post: `https://dev.to/welschmoor/optimistic-ui-with-graphql-in-apollo-e87`)
+- I failed to implement real-time UI updates for certain components which require loops. I will try it again later. Woo hoo I managed to implement real-time UI updates after 3 days of struggle `https://dev.to/welschmoor/optimistic-ui-with-graphql-in-apollo-e87`
+- Need help here! I failed to implement react router scroll restoration. When I go back from a single picture view, the scroll position I had previously is not remembered and window.scrollTo was of no help, because it scrolls before data loads. Solution would be to implement single view ABOVE the picture feed, like a modal.
 
 
 ###### ToDo
@@ -72,6 +71,7 @@ old cache not updating?
 - (done) fix edit caption icon (position absolute!)
 - hide Load more pictures button when there are only 4 pictures! (but I would need to .count() pictures for that because we don't know how many more are available)
 - (done) fix login/signup screen showing uneven change in color when changing theme (only Firefox)
-- does not work well on mobile, everything is wider than it should be. (probably min-width settings)
-
-
+- (done) does not work well on mobile, everything is wider than it should be. (probably min-width settings)
+- /hashtag and /search dont have any like handlers implemented!
+- icons are crooked after navbar thins
+- create a mirror-link on heroku just in case

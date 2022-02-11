@@ -90,7 +90,7 @@ export const RightColumn = styled.div`
 `
 
 export const BottomContainer = styled.div`
-  background-color: ${p => p.theme.BG.greyBrown};
+  background-color:  ${p => p.theme.BG.col1};
   /* background-color: transparent; */
   padding-bottom: 0px;
   display: block;
@@ -271,6 +271,7 @@ export const CaptionDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  /* background-color: ${p=>p.theme.BG.col1} */
 `
 
 export const EditIcon = styled(AiOutlineEdit)`
