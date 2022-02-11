@@ -1,6 +1,6 @@
 #  Instagram Clone
 
-![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg | width=320)
+![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg)
 
 working live demo: `instopound.herokuapp.com`
 
