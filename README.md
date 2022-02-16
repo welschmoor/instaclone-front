@@ -75,3 +75,4 @@ old cache not updating?
 - /hashtag and /search dont have any like handlers implemented!
 - icons are crooked after navbar thins
 - create a mirror-link on heroku just in case
+- (done) fix avatar pics that are not square appearing stretched

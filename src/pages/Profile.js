@@ -151,7 +151,7 @@ const Profile = () => {
               <BioWrapper>
                 <Username2>{userName}</Username2>
                 <Text>Biography goes here</Text>
-                <BoldText><a href="https://welschmoor.github.io" >welschmoor.github.io</a></BoldText>
+                <BoldText><a href="https://personal-website-rosy-zeta.vercel.app" >visit my website</a></BoldText>
               </BioWrapper>
             </NameAndInfo>
 
@@ -246,7 +246,7 @@ const Picture = styled.img`
 const UserPicAndDescription = styled.div`
   display: flex;
   justify-content: center;
-  gap: 80px;
+  gap: 62px;
   padding: 0 0px;
   padding-bottom: 40px;
   border-bottom: 1px solid ${p => p.theme.BORCOL1};
@@ -254,10 +254,7 @@ const UserPicAndDescription = styled.div`
   @media (max-width: 736px) {
     gap: 24px;
   }
-  @media (max-width: 481px) {
-    gap: 12px;
-  }
-  @media (max-width: 449px) {
+  @media (max-width: 549) {
     gap: 12px;
   }
 `
@@ -282,6 +279,15 @@ const Avatar = styled(AvatarNS)`
   width: 150px;
   height: 150px;
   object-fit: cover;
+  
+  @media (max-width: 736px) {
+    width: 80px;
+    height: 80px;
+  }
+  @media (max-width: 428px) {
+    width: 60px;
+    height: 60px;
+  }
 `
 
 const NameAndInfo = styled.div`
@@ -401,7 +407,7 @@ const FollowButton = styled.button`
   font-weight: bold;
   color: ${p => p.theme.PROFILE.btnText};
 
-  @media (max-width: 481px) {
+  @media (max-width: 549px) {
     display: none;
   }
 `
@@ -416,7 +422,7 @@ const FollowButton2 = styled(FollowButton)`
 `
 
 const ArrowButton = styled(FollowButton)`
-  @media (max-width: 481px) {
+  @media (max-width: 549px) {
     display: none;
   }
 `

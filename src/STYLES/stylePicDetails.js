@@ -37,7 +37,7 @@ export const PicGrid = styled.div`
 
   min-width: 400px;
   max-width: 930px;
-
+  max-height: 70vh; // new
 
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -55,7 +55,7 @@ export const AvatarDiv = styled(AvatarDivNS)`
 `
 
 export const LeftColumn = styled.div`
-
+  max-height: 70vh; // new
   background-color:  ${p => p.theme.BG.greyBrown};
   align-content: center;
   align-self: center;
@@ -69,7 +69,7 @@ export const Picture = styled.img`
   width: 100%;
   height: auto;
   display: block;
-  /* max-height: 700px; */
+  max-height: 70vh; // new
   object-fit: contain;
 `
 

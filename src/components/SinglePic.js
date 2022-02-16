@@ -80,8 +80,6 @@ const SinglePic = () => {
   const navigate = useNavigate()
   const comments = data?.seePhoto?.comments
 
-
-
   const [deleteComment, { loading: delComLoading }] = useMutation(DELETE_COMMENT, {
     update: (cache, result) => {
       const deleteResult = result.data.deleteComment
