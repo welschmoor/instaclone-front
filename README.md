@@ -2,7 +2,9 @@
 
 ![preview picture instagram clone](https://github.com/welschmoor/instaclone-front/blob/main/preview_pics/one.jpg)
 
-working live demo: `instopound.herokuapp.com`
+Video overview: https://youtu.be/ir6Q6OM3SX4
+
+Live demonstration: https://instopound.herokuapp.com
 
 backend repo can be found here: `https://github.com/welschmoor/instaclone-nc`
 
@@ -76,3 +78,5 @@ old cache not updating?
 - icons are crooked after navbar thins
 - create a mirror-link on heroku just in case
 - (done) fix avatar pics that are not square appearing stretched
+- fix pic comments line height. Other than that, I tested everything, works great!
+- make it impossible to submit commment when logged out!

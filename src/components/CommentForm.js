@@ -1,9 +1,10 @@
 
 
+import { gql, useReactiveVar } from "@apollo/client"
 import { useUserHook } from '../graphql/useUserHook'
 import { ADD_COMMENT } from "../graphql/queries"
+import { loggedInVar } from '../graphql/apollo'
 import { useForm } from "react-hook-form"
-import { gql } from "@apollo/client"
 import { useState } from "react"
 
 //styles
@@ -11,9 +12,11 @@ import { useMutation } from "@apollo/client"
 import { CgCheck } from "react-icons/cg"
 import styled from "styled-components"
 
+
 // createComment requires the ID of photo; so send it from parent
 const CommentForm = ({ photoId, feedB }) => { // feedB true means it's for Feed component
   const [commentResultStr, setCommentResultStr] = useState('')
+  const loggedInBool = useReactiveVar(loggedInVar)
   const { data: userData } = useUserHook()
   const { register, handleSubmit, setValue, getValues } = useForm()
   const [createComment, { loading }] = useMutation(ADD_COMMENT, {
@@ -69,7 +72,7 @@ const CommentForm = ({ photoId, feedB }) => { // feedB true means it's for Feed 
   })
 
   const onSuccess = async (data) => {
-    if (loading || data?.comment === "") return;
+    if (!loggedInBool || loading || data?.comment === "") return;
     const response = await createComment({ variables: { photoId: photoId, payload: data?.comment } })
     setValue("comment", "") // this clears input
     setCommentResultStr("comment added!")

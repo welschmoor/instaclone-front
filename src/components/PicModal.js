@@ -150,24 +150,33 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
     //     error: null,
     //   }
     // },
-    // update: (cache, result) => {
-    //   const ok = result.data.toggleLike.ok
-    //   if (ok) {
-    //     const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
-    //     cache.modify({
-    //       id: fragmentId,
-    //       fields: {
-    //         // we get previous values 
-    //         isLikedByMe(previous) {
-    //           return !previous
-    //         },
-    //         likes(previous) {
-    //           return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
-    //         }
-    //       },
-    //     })
-    //   }
-    // },
+    update: (cache, result) => {
+      const ok = result.data.toggleLike.ok
+      if (!ok) {
+        setIsLikedByMeST(p => !p)
+        setNumberOfLikes(p => {
+          if (isLikedByMeST) {
+            return p - 1
+          }
+          return p + 1
+        })
+      }
+      if (ok) {
+        const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
+        cache.modify({
+          id: fragmentId,
+          fields: {
+            // we get previous values 
+            isLikedByMe(previous) {
+              return !previous
+            },
+            likes(previous) {
+              return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
+            }
+          },
+        })
+      }
+    },
   })
 
 
