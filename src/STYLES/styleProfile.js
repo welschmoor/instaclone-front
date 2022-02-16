@@ -17,6 +17,22 @@ export const Avatar = styled.img`
   display: block;
 `
 
+export const AvatarDiv2 = styled.div`
+  overflow: hidden;
+  border-radius: 50%;
+  width: 40px;
+  width: 40px;
+
+`
+
+export const Avatar2 = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  display: block;
+`
+
+
 export const TopContainer = styled(CW)`
   padding-left: 14px;
   display: flex;

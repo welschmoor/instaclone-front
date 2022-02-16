@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form"
 
 
 // styles
-import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar2, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty, CgClose } from "react-icons/cg"
 import { EditIcon, CaptionForm, InputCaption } from "../STYLES/stylePicDetails"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
@@ -25,7 +25,7 @@ import styled from 'styled-components'
 
 
 import {
-  SinglePicWrapper, PicGrid, AvatarDiv,
+  SinglePicWrapper, PicGrid, AvatarDiv, 
   Picture,
   RightColumn,
   BottomContainer,
@@ -222,7 +222,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                 <RightColumn>
                   <TopContainer>
                     <AvatarDiv>
-                      <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
+                      <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar2 src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
                     </AvatarDiv>
                     <Username>
                       <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}>{data?.seePhoto?.user?.username}</Link3> <CheckMark />
@@ -235,7 +235,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                     <Comments>
                       <CaptionDiv>
                         <AvatarDivComment>
-                          <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
+                          <Avatar2 src={data?.seePhoto?.user?.avatar} alt="user picture" />
                         </AvatarDivComment>
                         <CaptionText>
                           <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username>
@@ -256,7 +256,7 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
                         return (
                           <ContainerFromTop key={e.id}>
                             <AvatarDivComment>
-                              <Avatar src={e?.user?.avatar} alt="user picture" />
+                              <Avatar2 src={e?.user?.avatar} alt="user picture" />
                             </AvatarDivComment>
                             <CommentText>
                               {userData?.me?.username === e?.user?.username && <TrashcanIcon onClick={() => deleteCommentHandler(e.id)} />}

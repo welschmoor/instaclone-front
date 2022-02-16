@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form"
 
 
 // styles
-import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
+import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar2, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight, CgTrashEmpty } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { BsArrowReturnRight } from "react-icons/bs"
@@ -205,7 +205,7 @@ const SinglePic = () => {
             <TopContainer>
               <AvatarDiv>
 
-                <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
+                <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}><Avatar2 src={data?.seePhoto?.user?.avatar} alt="user picture" /></Link3>
               </AvatarDiv>
               <Username>
                 <Link3 to={`/profile/${data?.seePhoto?.user?.username}`}>{data?.seePhoto?.user?.username}</Link3> <CheckMark />
@@ -219,7 +219,7 @@ const SinglePic = () => {
               <Comments>
                 <CaptionDiv>
                   <AvatarDivComment>
-                    <Avatar src={data?.seePhoto?.user?.avatar} alt="user picture" />
+                    <Avatar2 src={data?.seePhoto?.user?.avatar} alt="user picture" />
                   </AvatarDivComment>
                   <CommentText>
                     <Username style={{ display: "inline-block" }}>{data?.seePhoto?.user?.username}</Username>
@@ -240,7 +240,7 @@ const SinglePic = () => {
                   return (
                     <ContainerFromTop key={e.id}>
                       <AvatarDivComment>
-                        <Avatar src={e?.user?.avatar} alt="user picture" />
+                        <Avatar2 src={e?.user?.avatar} alt="user picture" />
                       </AvatarDivComment>
                       <CommentText>
                         {userData?.me?.username === e?.user?.username && <TrashcanIcon onClick={() => deleteCommentHandler(e.id)} />}

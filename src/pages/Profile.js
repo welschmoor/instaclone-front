@@ -9,7 +9,7 @@ import { FOLLOW_USER, SEE_PROFILE, UNFOLLOW_USER } from '../graphql/queries'
 
 
 //styles
-import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username } from '../STYLES/styleProfile'
+import { AvatarDiv as AvatarDivNS, Avatar as AvatarNS, Username, Avatar2 as Avatar2NS } from '../STYLES/styleProfile'
 import { GrUserSettings as GrUserSettingsNS } from 'react-icons/gr'
 import { BsFillPersonCheckFill } from 'react-icons/bs'
 import { IoCheckmarkCircle } from 'react-icons/io5'
@@ -279,7 +279,9 @@ const AvatarDiv = styled(AvatarDivNS)`
 `
 
 const Avatar = styled(AvatarNS)`
-
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 `
 
 const NameAndInfo = styled.div`

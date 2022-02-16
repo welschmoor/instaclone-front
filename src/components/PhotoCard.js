@@ -6,7 +6,7 @@ import { useMutation } from "@apollo/client"
 import React from "react"
 
 // styles
-import { AvatarDiv, Avatar, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
+import { AvatarDiv, Avatar2, Username, BottomContainer, TopContainer } from '../STYLES/styleProfile'
 import { CgHeart, CgComment, CgMailOpen, CgBookmark, CgChevronRight } from "react-icons/cg"
 import { ReactComponent as HeartFilled } from "../static/heartFill.svg"
 import { Link3 } from '../STYLES/styleLinks'
@@ -64,7 +64,7 @@ const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST }) => {
 
         <TopContainer >
           <AvatarDiv>
-            <Link3 to={`/profile/${e.user.username}`}><Avatar src={e.user.avatar} alt="user picture" /></Link3>
+            <Link3 to={`/profile/${e.user.username}`}><Avatar2 src={e.user.avatar} alt="user picture" /></Link3>
           </AvatarDiv>
           <Username>
             <Link3 to={`/profile/${e.user.username}`}>{e.user.username}</Link3>

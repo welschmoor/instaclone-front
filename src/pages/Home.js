@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet-async"
 import { useState } from 'react'
 
 //styles
-import { AvatarDiv, Avatar, Username } from '../STYLES/styleProfile'
+import { AvatarDiv, Avatar2, Username } from '../STYLES/styleProfile'
 import { Link3 as Link3NS } from '../STYLES/styleLinks'
 import { CgCheck } from 'react-icons/cg'
 import styled from "styled-components"
@@ -145,7 +145,7 @@ const Home = () => {
               <SuggestionFlex key={e.id}>
                 <PicAndName >
                   <AvatarDiv>
-                    <Link3 to={`/profile/${e.username}`}><Avatar src={e.avatar} alt="user picture" /></Link3>
+                    <Link3 to={`/profile/${e.username}`}><Avatar2 src={e.avatar} alt="user picture" /></Link3>
                   </AvatarDiv>
                   <Username><Link3 to={`/profile/${e.username}`}>{e.username}</Link3></Username>
                 </PicAndName>
