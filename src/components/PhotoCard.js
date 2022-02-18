@@ -16,38 +16,47 @@ import styled from "styled-components"
 import CommentForm from "./CommentForm"
 
 
-const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST }) => {
+const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST, setFastUpdateVotesST, fastUpdateVotesST }) => {
   // we use cursorST-ate to pass it to singlePic component so we keep our pagination.
 
-
+  console.log("fastUpdateVotesST", fastUpdateVotesST)
+  console.log("fastUpdateVotesST", fastUpdateVotesST?.find(each => each.id === e.id))
   const [toggleLike, { data, loading, error }] = useMutation(TOGGLE_LIKE, {
-    update: (cache, result) => {
-      const ok = result.data.toggleLike.ok
-      if (ok) {
-        const fragmentId = `Photo:${e.id}` // this is the same as the name in cache (devtools)
-        cache.modify({
-          id: fragmentId,
-          fields: {
-            // we get previous values 
-            isLikedByMe(previous) {
-              return !previous
-            },
-            likes(previous) {
-              return e.isLikedByMe ? previous - 1 : previous + 1
-            }
-          },
-        })
-      }
-    },
+    // update: (cache, result) => {
+    //   const ok = result.data.toggleLike.ok
+    //   if (ok) {
+    //     const fragmentId = `Photo:${e.id}` // this is the same as the name in cache (devtools)
+    //     cache.modify({
+    //       id: fragmentId,
+    //       fields: {
+    //         // we get previous values 
+    //         isLikedByMe(previous) {
+    //           return !previous
+    //         },
+    //         likes(previous) {
+    //           return e.isLikedByMe ? previous - 1 : previous + 1
+    //         }
+    //       },
+    //     })
+    //   }
+    // },
   })
 
 
+  // fixing bug number 100: (fk my life)
   const likeHandler = async (id) => { // finally got this to work
     setFastUpdateST(p => {
       const newState = [...p.filter(e => e.id !== id), { id: id, isLikedByMe: !p.find(e => e.id === id)?.isLikedByMe }]
       return newState
     })
+    setFastUpdateVotesST(p => {
+      if (fastUpdateST.find(e => e.id === id)?.isLikedByMe) {
+        return [...p.filter(e => e.id !== id), { id: id, likes: p.find(e => e.id === id)?.likes - 1 }]
+      }
+      return [...p.filter(e => e.id !== id), { id: id, likes: p.find(e => e.id === id)?.likes + 1 }]
+    })
 
+    // here add onCompleted and do the opposite as above this comment to take away state
     await toggleLike({
       variables: { id: id },
       updateQuery: (prev) => {
@@ -83,7 +92,9 @@ const PhotoCard = ({ e, cursorST, setFastUpdateST, fastUpdateST }) => {
             <BookmarkIcon />
           </MainIconGroup>
 
-          <Likes >{e.likes === 1 ? "1 like" : `${e.likes} likes`} </Likes>
+
+
+          <Likes >{fastUpdateVotesST?.find(each => each.id === e.id)?.likes === 1 ? "1 like" : `${fastUpdateVotesST?.find(each => each.id === e.id)?.likes} likes`} </Likes>
 
           <UsernameAndCaption>
             <Username> {e.user.username} <CgChevronRight /></Username>

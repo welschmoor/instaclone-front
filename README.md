@@ -79,4 +79,10 @@ old cache not updating?
 - create a mirror-link on heroku just in case
 - (done) fix avatar pics that are not square appearing stretched
 - fix pic comments line height. Other than that, I tested everything, works great!
-- make it impossible to submit commment when logged out!
+- (done) make it impossible to submit commment when logged out!
+- (done) same for likes!!!
+- (done bug number 100) redo pagination! It sucks! Liking a post in a feed removes fetchMore results
+- adding comment also breaks fetchMore position (back to 4)
+
+#### MISC
+I left a lot of commented code, I did not want to remove it (it's a learning project). Also many unused vars (they will be removed when it goes to "production")

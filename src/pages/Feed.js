@@ -20,7 +20,7 @@ import { useLocation } from "react-router-dom"
 // and call it cursorSTback. With useEffect I fetch more with -4 (otherwise I have 4 too many)
 const Feed = () => {
   const [fastUpdateST, setFastUpdateST] = useState([])
-  console.log('is liked', fastUpdateST?.find(each => each.id === 17)?.isLikedByMe)
+  const [fastUpdateVotesST, setFastUpdateVotesST] = useState([])
   const location = useLocation()
   const cursorSTback = location?.state?.cursorST
   console.log("cursorSTback", cursorSTback)
@@ -36,6 +36,11 @@ const Feed = () => {
       setFastUpdateST(
         data.seeFeed.map(e => {
           return { id: e.id, isLikedByMe: e.isLikedByMe }
+        })
+      )
+      setFastUpdateVotesST(
+        data.seeFeed.map(e => {
+          return { id: e.id, likes: e.likes }
         })
       )
     }
@@ -84,7 +89,7 @@ const Feed = () => {
       <CWr>
         {data?.seeFeed?.map(e => {
           return (
-            <PhotoCard e={e} key={e.id} cursorST={cursorST} fastUpdateST={fastUpdateST} setFastUpdateST={setFastUpdateST} />
+            <PhotoCard e={e} key={e.id} cursorST={cursorST} fastUpdateST={fastUpdateST} setFastUpdateST={setFastUpdateST} setFastUpdateVotesST={setFastUpdateVotesST} fastUpdateVotesST={fastUpdateVotesST} />
           )
         })}
 

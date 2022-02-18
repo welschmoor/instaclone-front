@@ -1,14 +1,14 @@
 // if you scroll for 5 years you might reach the midpoint of this file
 
-import { gql, useApolloClient, useLazyQuery, useMutation, useQuery } from "@apollo/client"
-import { Link as LinkNS, useParams, useNavigate } from "react-router-dom"
+import { useApolloClient, useMutation, useQuery } from "@apollo/client"
 import React, { useState, useEffect, useRef, useCallback } from "react"
 import { DELETE_COMMENT, DELETE_PHOTO } from "../graphql/queries"
 import { SEE_PROFILE, UPLOAD_PIC, EDIT_CAPTION } from '../graphql/queries'
 import { SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
 import { useUserHook } from "../graphql/useUserHook"
+import { useReactiveVar } from "@apollo/client"
+import { loggedInVar } from "../graphql/apollo"
 import { useForm } from "react-hook-form"
-
 
 // styles
 import { TopContainer as TopContainerNS, AvatarDiv as AvatarDivNS, Avatar2, Username, BottomContainer as BottomContainerNS } from '../STYLES/styleProfile'
@@ -25,7 +25,7 @@ import styled from 'styled-components'
 
 
 import {
-  SinglePicWrapper, PicGrid, AvatarDiv, 
+  SinglePicWrapper, PicGrid, AvatarDiv,
   Picture,
   RightColumn,
   BottomContainer,
@@ -61,7 +61,7 @@ import CommentForm from "./CommentForm"
 
 
 const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }) => {
-
+  const loggedInBool = useReactiveVar(loggedInVar)
   const { data: userData } = useUserHook()
 
   const client = useApolloClient()
@@ -161,26 +161,27 @@ const PicModal = ({ setShowModalPicutre, picData, seeProfileLazyQuery, refetch }
           return p + 1
         })
       }
-      if (ok) {
-        const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
-        cache.modify({
-          id: fragmentId,
-          fields: {
-            // we get previous values 
-            isLikedByMe(previous) {
-              return !previous
-            },
-            likes(previous) {
-              return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
-            }
-          },
-        })
-      }
+      // if (ok) {
+      //   const fragmentId = `Photo:${id}` // this is the same as the name in cache (devtools)
+      //   cache.modify({
+      //     id: fragmentId,
+      //     fields: {
+      //       // we get previous values 
+      //       isLikedByMe(previous) {
+      //         return !previous
+      //       },
+      //       likes(previous) {
+      //         return data?.seePhoto?.isLikedByMe ? previous - 1 : previous + 1
+      //       }
+      //     },
+      //   })
+      // }
     },
   })
 
 
   const likeHandler = async (id) => {
+    if (!loggedInBool) { return }
     setIsLikedByMeST(p => !p)
     setNumberOfLikes(p => {
       if (isLikedByMeST) {

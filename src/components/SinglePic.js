@@ -1,12 +1,13 @@
 
 
 
+import { gql, useLazyQuery, useMutation, useQuery, useReactiveVar } from "@apollo/client"
 import { Link as LinkNS, useParams, useNavigate, useLocation } from "react-router-dom"
 import { DELETE_PHOTO, FEED, SEE_PIC, TOGGLE_LIKE } from "../graphql/queries"
-import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { DELETE_COMMENT, EDIT_CAPTION } from "../graphql/queries"
 import React, { useState, useEffect, useRef } from "react"
 import { useUserHook } from "../graphql/useUserHook"
+import { loggedInVar } from "../graphql/apollo"
 import { useForm } from "react-hook-form"
 
 
@@ -57,6 +58,7 @@ import CommentForm from "./CommentForm"
 
 
 const SinglePic = () => {
+  const loggedInBool = useReactiveVar(loggedInVar)
   const location = useLocation()
   const cursorST = location?.state?.cursorST
   const { data: userData } = useUserHook()
@@ -108,6 +110,7 @@ const SinglePic = () => {
     onCompleted: () => goBack(),
   })
   const deletePhotoHandler = async (id) => {
+    if (!loggedInBool) { return }
     await deletePhoto({ variables: { deletePhotoId: Number(id) } })
   }
 
@@ -161,10 +164,12 @@ const SinglePic = () => {
 
 
   const editCaptionHandler = () => { // this open edit input
+    if (!loggedInBool) { return }
     setOpenCaptionFormB(p => !p)
   }
 
   const likeHandler = async (id) => {
+    if (!loggedInBool) { return }
     setIsLikedByMeST(p => !p)
     setNumberOfLikes(p => {
       if (isLikedByMeST) {
