@@ -8,6 +8,7 @@ Live demonstration: https://instopound.herokuapp.com
 
 backend repo can be found here: `https://github.com/welschmoor/instaclone-nc`
 
+(German) Ich habe viel Code nicht gelöscht, weil das ein Lernprojekt ist.
 
 ## Functionality
 You can:
@@ -83,6 +84,7 @@ old cache not updating?
 - (done) same for likes!!!
 - (done bug number 100) redo pagination! It sucks! Liking a post in a feed removes fetchMore results
 - adding comment also breaks fetchMore position (back to 4)
+- try modifying fetchMore with this: https://github.com/apollographql/apollo-client/issues/7490
 
 #### MISC
 I left a lot of commented code, I did not want to remove it (it's a learning project). Also many unused vars (they will be removed when it goes to "production")
